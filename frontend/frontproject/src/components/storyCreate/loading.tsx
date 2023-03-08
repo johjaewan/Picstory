@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 import '../../assets/css/loading.css'
 export default function Loading() {
   const [ranNumber, setRanNumber] = useState(0)
-  useEffect(() => {
-    console.log('!!')
-    let num = Math.floor(Math.random() * 3)
-    setRanNumber(num)
-  }, [])
+  // useEffect(() => {
+  //   console.log('!!')
+  //   let num = Math.floor(Math.random() * 3)
+  //   setRanNumber(num)
+  // }, [])
 
   const tmiList = [
     '일반적으로 대한민국에서는 200자 원고지 150매 이내의 소설을 단편소설이라고 해요',
@@ -26,7 +26,9 @@ export default function Loading() {
             id="light-icon"
             src="https://cdn-icons-png.flaticon.com/512/566/566359.png"
           ></img>{' '}
-          <div id="loading-coment">{tmiList[ranNumber]}</div>
+          <div id="loading-coment">
+            {tmiList[Math.floor(Math.random() * 3)]}
+          </div>
         </div>
       </div>
     </>

@@ -3,13 +3,15 @@ import { BrowserRouter } from 'react-router-dom'
 import RoutesSetup from './routes/RoutesSetup'
 import './App.css'
 
+import { RecoilRoot } from 'recoil'
+
 function App() {
   return (
-    <div>
+    <RecoilRoot>
       <BrowserRouter>
         <RoutesSetup />
       </BrowserRouter>
-    </div>
+    </RecoilRoot>
   )
 }
 
