@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import '../../assets/css/storyCreatePageStyle.css'
 export default function ImageUpload() {
   const [genre, setGenre] = useState('')
+  const [loading, setLoading] = useState(true)
 
   const clickGenre = (e: any) => {
     e.target.classList.add('active')
@@ -9,6 +10,11 @@ export default function ImageUpload() {
   }
 
   const items = ['재미', '슬픔', '공포', '로맨스']
+
+  const sendContent = async () => {
+    // api 호출
+    setLoading(true)
+  }
 
   return (
     <>
