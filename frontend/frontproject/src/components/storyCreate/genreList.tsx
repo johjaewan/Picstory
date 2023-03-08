@@ -6,7 +6,7 @@ import { genreAtom } from '../../atoms'
 import { loadingAtom } from '../../atoms'
 import Loading from './loading'
 
-import '../../assets/css/storyCreatePageStyle.css'
+import styles from '../../assets/css/genreList.module.css'
 export default function ImageUpload() {
   const [genreTmp, setGenreTmp] = useState('')
   const [genre, setGenre] = useRecoilState(genreAtom)
@@ -26,11 +26,13 @@ export default function ImageUpload() {
   const Image2 = Image.substring(23)
 
   const ImageCaptioning = () => {
+    console.log('!!')
     setGenre(genreTmp)
     runClip()
   }
 
   const runClip = async () => {
+    console.log('??')
     const raw = JSON.stringify({
       user_app_id: {
         user_id: 'clarifai',
@@ -75,6 +77,7 @@ export default function ImageUpload() {
       .then((response) => response.json())
       .then((result) => {
         setContent(result.outputs[0].data.text.raw)
+        console.log(result.outputs[0].data.text.raw)
         sendContent()
       })
       .catch((error) => console.log('error', error))
@@ -84,6 +87,10 @@ export default function ImageUpload() {
     // api 호출
     // setLoading(false)
   }
+  const inputStyle = {
+    opacity: '0',
+    marginTop: '70px',
+  }
 
   return (
     <>
@@ -91,31 +98,32 @@ export default function ImageUpload() {
         <Loading />
       ) : (
         <div>
-          <div className="container">
+          <div className={styles.container}>
             {items.map((item, idx) => {
               let id = 'genreBtn-' + (idx + 1)
               return (
                 <>
                   <input
-                    id={id}
+                    style={inputStyle}
                     type="radio"
                     name="gerne"
                     value={items[idx]}
                     onChange={clickGenre}
-                  ></input>{' '}
-                  <label
-                    className={
-                      'genre-label' + (items[idx] == genreTmp ? '-active' : '')
-                    }
-                    htmlFor={id}
-                  >
-                    {items[idx]}
-                  </label>
+                  ></input>
+                  {items[idx] == genreTmp ? (
+                    <label className={styles.genre_label_active} htmlFor={id}>
+                      {items[idx]}
+                    </label>
+                  ) : (
+                    <label className={styles.genre_label} htmlFor={id}>
+                      {items[idx]}
+                    </label>
+                  )}
                 </>
               )
             })}
           </div>
-          <button className="createBtn" onClick={ImageCaptioning}>
+          <button className={styles.createBtn} onClick={ImageCaptioning}>
             이야기 만들기
           </button>
           <div>{content}</div>
