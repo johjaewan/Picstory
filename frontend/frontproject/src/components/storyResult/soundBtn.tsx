@@ -1,4 +1,5 @@
 import type {FC} from 'react'
+import '../../assets/css/storyResultPage.css'
 
 export type SoundBtnProps = {
   onClick: () => void,
@@ -19,8 +20,8 @@ const SoundBtn: FC<SoundBtnProps> = ({ onClick, soundType, soundState }) => {
   
   const src = soundIcons[soundType][soundState ? 1 : 0];
   return (
-      <button onClick={onClick}>
-        <img src={src} alt={soundType} />
+      <button className="sound-btn" onClick={onClick}>
+        <img className="sound-icon" src={src} alt={soundType} />
       </button>
   )
 }
