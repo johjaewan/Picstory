@@ -4,8 +4,6 @@
   .story-result-container{
     display: flex;
     flex-direction: column;
-    /* justify-content: center;
-    align-items: center; */
     width: 90vw;
     margin: 30px auto;
   }
@@ -16,7 +14,7 @@
     flex-direction: row;
   }
 
-  .image-box {
+  .story-result-image {
     border: 1px solid red;
     border-radius: 30px;
     margin: auto;
@@ -74,9 +72,6 @@
   .story-result-container{
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 90vw;
   }
 
   .story-img-container{
@@ -85,7 +80,7 @@
     flex-direction: column;
   }
   
-  .image-box {
+  .story-result-image {
     border: 1px solid blue;
     border-radius: 30px;
     margin: 100px auto 70px auto;
@@ -131,7 +126,8 @@
 
   .story-result-text{
     width: 500px;
-    margin: auto 30px;
+    margin: auto;
+    padding: 10px;
   }
 
 }
