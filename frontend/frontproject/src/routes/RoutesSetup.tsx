@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import Main from '../components/main/Main'
+import Main from '../components/main/main'
 import StoryCreatePage from '../pages/storyCreatePage'
 export default function RoutesSetup() {
   return (
