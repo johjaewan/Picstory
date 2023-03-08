@@ -24,7 +24,7 @@ export default function ImageUpload() {
     <div className="filebox">
       {' '}
       <div>
-        {fileImage !== '' ? (
+        {fileImage != '' ? (
           <div className="image-box">
             <img id="image" src={fileImage} />
           </div>
