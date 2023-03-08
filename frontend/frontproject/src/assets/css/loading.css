@@ -1,0 +1,23 @@
+#loading-img {
+  width: 300px;
+  display: block;
+  margin: 0 auto;
+}
+
+#loading-box {
+  margin-top: 20vh;
+  text-align: center;
+}
+
+#loading-title {
+  font-size: 40px;
+}
+#light-icon {
+  width: 40px;
+}
+#loading-coment {
+  font-size: 20px;
+  word-break: break-all;
+  display: block;
+  margin: 10px auto;
+}
