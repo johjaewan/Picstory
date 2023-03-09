@@ -1,31 +1,32 @@
 import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { ImageBit } from '../../atoms'
 import { genreAtom } from '../../atoms'
 import { loadingAtom } from '../../atoms'
 import Loading from './loading'
 
-import '../../assets/css/storyCreatePageStyle.css'
+import styles from '../../assets/css/genreList.module.css'
 export default function ImageUpload() {
   const [genreTmp, setGenreTmp] = useState('')
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
   const [content, setContent] = useState('')
 
+  const navigate = useNavigate()
+
   const clickGenre = (e: any) => {
     e.target.classList.add('active')
     setGenreTmp(e.target.value)
   }
-
-  useEffect(() => {}, [content])
 
   const items = ['재미', '슬픔', '공포', '로맨스']
 
   const Image = useRecoilValue(ImageBit)
   const Image2 = Image.substring(23)
 
-  const ImageCaptioning = () => {
+  const ImageCaptioning = async () => {
     setGenre(genreTmp)
     runClip()
   }
@@ -75,7 +76,9 @@ export default function ImageUpload() {
       .then((response) => response.json())
       .then((result) => {
         setContent(result.outputs[0].data.text.raw)
+        console.log(result.outputs[0].data.text.raw)
         sendContent()
+        navigate('/storyResult')
       })
       .catch((error) => console.log('error', error))
   }
@@ -91,23 +94,27 @@ export default function ImageUpload() {
         <Loading />
       ) : (
         <div>
-          <div className="container">
+          <div className={styles.container}>
             {items.map((item, idx) => {
               let id = 'genreBtn-' + (idx + 1)
               return (
                 <>
                   <input
-                    id={id}
+                    id={styles[`${id}`]}
+                    // style={inputStyle}
                     type="radio"
                     name="gerne"
                     value={items[idx]}
                     onChange={clickGenre}
-                  ></input>{' '}
+                  ></input>
+
                   <label
                     className={
-                      'genre-label' + (items[idx] == genreTmp ? '-active' : '')
+                      items[idx] == genreTmp
+                        ? `${styles.genre_label_active}`
+                        : `${styles.genre_label}`
                     }
-                    htmlFor={id}
+                    htmlFor={styles[`${id}`]}
                   >
                     {items[idx]}
                   </label>
@@ -115,7 +122,7 @@ export default function ImageUpload() {
               )
             })}
           </div>
-          <button className="createBtn" onClick={ImageCaptioning}>
+          <button className={styles.createBtn} onClick={ImageCaptioning}>
             이야기 만들기
           </button>
           <div>{content}</div>

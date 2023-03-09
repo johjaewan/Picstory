@@ -4,7 +4,7 @@ import { ImageBit } from '../../atoms'
 import { loadingAtom } from '../../atoms'
 import Loading from './loading'
 
-import '../../assets/css/storyCreatePageStyle.css'
+import styles from '../../assets/css/ImageUpload.module.css'
 
 export default function ImageUpload() {
   const [fileImage, setFileImage] = useRecoilState(ImageBit) // 이미지 파일 base64
@@ -28,31 +28,29 @@ export default function ImageUpload() {
 
   return (
     <>
-      {loading ? null : (
-        <div className="filebox">
-          <div>
-            {fileImage != '' ? (
-              <div className="image-box">
-                <img id="image" src={fileImage} />
-              </div>
-            ) : (
-              <div className="image-box">
-                <label id="image-label" htmlFor="file">
-                  <img
-                    id="upload-icon"
-                    src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
-                  ></img>
-                </label>
-              </div>
-            )}
-          </div>
-          <input className="upload-name" value={fileName} />
-          <label id="bottom-label" htmlFor="file">
-            파일찾기
-          </label>
-          <input type="file" id="file" onChange={setImageFromFile} />
+      <div className={styles.filebox}>
+        <div>
+          {fileImage != '' ? (
+            <div className={styles.image_box}>
+              <img id={styles.image} src={fileImage} />
+            </div>
+          ) : (
+            <div className={styles.image_box}>
+              <label id={styles.image_label} htmlFor="file">
+                <img
+                  id={styles.upload_icon}
+                  src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
+                ></img>
+              </label>
+            </div>
+          )}
         </div>
-      )}
+        <input className={styles.upload_name} value={fileName} />
+        <label id={styles.bottom_label} htmlFor="file">
+          파일찾기
+        </label>
+        <input type="file" id="file" onChange={setImageFromFile} />
+      </div>
     </>
   )
 }
