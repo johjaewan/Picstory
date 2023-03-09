@@ -18,12 +18,8 @@ interface SoundIcons {
 	[key: string] : Array<string>;
 }
 
-// const soundIcons : SoundIcons = {
-//   BGM: ["https://img.icons8.com/material-outlined/96/null/musical-notes.png","https://img.icons8.com/material/96/null/music--v1.png"],
-//   Audio: ["https://img.icons8.com/material-outlined/96/null/mute.png","https://img.icons8.com/material-outlined/96/null/speaker.png"],
-// };
-
 const SoundBtn: FC<SoundBtnProps> = ({ onClick, soundType, soundState }) => {
+  // 배경 음악
   if (soundType === 'BGM'){
     return (
       <button className={style('sound-btn')} onClick={onClick}>
@@ -31,6 +27,7 @@ const SoundBtn: FC<SoundBtnProps> = ({ onClick, soundType, soundState }) => {
     </button>
     )
   }
+  // 음성 오디오
   return (
       <button className={style('sound-btn')} onClick={onClick}>
         { (soundType === 'Audio' && soundState) ? <AiFillAudio className={style('sound-icon')}/> : <AiOutlineAudioMuted className={style('sound-icon')}/> }

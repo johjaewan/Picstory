@@ -1,24 +1,31 @@
-import SoundBtn from "../components/storyResult/soundBtn";
-import "../assets/css/storyResultPage.module.css";
 import { useState, useCallback } from "react";
-
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-
+import SoundBtn from "../components/storyResult/soundBtn";
+import GetStory from "../components/storyResult/storyResult";
+import GetImg from "../components/storyResult/storyImg";
 import classNames from "classnames/bind";
 import styles from "../assets/css/storyResultPage.module.css";
 
 const style = classNames.bind(styles);
 
 export default function StoryResultPage() {
+  // 이야기 저장 모달
   const [open, setOpen] = useState(false);
-
   const cancelButtonRef = useRef(null);
-
+  // 모달 열고 닫기
   const onClickToggleModal = useCallback(() => {
     setOpen(!open);
   }, [open]);
+  // 이야기 저장 함수
+  const saveStory = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log("save story");
+    setOpen(false);
+  };
 
+  // 오디오 파일 설정
+  // isOnBGM : 배경음악, isOnAudio: 음성파일
   const [isOnBGM, setOnBGM] = useState(false);
   const [isOnAudio, setOnAudio] = useState(false);
 
@@ -30,12 +37,7 @@ export default function StoryResultPage() {
     setOnAudio((prev) => !prev);
   };
 
-  const saveStory = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("save story");
-    setOpen(false);
-  };
-
+  //언어설정
   const transLang = () => {
     console.log("한영 번역");
   };
@@ -46,6 +48,7 @@ export default function StoryResultPage() {
 
   return (
     <div className="story-result-container">
+      {/* 모달 */}
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -131,17 +134,24 @@ export default function StoryResultPage() {
       </Transition.Root>
 
       <div className={style("story-img-container")}>
+        {/* 이미지 */}
+        {/* <GetImg/> */}
         <img className={style("story-result-image")} src={src} alt="testimg" />
+        {/* 설정 버튼 */}
         <div className={style("story-result-btns")}>
+          {/* 배경음악 */}
           <SoundBtn onClick={clickedBGM} soundType="BGM" soundState={isOnBGM} />
+          {/* 음성파일 */}
           <SoundBtn
             onClick={clickedAudio}
             soundType="Audio"
             soundState={isOnAudio}
           />
+          {/* 언어설정 */}
           <button className={style("story-result-button")} onClick={transLang}>
             Korean
           </button>
+          {/* 저장 모달 */}
           <button
             className={style("story-result-button")}
             onClick={onClickToggleModal}
@@ -150,6 +160,8 @@ export default function StoryResultPage() {
           </button>
         </div>
       </div>
+      {/* 이야기 결과 */}
+      {/* <GetStory/> */}
       <p className={style("story-result-text")}>{text}</p>
     </div>
   );
