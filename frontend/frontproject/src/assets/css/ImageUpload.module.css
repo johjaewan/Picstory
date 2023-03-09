@@ -1,7 +1,7 @@
 @media (max-width: 600px) {
   .image_box {
     border-radius: 30px;
-    margin: 100px auto 70px auto;
+    margin: 20vh auto 7vh auto;
     width: 300px;
     height: 200px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -26,7 +26,7 @@
   .filebox .upload_name {
     border-radius: 15px;
     display: inline-block;
-    height: 40px;
+    height: 35px;
     padding: 0 10px;
     vertical-align: middle;
     border: 1px solid #dddddd;
@@ -34,15 +34,16 @@
     color: #999999;
   }
   #bottom_label {
+    font-size: 14px;
     border: 1px solid rgb(172, 172, 172);
     border-radius: 15px;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 8px 10px;
     color: #707070;
     vertical-align: middle;
     background-color: #ffffff;
     cursor: pointer;
-    height: 20px;
+    /* height: 33px; */
     margin-left: 10px;
   }
   #bottom_label :hover {
@@ -67,7 +68,7 @@
 @media (min-width: 600px) {
   .image_box {
     border-radius: 30px;
-    margin: 100px auto 70px auto;
+    margin: 15vh auto 10vh auto;
     width: 500px;
     height: 300px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

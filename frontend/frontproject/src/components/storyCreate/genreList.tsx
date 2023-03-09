@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { ImageBit } from '../../atoms'
 import { genreAtom } from '../../atoms'
@@ -13,26 +14,24 @@ export default function ImageUpload() {
   const [loading, setLoading] = useRecoilState(loadingAtom)
   const [content, setContent] = useState('')
 
+  const navigate = useNavigate()
+
   const clickGenre = (e: any) => {
     e.target.classList.add('active')
     setGenreTmp(e.target.value)
   }
-
-  useEffect(() => {}, [content])
 
   const items = ['재미', '슬픔', '공포', '로맨스']
 
   const Image = useRecoilValue(ImageBit)
   const Image2 = Image.substring(23)
 
-  const ImageCaptioning = () => {
-    console.log('!!')
+  const ImageCaptioning = async () => {
     setGenre(genreTmp)
     runClip()
   }
 
   const runClip = async () => {
-    console.log('??')
     const raw = JSON.stringify({
       user_app_id: {
         user_id: 'clarifai',
@@ -79,6 +78,7 @@ export default function ImageUpload() {
         setContent(result.outputs[0].data.text.raw)
         console.log(result.outputs[0].data.text.raw)
         sendContent()
+        navigate('/storyResult')
       })
       .catch((error) => console.log('error', error))
   }
@@ -86,10 +86,6 @@ export default function ImageUpload() {
   const sendContent = async () => {
     // api 호출
     // setLoading(false)
-  }
-  const inputStyle = {
-    opacity: '0',
-    marginTop: '70px',
   }
 
   return (
@@ -104,21 +100,24 @@ export default function ImageUpload() {
               return (
                 <>
                   <input
-                    style={inputStyle}
+                    id={styles[`${id}`]}
+                    // style={inputStyle}
                     type="radio"
                     name="gerne"
                     value={items[idx]}
                     onChange={clickGenre}
                   ></input>
-                  {items[idx] == genreTmp ? (
-                    <label className={styles.genre_label_active} htmlFor={id}>
-                      {items[idx]}
-                    </label>
-                  ) : (
-                    <label className={styles.genre_label} htmlFor={id}>
-                      {items[idx]}
-                    </label>
-                  )}
+
+                  <label
+                    className={
+                      items[idx] == genreTmp
+                        ? `${styles.genre_label_active}`
+                        : `${styles.genre_label}`
+                    }
+                    htmlFor={styles[`${id}`]}
+                  >
+                    {items[idx]}
+                  </label>
                 </>
               )
             })}
