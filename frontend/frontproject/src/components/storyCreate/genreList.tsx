@@ -101,7 +101,6 @@ export default function ImageUpload() {
                 <>
                   <input
                     id={styles[`${id}`]}
-                    // style={inputStyle}
                     type="radio"
                     name="gerne"
                     value={items[idx]}
