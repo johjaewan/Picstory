@@ -19,3 +19,8 @@ export const loadingAtom = atom({
   key: 'loadingAtom',
   default: false,
 })
+
+export const titleAtom = atom({
+  key: "titleAtom",
+  default: "",
+});
