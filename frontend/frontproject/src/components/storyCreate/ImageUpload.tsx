@@ -44,6 +44,7 @@ export default function ImageUpload() {
   }
 
   return (
+    // 이미지 태그에는 alt가 있어야한다는 경고 문구가 떠서 수정 확인 요청
     <>
       {loading ? null : (
         <div className={styles.filebox}>
