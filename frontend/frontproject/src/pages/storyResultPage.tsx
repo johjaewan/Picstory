@@ -3,7 +3,7 @@ import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import SoundBtn from "../components/storyResult/soundBtn";
 import GetStory from "../components/storyResult/storyResult";
-import GetImg from "../components/storyResult/storyImg";
+import ResultImg from "../components/storyResult/storyImg";
 import classNames from "classnames/bind";
 import styles from "../assets/css/storyResultPage.module.css";
 
@@ -65,11 +65,11 @@ export default function StoryResultPage() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
+            <div className="flex items-center justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -79,9 +79,9 @@ export default function StoryResultPage() {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <Dialog.Panel className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                   <form onSubmit={saveStory} method="POST">
-                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div className="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                       <div className="sm:flex sm:items-start">
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                           <Dialog.Title
@@ -109,16 +109,16 @@ export default function StoryResultPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <div className="px-4 py-3 bg-gray-50 sm:flex sm:flex-row-reverse sm:px-6">
                       <button
                         type="submit"
-                        className="inline-flex w-full justify-center rounded-md bg-neutral-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-neutral-500 sm:ml-3 sm:w-auto"
+                        className="inline-flex justify-center w-full px-3 py-2 text-sm font-semibold text-white rounded-md shadow-sm bg-neutral-600 hover:bg-neutral-500 sm:ml-3 sm:w-auto"
                       >
                         저장
                       </button>
                       <button
                         type="button"
-                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                        className="inline-flex justify-center w-full px-3 py-2 mt-3 text-sm font-semibold text-gray-900 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         onClick={() => setOpen(false)}
                         ref={cancelButtonRef}
                       >
@@ -135,7 +135,7 @@ export default function StoryResultPage() {
 
       <div className={style("story-img-container")}>
         {/* 이미지 */}
-        {/* <GetImg/> */}
+        {/* <ResultImg/> */}
         <img className={style("story-result-image")} src={src} alt="testimg" />
         {/* 설정 버튼 */}
         <div className={style("story-result-btns")}>
