@@ -46,30 +46,31 @@ export default function ImageUpload() {
   return (
     // 이미지 태그에는 alt가 있어야한다는 경고 문구가 떠서 수정 확인 요청
     <>
-      <div className={styles.filebox}>
-        <div>
-          {bitImage != '' ? (
-            <div className={styles.image_box}>
-              <img id={styles.image} src={bitImage} alt={imageName}/>
-            </div>
-          ) : (
-            <div className={styles.image_box}>
-              <label id={styles.image_label} htmlFor="file">
-                <img
-                  id={styles.upload_icon}
-                  src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
-                  alt={imageName}
-                ></img>
-              </label>
-            </div>
-          )}
+      {loading ? null : (
+        <div className={styles.filebox}>
+          <div>
+            {bitImage != '' ? (
+              <div className={styles.image_box}>
+                <img id={styles.image} src={bitImage} />
+              </div>
+            ) : (
+              <div className={styles.image_box}>
+                <label id={styles.image_label} htmlFor="file">
+                  <img
+                    id={styles.upload_icon}
+                    src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
+                  ></img>
+                </label>
+              </div>
+            )}
+          </div>
+          <input className={styles.upload_name} value={imageName} />
+          <label id={styles.bottom_label} htmlFor="file">
+            파일찾기
+          </label>
+          <input type="file" id="file" onChange={setImageFromFile} />
         </div>
-        <input className={styles.upload_name} value={imageName} />
-        <label id={styles.bottom_label} htmlFor="file">
-          파일찾기
-        </label>
-        <input type="file" id="file" onChange={setImageFromFile} />
-      </div>
+      )}
     </>
   )
 }
