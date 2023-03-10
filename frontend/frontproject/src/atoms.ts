@@ -7,7 +7,7 @@ export const ImageBit = atom({
 
 export const ImageFile = atom({
   key: 'ImageFile',
-  default: undefined,
+  default: '',
 })
 
 export const genreAtom = atom({
