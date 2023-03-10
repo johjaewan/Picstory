@@ -19,3 +19,8 @@ export const loadingAtom = atom({
   key: 'loadingAtom',
   default: false,
 })
+
+export const storyAtom = atom({
+  key: 'story',
+  default: '',
+})

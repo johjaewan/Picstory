@@ -45,29 +45,31 @@ export default function ImageUpload() {
 
   return (
     <>
-      <div className={styles.filebox}>
-        <div>
-          {bitImage != '' ? (
-            <div className={styles.image_box}>
-              <img id={styles.image} src={bitImage} />
-            </div>
-          ) : (
-            <div className={styles.image_box}>
-              <label id={styles.image_label} htmlFor="file">
-                <img
-                  id={styles.upload_icon}
-                  src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
-                ></img>
-              </label>
-            </div>
-          )}
+      {loading ? null : (
+        <div className={styles.filebox}>
+          <div>
+            {bitImage != '' ? (
+              <div className={styles.image_box}>
+                <img id={styles.image} src={bitImage} />
+              </div>
+            ) : (
+              <div className={styles.image_box}>
+                <label id={styles.image_label} htmlFor="file">
+                  <img
+                    id={styles.upload_icon}
+                    src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
+                  ></img>
+                </label>
+              </div>
+            )}
+          </div>
+          <input className={styles.upload_name} value={imageName} />
+          <label id={styles.bottom_label} htmlFor="file">
+            파일찾기
+          </label>
+          <input type="file" id="file" onChange={setImageFromFile} />
         </div>
-        <input className={styles.upload_name} value={imageName} />
-        <label id={styles.bottom_label} htmlFor="file">
-          파일찾기
-        </label>
-        <input type="file" id="file" onChange={setImageFromFile} />
-      </div>
+      )}
     </>
   )
 }
