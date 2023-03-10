@@ -1,5 +1,5 @@
 import { useRecoilValue } from "recoil";
-import { storyResultKo ,storyResultEn } from "../../atoms"
+import { storyResultAtom } from "../../atoms"
 import classNames from "classnames/bind";
 import styles from "../../assets/css/storyResultPage.module.css";
 
@@ -13,12 +13,12 @@ interface StoryResultProp {
 
 function StoryResult( {language} : StoryResultProp ) {
 
-  const storyKo = useRecoilValue(storyResultKo);
-  const storyEn = useRecoilValue(storyResultEn);
+  const storyResult = useRecoilValue(storyResultAtom);
   
-  let story = language ? storyKo : storyEn;
-
-  return (
+  let story = language ? storyResult.content_kr : storyResult.content_en;
+  
+  
+  return story && (
     <>
       <p className={style("story-result-text")}>{story}</p>
     </>

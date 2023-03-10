@@ -11,7 +11,7 @@ export default function LibraryPage() {
   }, [])
 
   const getList = async () => {
-    const response = await getStoryList()
+    const response = await getStoryList(1)
     response.data.forEach((item: any) => listItems.push(item))
   }
 
