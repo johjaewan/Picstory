@@ -1,5 +1,10 @@
 import { atom } from 'recoil'
 
+export const userId = atom({
+  key: 'userId',
+  default: null,
+})
+
 export const ImageBit = atom({
   key: 'ImageBit',
   default: '',
@@ -24,17 +29,13 @@ export const storyAtom = atom({
   key: "story",
   default: '',
 });
-//저장할 이야기 제목
-export const titleAtom = atom({
-  key: "titleAtom",
-  default: '',
-});
+
 //이야기 생성 결과 타입
 export interface storyResultTypes {
-  content_kr: String,
-  content_en: String,
-  voice_kr: String,
-  voice_en: String,
+  content_kr: string,
+  content_en: string,
+  voice_kr: string,
+  voice_en: string,
 }
 //이야기 생성 결과
 export const storyResultAtom = atom<storyResultTypes>({

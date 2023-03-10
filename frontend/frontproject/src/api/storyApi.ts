@@ -10,10 +10,10 @@ export async function getStoryList(user_pk : number) {
   return response;
 }
 // 이야기 생성
-export async function createStory(text: String, genre: String) {
+export async function createStory(text: string, genre: string) {
   console.log(text + " " + genre);
   const response: AxiosResponse = await axios.post(
-    `/api/story/list/유저아이디`,
+    `${BASE_URL}/story/create`,
     {
       text: text,
       genre: genre,
@@ -21,10 +21,23 @@ export async function createStory(text: String, genre: String) {
   );
   return response;
 }
-// 이야기 저장
-export async function postSaveStory() {
-  const response: AxiosResponse = await axios.post(`${BASE_URL}/story/`);
-  return response
-}
+// 이야기 저장    
+
+
+export async function postSaveStory(formData : object) {
+  try{
+    const response: AxiosResponse = await axios.post(
+      `${BASE_URL}/story/`,
+      formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+    });
+    return response;
+  }catch(error){
+    console.log(error);
+    return error;
+  }
+};
 
 
