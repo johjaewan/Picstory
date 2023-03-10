@@ -1,4 +1,4 @@
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { modalState } from "../../atoms"
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
@@ -27,9 +27,9 @@ export default function Modal() {
     setModalOpen(false);
   };
   // 이야기 저장 
-  const storyResult = useRecoilValue(storyResultAtom);
-  const imageFile = useRecoilValue(ImageFile);
-  const genre = useRecoilValue(genreAtom);
+  const [storyResult, setStoryResult]  = useRecoilState(storyResultAtom);
+  const [imageFile, setImageFile] = useRecoilState(ImageFile);
+  const [genre, setGenre] = useRecoilState(genreAtom);
   const navigate = useNavigate();
 
   const saveStory = async(event: React.FormEvent<HTMLFormElement>) => {
@@ -48,16 +48,25 @@ export default function Modal() {
       content_kr: storyResult.content_kr,
       content_en: storyResult.content_en,
     }
+
     formData.append("data", new Blob([JSON.stringify(datas)], {type: "application/json"}))
 
     const result = await postSaveStory(formData);
     if (!result) return;
-
-      //인풋 리셋, 성공 처리
-      //저장 후 모달 닫고 서재로 이동
-      setTitle('')
-      setModalOpen(false);
-      navigate('/library');    
+    // 실패 시 알림 띄워주기
+    //인풋 리셋
+    //저장 후 모달 닫고 서재로 이동
+    setTitle('')
+    setGenre('')
+    setImageFile('')
+    setStoryResult({
+      content_kr: '',
+      content_en: '',
+      voice_kr: '',
+      voice_en: '',
+    })
+    setModalOpen(false);
+    navigate('/library');    
   }
 
   return (

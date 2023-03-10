@@ -18,7 +18,7 @@ function StoryResult( {language} : StoryResultProp ) {
   let story = language ? storyResult.content_kr : storyResult.content_en;
   
   
-  return story && (
+  return (
     <>
       <p className={style("story-result-text")}>{story}</p>
     </>

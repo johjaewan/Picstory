@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
 const BASE_URL = "https:/api";
-
 // 내 서재 이야기 목록
 export async function getStoryList(user_pk : number) {
   const response: AxiosResponse = await axios.get(
@@ -22,8 +21,6 @@ export async function createStory(text: string, genre: string) {
   return response;
 }
 // 이야기 저장    
-
-
 export async function postSaveStory(formData : object) {
   try{
     const response: AxiosResponse = await axios.post(
@@ -36,7 +33,7 @@ export async function postSaveStory(formData : object) {
     return response;
   }catch(error){
     console.log(error);
-    return error;
+    return;
   }
 };
 

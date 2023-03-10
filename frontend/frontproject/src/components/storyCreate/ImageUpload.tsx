@@ -44,12 +44,13 @@ export default function ImageUpload() {
   }
 
   return (
+    // 이미지 태그에는 alt가 있어야한다는 경고 문구가 떠서 수정 확인 요청
     <>
       <div className={styles.filebox}>
         <div>
           {bitImage != '' ? (
             <div className={styles.image_box}>
-              <img id={styles.image} src={bitImage} />
+              <img id={styles.image} src={bitImage} alt={imageName}/>
             </div>
           ) : (
             <div className={styles.image_box}>
@@ -57,6 +58,7 @@ export default function ImageUpload() {
                 <img
                   id={styles.upload_icon}
                   src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
+                  alt={imageName}
                 ></img>
               </label>
             </div>

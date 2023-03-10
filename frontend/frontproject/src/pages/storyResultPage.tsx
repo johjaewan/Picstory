@@ -4,7 +4,7 @@ import StoryResult from "../components/storyResult/storyResult";
 import ResultImg from "../components/storyResult/storyImg";
 import classNames from "classnames/bind";
 import styles from "../assets/css/storyResultPage.module.css";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { modalState } from "../atoms"
 import Modal from "../components/storyResult/modal";
 
@@ -13,7 +13,7 @@ const style = classNames.bind(styles);
 export default function StoryResultPage() {
   
 
-  const [modalOpen, setModalOpen] = useRecoilState(modalState);
+  const setModalOpen = useSetRecoilState(modalState);
   const handleRegister = () => {
     setModalOpen(true);
   };
@@ -37,7 +37,7 @@ export default function StoryResultPage() {
     setLang((prev) => !prev);
   };
 
-  const src = "https://src.hidoc.co.kr/image/lib/2022/5/12/1652337370806_0.jpg";
+  // const src = "https://src.hidoc.co.kr/image/lib/2022/5/12/1652337370806_0.jpg";
   const text =
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, impedit? Cupiditate fugit quam distinctio obcaecati labore repellendus earum blanditiis unde impedit reiciendis sit sunt perspiciatis, aliquam eveniet voluptatem ipsa. Impedit?";
 
@@ -45,8 +45,8 @@ export default function StoryResultPage() {
     <div className="story-result-container">
       <div className={style("story-img-container")}>
         {/* 이미지 */}
-        {/* <ResultImg/> */}
-        <img className={style("story-result-image")} src={src} alt="testimg" />
+        <ResultImg/>
+        {/* <img className={style("story-result-image")} src={src} alt="testimg" /> */}
         {/* 설정 버튼 */}
         <div className={style("story-result-btns")}>
           {/* 배경음악 */}
@@ -73,7 +73,7 @@ export default function StoryResultPage() {
         </div>
       </div>
       {/* 이야기 결과 */}
-      <StoryResult language={lang}/>
+      {/* <StoryResult language={lang}/> */}
       <p className={style("story-result-text")}>{text}</p>
     </div>
   );

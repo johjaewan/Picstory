@@ -67,11 +67,12 @@ export default function LibraryPage() {
     <div className={styles.container}>
       {listItem.map((item, idx) => {
         //listItem -> listItems로 바꾸기
+        // 확인 요청. Warning: Each child in a list should have a unique "key" prop. 키 값 필요. 
         if ((idx + 1) % 3 === 0)
           return (
             <>
               <div className={styles.item_box}>
-                <img className={styles.image} src={item.img}></img>
+                <img className={styles.image} src={item.img} alt="imageName"></img>
                 <div className={styles.title}>{item.title}</div>
               </div>
               <div className={styles.clear_line}></div>{' '}
@@ -80,14 +81,14 @@ export default function LibraryPage() {
         else if ((idx + 1) % 3 === 2)
           return (
             <div className={styles.item_box_second}>
-              <img className={styles.image} src={item.img}></img>
+              <img className={styles.image} src={item.img} alt="imageName"></img>
               <div className={styles.title}>{item.title}</div>
             </div>
           )
         else
           return (
             <div className={styles.item_box}>
-              <img className={styles.image} src={item.img}></img>
+              <img className={styles.image} src={item.img} alt="imageName"></img>
               <div className={styles.title}>{item.title}</div>
             </div>
           )
