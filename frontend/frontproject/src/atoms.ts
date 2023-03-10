@@ -24,3 +24,12 @@ export const titleAtom = atom({
   key: "titleAtom",
   default: "",
 });
+
+export const storyResultKo = atom({
+  key: "storyResultKo",
+  default: "",
+});
+export const storyResultEn = atom({
+  key: "storyResultEn",
+  default: "",
+});

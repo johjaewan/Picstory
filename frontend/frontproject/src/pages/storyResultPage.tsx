@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import SoundBtn from "../components/storyResult/soundBtn";
-import GetStory from "../components/storyResult/storyResult";
+import StoryResult from "../components/storyResult/storyResult";
 import ResultImg from "../components/storyResult/storyImg";
 import classNames from "classnames/bind";
 import styles from "../assets/css/storyResultPage.module.css";
@@ -28,6 +28,7 @@ export default function StoryResultPage() {
   // isOnBGM : 배경음악, isOnAudio: 음성파일
   const [isOnBGM, setOnBGM] = useState(false);
   const [isOnAudio, setOnAudio] = useState(false);
+  const [lang, setLang] = useState(true);
 
   const clickedBGM = () => {
     setOnBGM((prev) => !prev);
@@ -39,7 +40,7 @@ export default function StoryResultPage() {
 
   //언어설정
   const transLang = () => {
-    console.log("한영 번역");
+    setLang((prev) => !prev);
   };
 
   const src = "https://src.hidoc.co.kr/image/lib/2022/5/12/1652337370806_0.jpg";
@@ -149,7 +150,7 @@ export default function StoryResultPage() {
           />
           {/* 언어설정 */}
           <button className={style("story-result-button")} onClick={transLang}>
-            Korean
+            { lang ? "Korean" : "영어" }
           </button>
           {/* 저장 모달 */}
           <button
@@ -161,7 +162,7 @@ export default function StoryResultPage() {
         </div>
       </div>
       {/* 이야기 결과 */}
-      {/* <GetStory/> */}
+      <StoryResult language={lang}/>
       <p className={style("story-result-text")}>{text}</p>
     </div>
   );
