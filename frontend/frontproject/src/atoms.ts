@@ -5,6 +5,11 @@ export const ImageBit = atom({
   default: '',
 })
 
+export const ImageFile = atom({
+  key: 'ImageFile',
+  default: '',
+})
+
 export const genreAtom = atom({
   key: 'genreAtom',
   default: '',
