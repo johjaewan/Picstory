@@ -16,8 +16,7 @@ function StoryResult( {language} : StoryResultProp ) {
   const storyResult = useRecoilValue(storyResultAtom);
   
   let story = language ? storyResult.content_kr : storyResult.content_en;
-  
-  
+
   return (
     <>
       <p className={style("story-result-text")}>{story}</p>

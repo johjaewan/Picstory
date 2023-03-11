@@ -1,18 +1,19 @@
 import { useState } from "react";
-import SoundBtn from "../components/storyResult/soundBtn";
 import StoryResult from "../components/storyResult/storyResult";
 import ResultImg from "../components/storyResult/storyImg";
 import classNames from "classnames/bind";
 import styles from "../assets/css/storyResultPage.module.css";
-import { useSetRecoilState } from "recoil";
-import { modalState } from "../atoms"
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { modalState, genreAtom } from "../atoms"
 import Modal from "../components/storyResult/modal";
+import BGMPlayer from "../components/storyResult/bgm";
+import AudioPlayer from "../components/storyResult/audio";
 
 const style = classNames.bind(styles);
 
 export default function StoryResultPage() {
   
-
+  // 모달
   const setModalOpen = useSetRecoilState(modalState);
   const handleRegister = () => {
     setModalOpen(true);
@@ -20,19 +21,10 @@ export default function StoryResultPage() {
 
   // 오디오 파일 설정
   // isOnBGM : 배경음악, isOnAudio: 음성파일
-  const [isOnBGM, setOnBGM] = useState(false);
-  const [isOnAudio, setOnAudio] = useState(false);
-  const [lang, setLang] = useState(true);
-
-  const clickedBGM = () => {
-    setOnBGM((prev) => !prev);
-  };
-
-  const clickedAudio = () => {
-    setOnAudio((prev) => !prev);
-  };
-
+  const genre = useRecoilValue(genreAtom);
+  
   //언어설정
+  const [lang, setLang] = useState(true);
   const transLang = () => {
     setLang((prev) => !prev);
   };
@@ -50,13 +42,9 @@ export default function StoryResultPage() {
         {/* 설정 버튼 */}
         <div className={style("story-result-btns")}>
           {/* 배경음악 */}
-          <SoundBtn onClick={clickedBGM} soundType="BGM" soundState={isOnBGM} />
+          <BGMPlayer genre={genre}/>
           {/* 음성파일 */}
-          <SoundBtn
-            onClick={clickedAudio}
-            soundType="Audio"
-            soundState={isOnAudio}
-          />
+          <AudioPlayer lang={lang}/>
           {/* 언어설정 */}
           <button className={style("story-result-button")} onClick={transLang}>
             { lang ? "Korean" : "영어" }
