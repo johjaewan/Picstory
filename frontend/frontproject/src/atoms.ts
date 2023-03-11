@@ -17,7 +17,7 @@ export const ImageFile = atom({
 
 export const genreAtom = atom({
   key: 'genreAtom',
-  default: '',
+  default: 'romance',
 })
 
 export const loadingAtom = atom({
@@ -52,3 +52,14 @@ export const modalState = atom({
   key: "modalState",
   default: false,
 });
+//배경음악 플레이, 일시정지
+export const playState = atom<boolean>({ 
+  key: 'playState',
+  default: false,
+});
+//음성파일 플레이, 일시정지
+export const audioState = atom<boolean>({ 
+  key: 'audioState',
+  default: false,
+});
+
