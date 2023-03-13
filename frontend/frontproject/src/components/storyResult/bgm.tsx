@@ -13,6 +13,7 @@ import thriller from '../../assets/audio/creepy-music-box-halloween-music.mp3';
 
 const style = classNames.bind(styles);
 
+
 // prop: genre
 export type SoundBtnProps = {
   genre: string,
@@ -26,7 +27,7 @@ function BGMPlayer({ genre }: SoundBtnProps) {
   interface audioFileType {
     [key: string] : string;
   }
-  const audioFile : audioFileType = {'fun':fun, 'sad':sad, 'romance':romance, 'thriller':thriller}
+  const audioFile : audioFileType = {'재미':fun, '슬픔':sad, '로맨스':romance, '공포':thriller}
   // 재생
   const start = () => {
     if (myRef.current){

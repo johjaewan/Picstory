@@ -52,10 +52,13 @@ export default function Modal() {
     formData.append("data", new Blob([JSON.stringify(datas)], {type: "application/json"}))
 
     const result = await postSaveStory(formData);
-    if (!result) return;
-    // 실패 시 알림 띄워주기
-    //인풋 리셋
-    //저장 후 모달 닫고 서재로 이동
+    console.log("result",result)
+    if (!result) {
+      alert("이야기를 저장 할 수 없습니다.")
+      setModalOpen(false);
+      return; 
+    }
+    
     setTitle('')
     setGenre('')
     setImageFile('')
