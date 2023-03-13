@@ -15,3 +15,8 @@ export async function createStory(text: String, genre: String) {
   )
   return response
 }
+
+export async function getStory(id: number) {
+  const response: AxiosResponse = await axios.get(`/api/story/${id}`)
+  return response
+}

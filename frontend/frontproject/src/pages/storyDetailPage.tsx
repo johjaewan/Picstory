@@ -1,8 +1,22 @@
-export default function StoryDetailPage() {
+import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { getStory } from '../api/storyApi'
+
+const StoryDetailPage = ({ match }: any) => {
+  const params = useParams()
+  const id = Number(params.id)
+  useEffect(() => {
+    getStoryItem()
+  }, [])
+  const getStoryItem = async () => {
+    const response = await getStory(id)
+  }
+
   return (
     <>
-      <div>1</div>
-      <div>2</div>
+      <div>{id}</div>
     </>
   )
 }
+
+export default StoryDetailPage
