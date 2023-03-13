@@ -72,10 +72,6 @@ export default function LibraryPage() {
     },
   ]
 
-  const movePage = (id: number) => {
-    // window.location.href(id)
-  }
-
   return (
     <div className={styles.container}>
       {listItem.map((item, idx) => {
@@ -86,7 +82,9 @@ export default function LibraryPage() {
             <>
               <div
                 className={styles.item_box}
-                onClick={() => movePage(item.id)}
+                onClick={() => {
+                  window.location.href = `storyDetail/${item.id}`
+                }}
               >
                 <img
                   className={styles.image}
@@ -100,7 +98,12 @@ export default function LibraryPage() {
           )
         else if ((idx + 1) % 3 === 2)
           return (
-            <div className={styles.item_box_second}>
+            <div
+              className={styles.item_box_second}
+              onClick={() => {
+                window.location.href = `storyDetail/${item.id}`
+              }}
+            >
               <img
                 className={styles.image}
                 src={item.img}
@@ -111,7 +114,12 @@ export default function LibraryPage() {
           )
         else
           return (
-            <div className={styles.item_box}>
+            <div
+              className={styles.item_box}
+              onClick={() => {
+                window.location.href = `storyDetail/${item.id}`
+              }}
+            >
               <img
                 className={styles.image}
                 src={item.img}
