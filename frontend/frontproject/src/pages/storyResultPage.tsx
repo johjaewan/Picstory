@@ -8,6 +8,7 @@ import { modalState, genreAtom } from "../atoms"
 import Modal from "../components/storyResult/modal";
 import BGMPlayer from "../components/storyResult/bgm";
 import AudioPlayer from "../components/storyResult/audio";
+import { Link } from "react-router-dom";
 
 const style = classNames.bind(styles);
 
@@ -19,9 +20,9 @@ export default function StoryResultPage() {
     setModalOpen(true);
   };
 
-  // 오디오 파일 설정
-  // isOnBGM : 배경음악, isOnAudio: 음성파일
+  // 배경음악 장르 설정
   const genre = useRecoilValue(genreAtom);
+  console.log(genre);
   
   //언어설정
   const [lang, setLang] = useState(true);
@@ -29,7 +30,6 @@ export default function StoryResultPage() {
     setLang((prev) => !prev);
   };
 
-  // const src = "https://src.hidoc.co.kr/image/lib/2022/5/12/1652337370806_0.jpg";
   const text =
     "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, impedit? Cupiditate fugit quam distinctio obcaecati labore repellendus earum blanditiis unde impedit reiciendis sit sunt perspiciatis, aliquam eveniet voluptatem ipsa. Impedit?";
 
@@ -38,7 +38,6 @@ export default function StoryResultPage() {
       <div className={style("story-img-container")}>
         {/* 이미지 */}
         <ResultImg/>
-        {/* <img className={style("story-result-image")} src={src} alt="testimg" /> */}
         {/* 설정 버튼 */}
         <div className={style("story-result-btns")}>
           {/* 배경음악 */}
@@ -63,6 +62,9 @@ export default function StoryResultPage() {
       {/* 이야기 결과 */}
       {/* <StoryResult language={lang}/> */}
       <p className={style("story-result-text")}>{text}</p>
+      <button className={style("story-result-button")}>
+        <Link to="/storyCreatePage">다시만들기</Link>
+      </button>
     </div>
   );
 }

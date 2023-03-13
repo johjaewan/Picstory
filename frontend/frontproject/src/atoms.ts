@@ -17,7 +17,7 @@ export const ImageFile = atom({
 
 export const genreAtom = atom({
   key: 'genreAtom',
-  default: 'romance',
+  default: '',
 })
 
 export const loadingAtom = atom({
