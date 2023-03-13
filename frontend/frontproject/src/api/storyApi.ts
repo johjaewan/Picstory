@@ -20,7 +20,11 @@ export async function createStory(text: string, genre: string) {
 
 export async function getStory(id: number) {
   const response: AxiosResponse = await axios.get(`/api/story/${id}`)
-  return response
+  const info = {
+    title: 'hihi',
+    genre: 'romance',
+  }
+  return info
 }
 // 이야기 저장
 export async function postSaveStory(formData: object) {
