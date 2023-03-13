@@ -5,6 +5,7 @@ import StoryResultPage from '../pages/storyResultPage'
 import StoryDetailPage from '../pages/storyDetailPage'
 import LibraryPage from '../pages/LibraryPage'
 import Loading from '../components/storyCreate/loading'
+
 export default function RoutesSetup() {
   return (
     <Routes>
@@ -15,5 +16,5 @@ export default function RoutesSetup() {
       <Route path="/storyDetail/:id" element={<StoryDetailPage />}></Route>
       <Route path="/Loading" element={<Loading />}></Route>
     </Routes>
-  )
+  ) 
 }
