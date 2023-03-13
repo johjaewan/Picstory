@@ -12,17 +12,18 @@
     width: 100px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
-
   .title {
     margin-top: 10px;
   }
 
   .item_box {
+    cursor: pointer;
     margin-top: 50px;
     float: left;
   }
 
   .item_box_second {
+    cursor: pointer;
     margin: 50px 20px 0 20px;
     float: left;
     box-sizing: border-box;
@@ -54,11 +55,12 @@
   }
 
   .item_box {
+    cursor: pointer;
     margin-top: 50px;
     float: left;
   }
-
   .item_box_second {
+    cursor: pointer;
     margin: 50px 50px 0 50px;
     float: left;
     box-sizing: border-box;
