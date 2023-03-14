@@ -5,69 +5,80 @@
   }
   .left_container {
     display: block;
+    clear: both;
   }
   .right_container {
     margin: 0 auto;
   }
-  .title {
-  }
+
   .image {
     margin: 0 auto;
     text-align: center;
-    width: 60vw;
+    width: 70vw;
     border-radius: 30px;
   }
   .story {
-    width: 22vw;
-    height: 400px;
+    width: 85vw;
+    margin: 0 auto;
     padding: 20px;
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    word-wrap: break-word;
+    word-break: keep-all;
+  }
+  .btnBox {
+    margin: 20px 60px;
+    vertical-align: middle;
+    display: flex;
+    width: 70vw;
   }
   .langBtn {
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 10px 20px;
-  }
-  .btnBox {
-    border: 1px solid red;
+    padding: 10px 30px;
+    margin: 0 20px;
   }
 }
 
 @media (min-width: 600px) {
   .container {
-    margin-top: 20vh;
     text-align: center;
+    display: block;
+    margin: 20vh auto 0 auto;
+    width: 90vw;
   }
   .left_container {
-    margin: 0 0 0 22vw;
+    margin: 0 0 0 calc(22vw - 100px);
     float: left;
   }
   .right_container {
     float: right;
-    margin: 0 22vw 0 0;
+    margin: 0 calc(22vw - 100px) 0 0;
   }
   .title {
   }
   .image {
     margin: 0 auto;
     text-align: center;
-    width: 30vw;
+    width: 25vw;
     border-radius: 30px;
   }
   .story {
-    width: 22vw;
+    width: 25vw;
     height: 400px;
     padding: 20px;
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
+  .btnBox {
+    /* border: 1px solid red; */
+    display: flex;
+    margin-top: 20px;
+  }
   .langBtn {
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    padding: 10px 20px;
-  }
-  .btnBox {
-    border: 1px solid red;
+    width: 10vw;
+    margin-left: 20px;
   }
 }

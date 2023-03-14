@@ -34,9 +34,9 @@ export default function StoryDetailPage() {
     setLang((prev) => !prev)
   }
   const text =
-    'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, impedit? Cupiditate fugit quam distinctio obcaecati labore repellendus earum blanditiis unde impedit reiciendis sit sunt perspiciatis, aliquam eveniet voluptatem ipsa. Impedit?'
+    'Lorem ipsum dolor sit amet cconsecteturconsec teturconsecteturconsecteturconsecteturconsecteturconsecteturconsecteturconsecteturconsecteturconsecteturonsectetur, adipisicing elit. Iure, impedit? Cupiditate fugit quam distinctio obcaecati labore repellendus earum blanditiis unde impedit reiciendis sit sunt perspiciatis, aliquam eveniet voluptatem ipsa. Impedit?'
   const text2 =
-    '한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어한국어'
+    '안녕하세요 저는 백소원이고 나이는 스물 다섯입니다 만나서 반갑습니다 안녕하세요 저는 백소원이고 나이는 스물 다섯입니다 만나서 반갑습니다 안녕하세요 저는 백소원이고 나이는 스물 다섯입니다 만나서 반갑습니다 안녕하세요 저는 백소원이고 나이는 스물 다섯입니다 만나서 반갑습니다'
   return (
     <div className={styles.container}>
       <div className={styles.left_container}>
@@ -53,9 +53,10 @@ export default function StoryDetailPage() {
           </button>
         </div>
       </div>
+      <div className={styles.clear}></div>
       <div className={styles.right_container}>
         {lang ? (
-          <div className={styles.story}>{text}</div>
+          <div className={styles.story}>{text2}</div>
         ) : (
           <div className={styles.story}>{text2}</div>
         )}
