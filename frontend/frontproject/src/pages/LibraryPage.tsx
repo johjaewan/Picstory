@@ -1,5 +1,5 @@
 import styles from '../assets/css/libraryPage.module.css'
-import { getStoryList } from '../api/storyApi'
+import { getStoryList } from '../api/libraryApi'
 import { useEffect } from 'react'
 
 export default function LibraryPage() {
