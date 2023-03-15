@@ -10,7 +10,7 @@ import styles from '../../assets/css/genreList.module.css'
 export default function ImageUpload() {
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
-  const [content, setContent] = useState('') // 이미지 켑셔닝 결과
+  const [text, setText] = useState('') // 이미지 켑셔닝 결과
   const [story, setStory] = useRecoilState(storyAtom)
   const navigate = useNavigate()
 
@@ -72,16 +72,16 @@ export default function ImageUpload() {
       .catch((error) => console.log('error', error))
   }
 
-  const sendContent = async (content: string, genre: string) => {
-    setContent(content)
+  const sendContent = async (text: string, genre: string) => {
+    setText(text)
     setLoading(false)
-    const response = await createStory(content, genre)
+    const response = await createStory(text, genre)
     if (response.status === 200) {
+      console.log(response.data)
       setStory(response.data.content_kr)
       navigate('/storyResult')
     }
   }
-  const num = true
   return (
     <>
       {loading ? (
