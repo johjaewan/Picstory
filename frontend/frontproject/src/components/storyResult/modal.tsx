@@ -1,14 +1,16 @@
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { modalState } from "../../atoms"
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { atom } from 'recoil'
 import { useNavigate } from "react-router-dom";
 import { postSaveStory } from "../../api/storyApi";
-import { storyResultAtom, genreAtom, ImageFile } from "../../atoms"
+import { userId, storyEn, storyKo, storyVoice, genreAtom, ImageFile } from "../../atoms"
 
 
 export default function Modal() {
+
+  const userPk = useRecoilValue(userId);
 
   //저장할 이야기 제목
   const titleAtom = atom({
@@ -27,8 +29,10 @@ export default function Modal() {
     setModalOpen(false);
   };
   // 이야기 저장 
-  const [storyResult, setStoryResult]  = useRecoilState(storyResultAtom);
+  const [storyResultEn, setstoryResultEn]  = useRecoilState(storyEn);
+  const [storyResultKo, setstoryResultKo]  = useRecoilState(storyKo);
   const [imageFile, setImageFile] = useRecoilState(ImageFile);
+  const [voice, setVoice] = useRecoilState(storyVoice);
   const [genre, setGenre] = useRecoilState(genreAtom);
   const navigate = useNavigate();
 
@@ -38,15 +42,14 @@ export default function Modal() {
     const formData = new FormData();
 
     formData.append('image', imageFile);
-    formData.append('voice_kr', storyResult.voice_kr);
-    formData.append('voice_en', storyResult.voice_en);
-
+    formData.append('voice', voice);
+    
     let datas = {
-      // user_pk: data,
+      user_pk: userPk,
       title: title,
       genre: genre,
-      content_kr: storyResult.content_kr,
-      content_en: storyResult.content_en,
+      content_kr: storyResultKo,
+      content_en: storyResultEn,
     }
 
     formData.append("data", new Blob([JSON.stringify(datas)], {type: "application/json"}))
@@ -62,12 +65,9 @@ export default function Modal() {
     setTitle('')
     setGenre('')
     setImageFile('')
-    setStoryResult({
-      content_kr: '',
-      content_en: '',
-      voice_kr: '',
-      voice_en: '',
-    })
+    setVoice('')
+    setstoryResultEn('');
+    setstoryResultKo('');
     setModalOpen(false);
     navigate('/library');    
   }

@@ -22,17 +22,13 @@ export default function StoryResultPage() {
 
   // 배경음악 장르 설정
   const genre = useRecoilValue(genreAtom);
-  console.log(genre);
   
   //언어설정
   const [lang, setLang] = useState(true);
   const transLang = () => {
     setLang((prev) => !prev);
   };
-
-  const text =
-    "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure, impedit? Cupiditate fugit quam distinctio obcaecati labore repellendus earum blanditiis unde impedit reiciendis sit sunt perspiciatis, aliquam eveniet voluptatem ipsa. Impedit?";
-
+  
   return (
     <div className="story-result-container">
       <div className={style("story-img-container")}>
@@ -43,7 +39,7 @@ export default function StoryResultPage() {
           {/* 배경음악 */}
           <BGMPlayer genre={genre}/>
           {/* 음성파일 */}
-          <AudioPlayer lang={lang}/>
+          <AudioPlayer/>
           {/* 언어설정 */}
           <button className={style("story-result-button")} onClick={transLang}>
             { lang ? "Korean" : "영어" }
@@ -51,7 +47,6 @@ export default function StoryResultPage() {
           {/* 저장 모달 */}
           <button
             className={style("story-result-button")}
-            // onClick={onClickToggleModal}
             onClick={handleRegister}
             >
             저장
@@ -60,8 +55,7 @@ export default function StoryResultPage() {
         </div>
       </div>
       {/* 이야기 결과 */}
-      {/* <StoryResult language={lang}/> */}
-      <p className={style("story-result-text")}>{text}</p>
+      <StoryResult language={lang}/>
       <button className={style("story-result-button")}>
         <Link to="/storyCreatePage">다시만들기</Link>
       </button>

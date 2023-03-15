@@ -1,8 +1,8 @@
-import axios, { AxiosResponse } from 'axios'
+// import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
-import { ImageBit, genreAtom, loadingAtom, storyAtom } from '../../atoms'
+import { ImageBit, genreAtom, loadingAtom, storyEn } from '../../atoms'
 import { createStory } from '../../api/storyApi'
 import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
@@ -11,7 +11,7 @@ export default function ImageUpload() {
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
   const [text, setText] = useState('') // 이미지 켑셔닝 결과
-  const [story, setStory] = useRecoilState(storyAtom)
+  const [story, setStory] = useRecoilState(storyEn)
   const navigate = useNavigate()
 
   const clickGenre = (e: any) => {
@@ -77,8 +77,8 @@ export default function ImageUpload() {
     setLoading(false)
     const response = await createStory(text, genre)
     if (response.status === 200) {
-      console.log(response.data)
-      setStory(response.data.content_kr)
+      console.log("response.data:",response)
+      setStory(response.data.content)
       navigate('/storyResult')
     }
   }
