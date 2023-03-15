@@ -2,8 +2,14 @@ import axios, { AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
-import { ImageBit, genreAtom, loadingAtom, storyAtom } from '../../atoms'
-import { createStory } from '../../api/storyApi'
+import {
+  ImageBit,
+  genreAtom,
+  loadingAtom,
+  storyAtom,
+  voiceAtom,
+} from '../../atoms'
+import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
 
@@ -11,7 +17,9 @@ export default function ImageUpload() {
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
   const [text, setText] = useState('') // 이미지 켑셔닝 결과
-  const [story, setStory] = useRecoilState(storyAtom)
+  // const [storyKorean, setStoryKorean] = useRecoilState(storyAtom)
+  // const [storyEnglish, setStoryEnglish] = useRecoilState(storyAtom)
+  const [voice, setVoice] = useRecoilState(voiceAtom)
   const navigate = useNavigate()
 
   const clickGenre = (e: any) => {
@@ -78,10 +86,23 @@ export default function ImageUpload() {
     const response = await createStory(text, genre)
     if (response.status === 200) {
       console.log(response.data)
-      setStory(response.data.content_kr)
+      // setStoryEnglish(response.data)
       navigate('/storyResult')
+      makeVoice()
+      translate()
     }
   }
+
+  const makeVoice = async () => {
+    // const response = await createVoice(story, genre)
+    // setVoice(response.data)
+  }
+
+  const translate = async () => {
+    // const response = await translateStory(story)
+    // setStoryKorean(response.data)
+  }
+
   return (
     <>
       {loading ? (
