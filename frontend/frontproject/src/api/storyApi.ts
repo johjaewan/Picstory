@@ -18,14 +18,10 @@ export async function createStory(text: string, genre: string) {
   })
   return response
 }
-
+// 이야기 가져오기
 export async function getStory(id: number) {
   const response: AxiosResponse = await axios.get(`/api/story/${id}`)
-  const info = {
-    title: 'hihi',
-    genre: 'romance',
-  }
-  return info
+  return response
 }
 
 // 이야기 저장
@@ -45,4 +41,10 @@ export async function postSaveStory(formData: object) {
     console.log(error)
     return
   }
+}
+
+// 이야기 삭제
+export async function deleteStory(id: number) {
+  const response: AxiosResponse = await axios.delete(`/api/story/${id}`)
+  return response
 }

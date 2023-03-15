@@ -38,6 +38,13 @@
     padding: 10px 30px;
     margin: 0 20px;
   }
+  .deleteBtn {
+    border-radius: 30px;
+    margin-top: 20px;
+    width: 70px;
+    height: 30px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
 }
 
 @media (min-width: 600px) {
@@ -56,22 +63,22 @@
     margin: 0 calc(22vw - 100px) 0 0;
   }
   .title {
+    margin-bottom: 20px;
   }
   .image {
     margin: 0 auto;
     text-align: center;
-    width: 25vw;
+    width: calc(25vw + 20px);
     border-radius: 30px;
   }
   .story {
-    width: 25vw;
-    height: 400px;
+    width: calc(25vw + 50px);
+    height: auto;
     padding: 20px;
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
   .btnBox {
-    /* border: 1px solid red; */
     display: flex;
     margin-top: 20px;
   }
@@ -80,5 +87,13 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     width: 10vw;
     margin-left: 20px;
+  }
+  .deleteBtn {
+    float: right;
+    border-radius: 30px;
+    margin-top: 20px;
+    width: 70px;
+    height: 30px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 }
