@@ -20,8 +20,7 @@ export default function StoryDetailPage() {
     genre: '',
     content_kr: '',
     content_en: '',
-    voice_kr: '',
-    voice_en: '',
+    voice: '',
   }
   const [lang, setLang] = useState(true)
 
