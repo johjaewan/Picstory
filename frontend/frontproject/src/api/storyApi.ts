@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 
-const BASE_URL = 'http://192.168.100.166/api' // 연결할 서버 ip주소로 바꾸기
+const BASE_URL = 'http://192.168.100.166:8000/api' // 연결할 서버 ip주소로 바꾸기
 
 // 내 서재 이야기 목록
 export async function getStoryList(user_pk: number) {
@@ -18,14 +18,10 @@ export async function createStory(text: string, genre: string) {
   })
   return response
 }
-
+// 이야기 가져오기
 export async function getStory(id: number) {
   const response: AxiosResponse = await axios.get(`/api/story/${id}`)
-  const info = {
-    title: 'hihi',
-    genre: 'romance',
-  }
-  return info
+  return response
 }
 
 // 이야기 저장
@@ -45,4 +41,10 @@ export async function postSaveStory(formData: object) {
     console.log(error)
     return
   }
+}
+
+// 이야기 삭제
+export async function deleteStory(id: number) {
+  const response: AxiosResponse = await axios.delete(`/api/story/${id}`)
+  return response
 }
