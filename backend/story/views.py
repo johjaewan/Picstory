@@ -1,20 +1,21 @@
-from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.http import FileResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from decouple import config
 from gtts import gTTS
+from config import settings
 
 
 from .models import Story
-from .serializers import StorySerializer
+from .serializers import StorySerializer, StoryDetailSerializer
 from config import settings
 import boto3
 import uuid
-import logging
 import openai
-import requests
+import time
+
 
 class S3Bucket:
     """S3 Bucket 접근
@@ -31,7 +32,7 @@ class S3Bucket:
     def upload(self, file):
         """file을 받아서 S3 Bucket에 업로드
 
-        :param _type_ file: _description_
+        :param _type_ file: (이미지 or 음성 파일)
         :return str: s3에 저장될 url 리턴
         """
         print(type(file))
@@ -69,7 +70,7 @@ class S3Bucket:
     def delete(self, url):
         """S3 Bucket에서 해당 url 파일 삭제
 
-        :param str url: s3에 저장된 url
+        :param str url: s-3에 저장된 url
         """
         s3_client = boto3.client(
             's3',
@@ -108,16 +109,6 @@ def text_to_story(genre, text):
     return generated_text
 
 
-def text_to_speak(text):
-    """이야기로 음성 파일 생성
-
-    :param str text: 영어 이야기
-    TODO: 저장된 파일에 VC 적용
-    """
-    tts_en = gTTS(text=text, lang='en')
-    tts_en.save('audio/tts_eng_test.wav')
-
-
 @api_view(['GET'])
 def get_story(request, story_pk):
     """이야기 조회
@@ -127,7 +118,9 @@ def get_story(request, story_pk):
     """
     story = get_object_or_404(Story, pk=story_pk)
     story.image = S3Bucket().get_image_url(story.image)
-    return Response(story, status=status.HTTP_200_OK)
+    story.voice = S3Bucket().get_image_url(story.voice)
+    serializer = StoryDetailSerializer(story)
+    return Response(serializer.data, status=status.HTTP_200_OK)
     
 
 @api_view(['POST'])
@@ -139,7 +132,7 @@ def delete_story(request):
     story = get_object_or_404(Story, pk=pk)
     S3Bucket().delete(story.image)
     story.delete()
-    return Response(status=status.HTTP_200_OK)
+    return Response('ok', status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -157,15 +150,88 @@ def create_story(request):
     return Response(data, status=status.HTTP_200_OK)
 
 
-# @api_view(['POST'])
-# def save_story(request):
-#     serializer = StorySerializer(data=request.data)
-#     if serializer.is_valid(raise_exception=True):
-#         serializer.save(user=request.user)
-#         return Response(status=status.HTTP_200_OK)
+@api_view(['POST'])
+def save_story(request):
+    """이야기 저장
+
+    :return str: ok
+    """
+    # 예외처리
+    # TODO: 입력값 체크
+    print(request.FILES['image'], '111111111111111111111')
+    print(request.FILES['voice'], '222222222222222222222')
+    image_url = S3Bucket().upload(request.FILES['image'])
+    voice_url = S3Bucket().upload(request.FILES['voice'])
+    data = {
+        'title': request.data['title'],
+        'image': image_url,
+        'genre': request.data['genre'],
+        'content_en': request.data['content_en'],
+        'content_ko': request.data['content_ko'],
+        'voice': voice_url,
+    }
+
+    serializer = StorySerializer(data=data)
+    if serializer.is_valid(raise_exception=True):
+        # serializer.save(user=request.user)
+        serializer.save()
+        return Response('ok', status=status.HTTP_200_OK)
     
+    
+@api_view(['POST'])
+def translate_story(request):
+    """이야기 번역
+
+    :return str: 한글로 번역한 글
+    """
+    print('translate================================')
+    start_time = time.time()
+    content = request.data.get('content', False)
+    if not content:
+        return Response('content가 없습니다.', status=status.HTTP_404_NOT_FOUND)
+
+    openai.api_key = config('CHAT_GPT_API_KEY')
+    start_time = time.time()
+    model = "gpt-3.5-turbo"
+    response = openai.ChatCompletion.create(
+    model=model,
+    messages=[
+            {"role": "system", "content": "너는 번역가야"},
+            {"role": "user", "content": f"다음 글을 한글로 번역해줘 {content}"}
+        ]
+    )
+
+    generated_text = response['choices'][0]['message']['content'] # response.choices[0].text
+    generated_text = generated_text.replace("\n","")
+
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Execution time: {execution_time} seconds")
+    print(generated_text)
+    return Response({'content': generated_text}, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def create_voice(request):
+    """이야기로 음성 파일 생성
+
+    TODO: 저장된 파일에 VC 적용
+    """
+    print('create voice======================')
+    content = request.data.get('content')
+    genre = request.data.get('genre')
+    tts_en = gTTS(text=content, lang='en')
+    tts_en.save('audio/tts_eng.wav')
+
+    url = uuid.uuid4().hex
+    file_path = f'http://j8D103.p.ssafy.io/audio/{url}.wav'
+
+    return Response({'voice': file_path}, status=status.HTTP_200_OK)
+
 
 @api_view(['POST'])
 def test(request):
+
     print('test======================')
-    return Response('success')
+
+    return Response({'test success'}, status=status.HTTP_200_OK)

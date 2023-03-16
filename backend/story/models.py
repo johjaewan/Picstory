@@ -8,6 +8,6 @@ class Story(models.Model):
     title = models.CharField(max_length=55)
     image = models.CharField(max_length=55)
     genre = models.CharField(max_length=55)
-    story_en = models.TextField(max_length=2047)
-    story_ko = models.TextField(max_length=2047)
+    content_en = models.TextField(max_length=1023)
+    content_ko = models.TextField(max_length=2047)
     voice = models.CharField(max_length=55)
