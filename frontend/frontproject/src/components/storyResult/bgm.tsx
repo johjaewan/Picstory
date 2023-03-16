@@ -4,7 +4,8 @@ import { RiMusic2Fill } from 'react-icons/ri';
 import { TbMusicOff } from 'react-icons/tb';
 import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
-import { playState } from '../../atoms';
+import { atom } from 'recoil'
+
 //음원 출처: https://pixabay.com/ko/music/
 import fun from '../../assets/audio/comedian-117016.mp3';
 import sad from '../../assets/audio/sad-piano-calm-110613.mp3';
@@ -13,6 +14,11 @@ import thriller from '../../assets/audio/creepy-music-box-halloween-music.mp3';
 
 const style = classNames.bind(styles);
 
+//배경음악 플레이, 일시정지
+export const playState = atom<boolean>({ 
+  key: 'playState',
+  default: false,
+});
 
 // prop: genre
 export type SoundBtnProps = {

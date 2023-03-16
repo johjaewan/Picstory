@@ -5,7 +5,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { atom } from 'recoil'
 import { useNavigate } from "react-router-dom";
 import { postSaveStory } from "../../api/storyApi";
-import { userId, storyEn, storyKo, storyVoice, genreAtom, ImageFile } from "../../atoms"
+import { userId, storyEn, storyKo, voiceAtom, genreAtom, ImageFile } from "../../atoms"
 
 
 export default function Modal() {
@@ -32,7 +32,7 @@ export default function Modal() {
   const [storyResultEn, setstoryResultEn]  = useRecoilState(storyEn);
   const [storyResultKo, setstoryResultKo]  = useRecoilState(storyKo);
   const [imageFile, setImageFile] = useRecoilState(ImageFile);
-  const [voice, setVoice] = useRecoilState(storyVoice);
+  const [voice, setVoice] = useRecoilState(voiceAtom);
   const [genre, setGenre] = useRecoilState(genreAtom);
   const navigate = useNavigate();
 

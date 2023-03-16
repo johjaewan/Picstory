@@ -4,16 +4,24 @@ import { TbPlayerPauseFilled } from 'react-icons/tb';
 import { TbPlayerPlayFilled } from 'react-icons/tb';
 import { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { audioState, storyVoice } from '../../atoms';
+import { voiceAtom } from '../../atoms';
+import { atom } from 'recoil'
 
 const style = classNames.bind(styles);
+
+//음성파일 플레이, 일시정지
+export const audioState = atom<boolean>({ 
+  key: 'audioState',
+  default: false,
+});
+
 
 function AudioPlayer() {
   // 재생 상태
   const myRef = useRef<HTMLAudioElement>(null);
   const [play, setPlay] = useRecoilState(audioState);
   //오디오 파일
-  const voice = useRecoilValue(storyVoice);
+  const voice = useRecoilValue(voiceAtom);
   // 재생
   const start = () => {
     if (myRef.current){

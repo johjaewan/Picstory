@@ -36,23 +36,13 @@ export const storyKo = atom({
 	default: "",
 });
 // 오디오 생성 결과
-export const storyVoice = atom({
-	key: "storyVoice",
-	default: '',
+export const voiceAtom = atom({
+	key: "voiceAtom",
+	default: "",
 });
 // 모달 상태
 export const modalState = atom({
   key: "modalState",
-  default: false,
-});
-//배경음악 플레이, 일시정지
-export const playState = atom<boolean>({ 
-  key: 'playState',
-  default: false,
-});
-//음성파일 플레이, 일시정지
-export const audioState = atom<boolean>({ 
-  key: 'audioState',
   default: false,
 });
 
