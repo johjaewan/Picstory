@@ -36,7 +36,7 @@ export default function ImageUpload() {
         if (typeof reader.result === 'string') {
           setBitImage(reader.result)
           setImageName(e.target.files[0].name)
-          console.log(reader.result)
+          // console.log(reader.result)
           resolve()
         }
       }

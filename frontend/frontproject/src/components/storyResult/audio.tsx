@@ -4,25 +4,24 @@ import { TbPlayerPauseFilled } from 'react-icons/tb';
 import { TbPlayerPlayFilled } from 'react-icons/tb';
 import { useEffect, useRef } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { audioState, storyResultAtom } from '../../atoms';
+import { voiceAtom } from '../../atoms';
+import { atom } from 'recoil'
 
 const style = classNames.bind(styles);
 
-// prop: genre
-export type SoundBtnProps = {
-  lang: boolean,
-}
+//음성파일 플레이, 일시정지
+export const audioState = atom<boolean>({ 
+  key: 'audioState',
+  default: false,
+});
 
-function AudioPlayer({ lang }: SoundBtnProps) {
+
+function AudioPlayer() {
   // 재생 상태
   const myRef = useRef<HTMLAudioElement>(null);
   const [play, setPlay] = useRecoilState(audioState);
   //오디오 파일
-  const storyResult  = useRecoilValue(storyResultAtom);
-  const voice_kr = storyResult.voice_kr
-  const voice_en = storyResult.voice_en
-  // 오디오 파일
-  const audioFile: string = lang? voice_kr : voice_en
+  const voice = useRecoilValue(voiceAtom);
   // 재생
   const start = () => {
     if (myRef.current){
@@ -47,7 +46,7 @@ function AudioPlayer({ lang }: SoundBtnProps) {
 
   return (
     <>
-      <audio ref={myRef} src={audioFile} loop></audio>
+      <audio ref={myRef} src={voice} loop></audio>
       {play?
       // 일시정지 버튼
       (<button className={style('sound-btn')} onClick={stop}>
