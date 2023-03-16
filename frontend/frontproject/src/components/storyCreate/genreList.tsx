@@ -70,16 +70,47 @@ export default function ImageUpload() {
 			body: raw,
 		};
 
-		fetch(
-			`https://api.clarifai.com/v2/models/general-english-image-caption-clip/versions/2489aad78abf4b39a128fbbc64a8830c/outputs`,
-			requestOptions
-		)
-			.then((response) => response.json())
-			.then((result) => {
-				sendContent(result.outputs[0].data.text.raw, genre);
-			})
-			.catch((error) => console.log("error", error));
-	};
+  const sendContent = async (text: string, genre: string) => {
+    setText(text)
+    setLoading(false)
+    const response = await createStory(text, genre)
+    if (response.status === 200) {
+      console.log(response.data)
+      // setStoryEnglish(response.data)
+      navigate('/storyResult')
+      makeVoice()
+      translate()
+    }
+  }
+
+  const makeVoice = async () => {
+    // const response = await createVoice(story, genre)
+    // setVoice(response.data)
+  }
+
+  const translate = async () => {
+    // const response = await translateStory(story)
+    // setStoryKorean(response.data)
+  }
+
+  return (
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div>
+          <div className={styles.container}>
+            {items.map((item, idx) => {
+              let id = 'genreBtn-' + (idx + 1)
+              return (
+                <>
+                  <input
+                    id={styles[`${id}`]}
+                    type="radio"
+                    name="gerne"
+                    value={items[idx]}
+                    onChange={clickGenre}
+                  ></input>
 
 	const sendContent = async (text: string, genre: string) => {
 		setText(text);

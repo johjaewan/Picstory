@@ -42,7 +42,7 @@ export const voiceAtom = atom({
 });
 // 모달 상태
 export const modalState = atom({
-  key: "modalState",
+  key: 'modalState',
   default: false,
 });
 
