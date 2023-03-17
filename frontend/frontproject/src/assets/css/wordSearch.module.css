@@ -1,0 +1,36 @@
+.container {
+  background: rgb(255, 3, 93);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 3, 93, 1) 0%,
+    rgba(255, 43, 116, 1) 0%,
+    rgba(255, 0, 130, 0) 100%
+  );
+  margin: 150px 100px 0 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content {
+  margin: 0 10px;
+  width: 500px;
+  float: left;
+}
+
+.wordSearch {
+  float: right;
+}
+
+.wordInput {
+  border: 1px solid black;
+  padding: 0 10px;
+}
+
+.btn {
+  margin: 0 10px;
+  width: 100px;
+  border: 1px solid black;
+}
+
+.chat {
+}
