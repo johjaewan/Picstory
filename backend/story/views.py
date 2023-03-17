@@ -150,7 +150,7 @@ def save_story(request):
     image_file = request.FILES.get('image', False)
     if not image_file:
         logging.error('image 파일이 없습니다.')
-        raise Response({'error': 'image 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'image 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
     voice_file = request.FILES.get('voice', False)
     if not voice_file:
         logging.error('voice 파일이 없습니다.')
@@ -159,14 +159,14 @@ def save_story(request):
     image_url = S3Bucket().upload(image_file)
     voice_url = S3Bucket().upload(voice_file)
     data = {
-        'title': request.data['title'],
+        'title': request.POST['title'],
         'image': image_url,
-        'genre': request.data['genre'],
-        'content_en': request.data['content_en'],
-        'content_ko': request.data['content_ko'],
+        'genre': request.POST['genre'],
+        'content_en': request.POST['content_en'],
+        'content_ko': request.POST['content_ko'],
         'voice': voice_url,
     }
-
+    print(data)
     serializer = StorySerializer(data=data)
     if serializer.is_valid(raise_exception=True):
         # serializer.save(user=request.user)
@@ -227,9 +227,10 @@ def create_voice(request):
 
     url = uuid.uuid4().hex
     tts_en = gTTS(text=content, lang='en')
-    tts_en.save(f'home/ubuntu/audio/{url}.wav')
+    tts_en.save(f'media/audio/{url}.wav')
+    logging.info('음성 저장 완료')
 
-    file_path = f'home/ubuntu/audio/{url}.wav'
+    file_path = f'home/ubuntu/media/audio/{url}.wav'
 
     return Response({'voice': file_path}, status=status.HTTP_200_OK)
 
@@ -253,10 +254,15 @@ def get_library(request, user_pk):
 
 @api_view(['POST'])
 def search_word(request):
+    """단어 검색
+
+    :raise:
+    :return str: 단어 뜻 리턴
+    """
     content = request.data.get('content', False)
     if not content:
         logging.error('content가 없습니다.')
-        raise Response({'error': 'content 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'content 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     client_id = config('PAPAGO_CLIENT_ID')
     client_secret = config('PAPAGO_CLIENT_SECRET')
@@ -274,7 +280,6 @@ def search_word(request):
         trans_txt = res.json()['message']['result']['translatedText']
         print(trans_txt)
         return Response({'content': trans_txt}, status=status.HTTP_200_OK)
-
     else:
         return Response({'error': '번역 실패'}, status=res.status_code)
 
