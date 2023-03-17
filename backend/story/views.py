@@ -1,5 +1,4 @@
 from django.shortcuts import get_object_or_404
-from django.http import FileResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -10,7 +9,6 @@ from config import settings
 
 from .models import Story
 from .serializers import StorySerializer, StoryDetailSerializer
-from config import settings
 import boto3
 import uuid
 import openai
@@ -20,14 +18,13 @@ import time
 class S3Bucket:
     """S3 Bucket 접근
     """
+
     def __init__(self):
         self.bucket_name = settings.AWS_STORAGE_BUCKET_NAME
         self.location = settings.AWS_REGION
 
-
     def get_image_url(self, url):
         return f'https://{self.bucket_name}.s3.{self.location}.amazonaws.com/{url}'
-
 
     def upload(self, file):
         """file을 받아서 S3 Bucket에 업로드
@@ -38,8 +35,8 @@ class S3Bucket:
         print(type(file))
         s3_client = boto3.client(
             's3',
-            aws_access_key_id = settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
         )
 
         print('================================')
@@ -53,7 +50,7 @@ class S3Bucket:
         else:
             # custom exception 구현해야 함
             raise TypeError
-            
+
         url = f'{uuid.uuid4().hex}.{file_extension}'
 
         s3_client.upload_fileobj(
@@ -65,8 +62,7 @@ class S3Bucket:
             }
         )
         return url
-    
-    
+
     def delete(self, url):
         """S3 Bucket에서 해당 url 파일 삭제
 
@@ -74,8 +70,8 @@ class S3Bucket:
         """
         s3_client = boto3.client(
             's3',
-            aws_access_key_id = settings.AWS_ACCESS_KEY_ID,
-            aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
         )
 
         s3_client.delete_object(
@@ -100,12 +96,12 @@ def text_to_story(genre, text):
     response = openai.Completion.create(
         engine=model,
         prompt=prompt,
-        temperature = 1,
+        temperature=1,
         max_tokens=500
     )
 
     generated_text = response.choices[0].text
-    generated_text = generated_text.replace("\n","").replace("\\", "")
+    generated_text = generated_text.replace("\n", "").replace("\\", "")
     return generated_text
 
 
@@ -121,7 +117,7 @@ def get_story(request, story_pk):
     story.voice = S3Bucket().get_image_url(story.voice)
     serializer = StoryDetailSerializer(story)
     return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 
 @api_view(['POST'])
 def delete_story(request):
@@ -157,8 +153,8 @@ def save_story(request):
     # TODO: 입력값 체크
     print(request.FILES['image'], '111111111111111111111')
     print(request.FILES['voice'], '222222222222222222222')
-    image_url = S3Bucket().upload(request.FILES['image'])
-    voice_url = S3Bucket().upload(request.FILES['voice'])
+    image_url = S3Bucket().upload(request.FILES.get('image'))
+    voice_url = S3Bucket().upload(request.FILES.get('voice'))
     data = {
         'title': request.data['title'],
         'image': image_url,
@@ -173,8 +169,8 @@ def save_story(request):
         # serializer.save(user=request.user)
         serializer.save()
         return Response('ok', status=status.HTTP_200_OK)
-    
-    
+
+
 @api_view(['POST'])
 def translate_story(request):
     """이야기 번역
@@ -191,15 +187,16 @@ def translate_story(request):
     start_time = time.time()
     model = "gpt-3.5-turbo"
     response = openai.ChatCompletion.create(
-    model=model,
-    messages=[
+        model=model,
+        messages=[
             {"role": "system", "content": "너는 번역가야"},
             {"role": "user", "content": f"다음 글을 한글로 번역해줘 {content}"}
         ]
     )
 
-    generated_text = response['choices'][0]['message']['content'] # response.choices[0].text
-    generated_text = generated_text.replace("\n","")
+    # response.choices[0].text
+    generated_text = response['choices'][0]['message']['content']
+    generated_text = generated_text.replace("\n", "")
 
     end_time = time.time()
     execution_time = end_time - start_time
