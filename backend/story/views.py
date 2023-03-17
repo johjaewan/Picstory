@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -8,12 +8,13 @@ from config import settings
 
 
 from .models import Story
-from .serializers import StorySerializer, StoryDetailSerializer
+from .serializers import StorySerializer, StoryDetailSerializer, StoryListSerializer
 import boto3
 import uuid
 import openai
 import time
 import logging
+import requests
 
 
 class S3Bucket:
@@ -223,13 +224,59 @@ def create_voice(request):
     if not genre:
         logging.error('genre가 없습니다.')
         raise Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
-    tts_en = gTTS(text=content, lang='en')
-    tts_en.save('audio/tts_eng.wav')
 
     url = uuid.uuid4().hex
-    file_path = f'http://j8D103.p.ssafy.io/audio/{url}.wav'
+    tts_en = gTTS(text=content, lang='en')
+    tts_en.save(f'home/ubuntu/audio/{url}.wav')
+
+    file_path = f'home/ubuntu/audio/{url}.wav'
 
     return Response({'voice': file_path}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_library(request, user_pk):
+    """유저의 서재 출력
+
+    :param int user_pk: user id
+    :return list: 유저의 story 목록 리턴
+    
+    :TODO: user 구현 후 user_pk 적용
+    """
+    # library = get_list_or_404(Story, many=user_pk)
+    library = get_list_or_404(Story)
+    for i in range(len(library)):
+        library[i].image = S3Bucket().get_image_url(library[i].image)
+    serializers = StoryListSerializer(library, many=True)
+    return Response(serializers.data, status=status.HTTP_200_OK)
+
+
+@api_view(['POST'])
+def search_word(request):
+    content = request.data.get('content', False)
+    if not content:
+        logging.error('content가 없습니다.')
+        raise Response({'error': 'content 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+    client_id = config('PAPAGO_CLIENT_ID')
+    client_secret = config('PAPAGO_CLIENT_SECRET')
+    url = config('PAPAGO_URL')
+
+    # 요청 헤더
+    req_header = {"X-Naver-Client-Id": client_id,
+                "X-Naver-Client-Secret": client_secret}
+    # 요청 파라미터
+    req_param = {"source": "en", "target": "ko", "text": content}
+
+    res = requests.post(url, headers=req_header, data=req_param)
+
+    if res.ok:
+        trans_txt = res.json()['message']['result']['translatedText']
+        print(trans_txt)
+        return Response({'content': trans_txt}, status=status.HTTP_200_OK)
+
+    else:
+        return Response({'error': '번역 실패'}, status=res.status_code)
 
 
 @api_view(['POST'])

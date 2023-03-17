@@ -24,3 +24,4 @@ class StoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = ('created_at', 'id', 'title', 'image', 'genre',)
+        # read_only_fields = ('user',)
