@@ -96,7 +96,7 @@ def get_story(request, story_pk):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-@api_view(['POST'])
+@api_view(['DELETE'])
 def delete_story(request, story_pk):
     """이야기 삭제
 
