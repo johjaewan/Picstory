@@ -1,36 +1,18 @@
 import { useRecoilValue } from "recoil";
-import { storyEn, storyKo } from "../../atoms"
-import classNames from "classnames/bind";
-import styles from "../../assets/css/storyResultPage.module.css";
-import TypeIt from "typeit-react";
-const style = classNames.bind(styles);
+import { language, storyEn, storyKo } from "../../atoms";
+// import classNames from "classnames/bind";
+// import styles from "../../assets/css/storyResultPage.module.css";
+// const style = classNames.bind(styles);
 
 // 이야기 결과
 
-interface StoryResultProp {
-  language : boolean;
-}
+function StoryResult() {
+	const storyResultEn = useRecoilValue(storyEn);
+	const storyResultKo = useRecoilValue(storyKo);
 
-function StoryResult( {language} : StoryResultProp ) {
-  
-  const storyResultEn = useRecoilValue(storyEn);
-  const storyResultKo = useRecoilValue(storyKo);
-  
-  let story = language ? storyResultEn : storyResultKo;
+	const lang = useRecoilValue(language);
 
-  return (
-    <>
-      <TypeIt
-        options={{
-          speed: 30,
-          waitUntilVisible: true,
-        }}
-      > 
-      {story}
-      </TypeIt>
-      {/* <p className={style("story-result-text")}>{story}</p> */}
-    </>
-  );
+	return <>{lang ? storyResultEn : storyResultKo}</>;
 }
 
 export default StoryResult;
