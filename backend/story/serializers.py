@@ -6,5 +6,21 @@ class StorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Story
-        fields = ('id', 'created_at', 'title', 'image', 'genre', 'story_en', 'story_ko', 'voice')
+        fields = ('id', 'created_at', 'title', 'image', 'genre', 'content_en', 'content_ko', 'voice')
         # read_only_fields = ('user',)
+
+
+class StoryDetailSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(read_only=True, format="%m-%d")
+
+    class Meta:
+        model = Story
+        fields = ('created_at', 'title', 'image', 'genre', 'content_en', 'content_ko', 'voice')
+
+
+class StoryListSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateTimeField(read_only=True, format="%m-%d")
+
+    class Meta:
+        model = Story
+        fields = ('created_at', 'id', 'title', 'image', 'genre',)
