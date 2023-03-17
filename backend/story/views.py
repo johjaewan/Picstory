@@ -13,6 +13,7 @@ import boto3
 import uuid
 import openai
 import time
+import logging
 
 
 class S3Bucket:
@@ -80,31 +81,6 @@ class S3Bucket:
         )
 
 
-def text_to_story(genre, text):
-    """이야기 생성
-
-    :param str genre: 장르
-    :param str text: 이미지 캡셔닝 문장
-    :return str: 영어 이야기
-    """
-    openai.api_key = config('CHAT_GPT_API_KEY')
-    prompt = f"make a {genre} story related the comment '{text}'"
-
-    # version 설정
-    model = "text-davinci-003"
-
-    response = openai.Completion.create(
-        engine=model,
-        prompt=prompt,
-        temperature=1,
-        max_tokens=500
-    )
-
-    generated_text = response.choices[0].text
-    generated_text = generated_text.replace("\n", "").replace("\\", "")
-    return generated_text
-
-
 @api_view(['GET'])
 def get_story(request, story_pk):
     """이야기 조회
@@ -120,12 +96,11 @@ def get_story(request, story_pk):
 
 
 @api_view(['POST'])
-def delete_story(request):
+def delete_story(request, story_pk):
     """이야기 삭제
 
     """
-    pk = request.POST['story_pk']
-    story = get_object_or_404(Story, pk=pk)
+    story = get_object_or_404(Story, pk=story_pk)
     S3Bucket().delete(story.image)
     story.delete()
     return Response('ok', status=status.HTTP_200_OK)
@@ -137,9 +112,31 @@ def create_story(request):
 
     :return str: 영어 이야기
     """
-    genre = request.data['genre']
-    text = request.data['text']
-    content = text_to_story(genre, text)
+    genre = request.data.get('genre', False)
+    if not genre:
+        logging.error('genre가 없습니다.')
+        raise Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+    text = request.data.get('text', False)
+    if not text:
+        logging.error('text가 없습니다.')
+        raise Response({'error': 'text가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+    openai.api_key = config('CHAT_GPT_API_KEY')
+    prompt = f"make a {genre} story related the comment '{text}'"
+
+    # version 설정
+    model = "text-davinci-003"
+
+    response = openai.Completion.create(
+        engine=model,
+        prompt=prompt,
+        temperature=1,
+        max_tokens=500
+    )
+
+    content = response.choices[0].text
+    content = content.replace("\n", "").replace("\\", "")
+
     return Response({'content': content}, status=status.HTTP_200_OK)
 
 
@@ -149,12 +146,17 @@ def save_story(request):
 
     :return str: ok
     """
-    # 예외처리
-    # TODO: 입력값 체크
-    print(request.FILES['image'], '111111111111111111111')
-    print(request.FILES['voice'], '222222222222222222222')
-    image_url = S3Bucket().upload(request.FILES.get('image'))
-    voice_url = S3Bucket().upload(request.FILES.get('voice'))
+    image_file = request.FILES.get('image', False)
+    if not image_file:
+        logging.error('image 파일이 없습니다.')
+        raise Response({'error': 'image 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+    voice_file = request.FILES.get('voice', False)
+    if not voice_file:
+        logging.error('voice 파일이 없습니다.')
+        return Response({'error': 'voice 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+    image_url = S3Bucket().upload(image_file)
+    voice_url = S3Bucket().upload(voice_file)
     data = {
         'title': request.data['title'],
         'image': image_url,
@@ -181,7 +183,8 @@ def translate_story(request):
     start_time = time.time()
     content = request.data.get('content', False)
     if not content:
-        return Response('content가 없습니다.', status=status.HTTP_404_NOT_FOUND)
+        logging.error('content가 없습니다.')
+        return Response({'error': 'content가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     openai.api_key = config('CHAT_GPT_API_KEY')
     start_time = time.time()
@@ -194,7 +197,6 @@ def translate_story(request):
         ]
     )
 
-    # response.choices[0].text
     generated_text = response['choices'][0]['message']['content']
     generated_text = generated_text.replace("\n", "")
 
@@ -213,8 +215,14 @@ def create_voice(request):
     TODO: EC2 directory에 음성 파일 저장 확인
     """
     print('create voice======================')
-    content = request.data.get('content')
-    genre = request.data.get('genre')
+    content = request.data.get('content', False)
+    if not content:
+        logging.error('content가 없습니다.')
+        raise Response({'error': 'content 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+    genre = request.data.get('genre', False)
+    if not genre:
+        logging.error('genre가 없습니다.')
+        raise Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
     tts_en = gTTS(text=content, lang='en')
     tts_en.save('audio/tts_eng.wav')
 
