@@ -10,25 +10,40 @@ export default function StoryDetailPage() {
   const params = useParams()
   const id = Number(params.id)
 
+  const [storyInfo, setStoryInfo] = useState({
+    title: '',
+    image: '',
+    genre: '',
+    content_ko: '',
+    content_en: '',
+    voice: '',
+  })
+
   useEffect(() => {
     getStoryItem()
   }, [])
 
-  const storyInfo = {
-    title: '제목',
-    image: null,
-    genre: '',
-    content_kr: '',
-    content_en: '',
-    voice: '',
-  }
   const [lang, setLang] = useState(true)
 
   const getStoryItem = async () => {
     const response = await getStory(id)
-    storyInfo.title = response.data.title
-    storyInfo.genre = response.data.genre
+    const result = response.data
+
+    console.log(result)
+
+    setStoryInfo((prevState) => {
+      return {
+        ...prevState,
+        title: result.title,
+        image: result.image,
+        genre: result.genre,
+        content_ko: result.content_ko,
+        content_en: result.content_en,
+        voice: result.voice,
+      }
+    })
   }
+
   const transLang = () => {
     setLang((prev) => !prev)
   }
@@ -49,13 +64,10 @@ export default function StoryDetailPage() {
       {' '}
       <div className={styles.title}>{storyInfo.title}</div>
       <div className={styles.left_container}>
-        <img
-          className={styles.image}
-          src="https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_960_720.jpg"
-        ></img>
+        <img className={styles.image} src={storyInfo.image}></img>
         <div className={styles.btnBox}>
           <BGMPlayer genre={storyInfo.genre} />
-          <AudioPlayer/>
+          <AudioPlayer />
           <button className={styles.langBtn} onClick={transLang}>
             {lang ? 'Korean' : '영어'}
           </button>
@@ -64,9 +76,9 @@ export default function StoryDetailPage() {
       <div className={styles.clear}></div>
       <div className={styles.right_container}>
         {lang ? (
-          <div className={styles.story}>{text2}</div>
+          <div className={styles.story}>{storyInfo.content_en}</div>
         ) : (
-          <div className={styles.story}>{text2}</div>
+          <div className={styles.story}>{storyInfo.content_ko}</div>
         )}
         <button className={styles.deleteBtn} onClick={clickDelete}>
           삭제
