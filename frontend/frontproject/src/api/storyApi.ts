@@ -22,7 +22,6 @@ export async function createVoice(content: string, genre: string) {
 	const response: AxiosResponse = await axios.post(`${BASE_URL}/story/voice`, {
 		content: content,
 		genre: genre,
-		// responseType: 'blob'
 	}
 	);
 	return response;
