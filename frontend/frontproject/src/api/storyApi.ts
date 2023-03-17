@@ -55,6 +55,8 @@ export async function translateStory(content: string) {
 
 // 이야기 삭제
 export async function deleteStory(id: number) {
-  const response: AxiosResponse = await axios.delete(`/api/story/${id}`)
+  const response: AxiosResponse = await axios.delete(
+    `${BASE_URL}/story/delete/${id}`,
+  )
   return response
 }

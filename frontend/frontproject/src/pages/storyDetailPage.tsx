@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getStory, deleteStory } from '../api/storyApi'
 import styles from '../assets/css/storyDetailPage.module.css'
 import BGMPlayer from '../components/storyResult/bgm'
 import AudioPlayer from '../components/storyResult/audio'
 import StoryResult from '../components/storyResult/storyResult'
+import { voiceAtom } from '../atoms'
+import { useRecoilState } from 'recoil'
 
 export default function StoryDetailPage() {
   const params = useParams()
   const id = Number(params.id)
-
+  const [voice, setVoice] = useRecoilState(voiceAtom)
+  const navigate = useNavigate()
   const [storyInfo, setStoryInfo] = useState({
     title: '',
     image: '',
@@ -28,7 +32,7 @@ export default function StoryDetailPage() {
   const getStoryItem = async () => {
     const response = await getStory(id)
     const result = response.data
-
+    setVoice(result.voice)
     console.log(result)
 
     setStoryInfo((prevState) => {
@@ -56,6 +60,7 @@ export default function StoryDetailPage() {
     const response = await deleteStory(id)
     if (response.status == 200) {
       alert('삭제가 완료되었습니다.')
+      navigate('/library')
     }
   }
 
