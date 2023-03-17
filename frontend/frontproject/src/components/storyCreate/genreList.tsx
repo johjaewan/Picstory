@@ -35,6 +35,14 @@ export default function ImageUpload() {
   const Image2 = Image.substring(23)
 
   const ImageCaptioning = async () => {
+    if (!Image){
+      alert('사진을 선택해 주세요')
+      return
+    }
+    if (!genre){
+      alert('장르를 선택해 주세요')
+      return
+    }
     runClip()
   }
 
@@ -89,24 +97,20 @@ export default function ImageUpload() {
     if (response.status === 200) {
       setLoading(false)
       navigate('/storyResult')
-      makeVoice(result,genre)
+      // makeVoice(result, genre)
       translate(result)
     }
   }
 
   const makeVoice = async (storyEng: string, genre:string) => {
     const response = await createVoice(storyEng, genre)
-    const url = URL.createObjectURL(new Blob([response.data]));
-    setVoice(url)
+    setVoice(response.data)
     console.log('voice_response.data:', response.data)
-    console.log('url:', url)
   }
 
   const translate = async (storyEng: string) => {
     const response = await translateStory(storyEng)
     setStoryKorean(response.data.content)
-    console.log('response.data:', response.data.content)
-    console.log('StoryKorean:',storyKorean )
   }
 
   return (

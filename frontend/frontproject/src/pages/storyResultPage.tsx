@@ -1,15 +1,15 @@
 import { useState } from "react";
-import ResultImg from "../components/storyResult/storyImg";
+import { Link } from "react-router-dom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { modalState, genreAtom, language, storyEn, storyKo, voiceAtom } from "../atoms";
 import classNames from "classnames/bind";
 import styles from "../assets/css/storyResultPage.module.css";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { modalState, genreAtom, language, storyEn, storyKo } from "../atoms";
+import TypeIt from "typeit-react";
+import StoryResult from "../components/storyResult/storyResult";
+import ResultImg from "../components/storyResult/storyImg";
 import Modal from "../components/storyResult/modal";
 import BGMPlayer from "../components/storyResult/bgm";
 import AudioPlayer from "../components/storyResult/audio";
-import { Link } from "react-router-dom";
-import TypeIt from "typeit-react";
-import StoryResult from "../components/storyResult/storyResult";
 
 const style = classNames.bind(styles);
 
@@ -26,14 +26,17 @@ export default function StoryResultPage() {
 	//언어설정
 	const [lang, setLang] = useRecoilState(language);
 	const storyResultEn = useRecoilValue(storyEn);
-  const storyResultKo = useRecoilValue(storyKo);
-
+	const storyResultKo = useRecoilValue(storyKo);
+	// 처음에만(cnt==0) typeIt 적용
 	const [cnt, setCnt] = useState(0);
 
 	const transLang = () => {
 		setLang((prev) => !prev);
 		setCnt(cnt + 1);
 	};
+  
+	// 음성 파일
+	const voice = useRecoilValue(voiceAtom);
 
 	return (
 		<div className="story-result-container">
@@ -47,11 +50,17 @@ export default function StoryResultPage() {
 					{/* 음성파일 */}
 					<AudioPlayer />
 					{/* 언어설정 */}
-					<button disabled={storyResultKo? false:true} className={style("story-result-button")} onClick={transLang}>
+					<button
+						disabled={storyResultKo ? false : true}
+						className={style("story-result-button")}
+						onClick={transLang}
+					>
 						{lang ? "Korean" : "영어"}
 					</button>
 					{/* 저장 모달 */}
 					<button
+						// disabled={storyResultKo && voice ? false : true} // 이게 진짜
+						disabled={storyResultKo ? false : true} // 테스트코드
 						className={style("story-result-button")}
 						onClick={handleRegister}
 					>
@@ -72,7 +81,7 @@ export default function StoryResultPage() {
 						{storyResultEn}
 					</TypeIt>
 				) : (
-					<StoryResult/>
+					<StoryResult />
 				)}
 			</div>
 			<button className={style("story-result-button")}>
