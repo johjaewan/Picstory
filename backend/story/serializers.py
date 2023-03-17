@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import Story
 
 class StorySerializer(serializers.ModelSerializer):
-    created_at = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = Story
@@ -24,3 +23,4 @@ class StoryListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = ('created_at', 'id', 'title', 'image', 'genre',)
+        # read_only_fields = ('user',)

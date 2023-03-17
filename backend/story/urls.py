@@ -9,6 +9,8 @@ urlpatterns = [
     path('save', views.save_story),
     path('translate', views.translate_story),
     path('voice', views.create_voice),
+    path('list/<int:user_pk>', views.get_library),
+    path('word', views.search_word),
 
 
     path('test', views.test),       # 테스트용
