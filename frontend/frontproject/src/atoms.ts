@@ -38,7 +38,7 @@ export const storyKo = atom({
 // 오디오 생성 결과
 export const voiceAtom = atom({
 	key: "voiceAtom",
-	default: '',
+	default: "",
 });
 // 모달 상태
 export const modalState = atom({

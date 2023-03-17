@@ -47,7 +47,7 @@ export default function Modal() {
 		const formData = new FormData();
 
 		formData.append("image", imageFile);
-		// formData.append("voice", voice);
+		formData.append("voice", voice);
 		formData.append("title", title);
 		formData.append("genre", genre);
 		formData.append("content_ko", storyResultKo);
@@ -65,7 +65,7 @@ export default function Modal() {
 				setTitle("");
 				setGenre("");
 				setImageFile("");
-				// setVoice("");
+				setVoice("");
 				setstoryResultEn("");
 				setstoryResultKo("");
 				setModalOpen(false);

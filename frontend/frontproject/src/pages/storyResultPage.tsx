@@ -59,8 +59,8 @@ export default function StoryResultPage() {
 					</button>
 					{/* 저장 모달 */}
 					<button
-						// disabled={storyResultKo && voice ? false : true} // 이게 진짜
-						disabled={storyResultKo ? false : true} // 테스트코드
+						disabled={storyResultKo && voice ? false : true} // 이게 진짜
+						// disabled={storyResultKo ? false : true} // 테스트코드
 						className={style("story-result-button")}
 						onClick={handleRegister}
 					>
