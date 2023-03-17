@@ -32,7 +32,7 @@ class S3Bucket:
     def upload(self, file):
         """file을 받아서 S3 Bucket에 업로드
 
-        :param _type_ file: (이미지 or 음성 파일)
+        :param file: (이미지 or 음성 파일)
         :return str: s3에 저장될 url 리턴
         """
         print(type(file))
@@ -70,7 +70,7 @@ class S3Bucket:
     def delete(self, url):
         """S3 Bucket에서 해당 url 파일 삭제
 
-        :param str url: s-3에 저장된 url
+        :param str url: s3에 저장된 url
         """
         s3_client = boto3.client(
             's3',
@@ -144,10 +144,7 @@ def create_story(request):
     genre = request.data['genre']
     text = request.data['text']
     content = text_to_story(genre, text)
-    data = {
-        'content': content,
-    }
-    return Response(data, status=status.HTTP_200_OK)
+    return Response({'content': content}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -216,6 +213,7 @@ def create_voice(request):
     """이야기로 음성 파일 생성
 
     TODO: 저장된 파일에 VC 적용
+    TODO: EC2 directory에 음성 파일 저장 확인
     """
     print('create voice======================')
     content = request.data.get('content')
