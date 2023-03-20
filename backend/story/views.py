@@ -1,4 +1,3 @@
-from django.http import FileResponse
 from django.shortcuts import get_object_or_404, get_list_or_404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -149,6 +148,7 @@ def save_story(request):
     """이야기 저장
 
     :return str: ok
+    TODO: user 구현 시 적용
     """
     image_file = request.FILES.get('image', False)
     if not image_file:
@@ -161,7 +161,6 @@ def save_story(request):
 
     image_url = S3Bucket().upload(image_file)
     voice_url = S3Bucket().upload(voice_file)
-    # voice_url = 'not_file'
     data = {
         'title': request.POST['title'],
         'image': image_url,
@@ -233,19 +232,10 @@ def create_voice(request):
 
     url = uuid.uuid4().hex
     tts_en = gTTS(text=content, lang='en')
-    # tts_en.save(f'media/audio/{url}.wav')
-    tts_en.save(f'audio/{url}.wav')
+    tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
-    file_path = os.path.join(settings.BASE_DIR, f'audio/{url}.wav')
-
-    response = FileResponse(open(file_path, 'rb'), content_type='audio/wav')
-    response['Content-Disposition'] = f'form-data; filename={url}.wav'
-
-    return response
-
-
-    file_path = f'home/ubuntu/media/audio/{url}.wav'
+    file_path = f'media/audio/{url}.wav'
 
     return Response({'voice': file_path}, status=status.HTTP_200_OK)
 
@@ -257,7 +247,7 @@ def get_library(request, user_pk):
     :param int user_pk: user id
     :return list: 유저의 story 목록 리턴
     
-    :TODO: user 구현 후 user_pk 적용
+    TODO: user 구현 후 user_pk 적용
     """
     # library = get_list_or_404(Story, many=user_pk)
     library = get_list_or_404(Story)
