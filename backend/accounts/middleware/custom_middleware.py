@@ -23,7 +23,7 @@ class JWTAuthenticationMiddleware:
                                       'api/story/save/','api/story/translate/','api/story/voice/',
                                       'api/story/list/<int:user_pk>/',
                                       'api/story/word/','api/story/test/'
-                                      ]
+                                    ]
 
     def __call__(self, request):
         current_url_pattern = resolve(request.path_info).route
