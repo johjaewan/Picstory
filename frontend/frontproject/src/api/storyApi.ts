@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
-const BASE_URL = 'https://j8d103.p.ssafy.io/api' // 연결할 서버 ip주소로 바꾸기
+// const BASE_URL = "http://192.168.100.166:8000/api"; // 테스트 서버
+const BASE_URL = 'http://j8d103.p.ssafy.io/api'
 
 // 이야기 생성
 export async function createStory(text: string, genre: string) {
@@ -12,7 +13,7 @@ export async function createStory(text: string, genre: string) {
 }
 // 이야기 가져오기
 export async function getStory(id: number) {
-  const response: AxiosResponse = await axios.get(`/api/story/${id}`)
+  const response: AxiosResponse = await axios.get(`${BASE_URL}/story/${id}`)
   return response
 }
 
@@ -63,6 +64,8 @@ export async function translateStory(content: string) {
 
 // 이야기 삭제
 export async function deleteStory(id: number) {
-  const response: AxiosResponse = await axios.delete(`/api/story/${id}`)
+  const response: AxiosResponse = await axios.delete(
+    `${BASE_URL}/story/delete/${id}`,
+  )
   return response
 }
