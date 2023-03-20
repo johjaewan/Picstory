@@ -1,31 +1,22 @@
 import axios, { AxiosResponse } from 'axios'
 
-const BASE_URL = 'https:/api'
-// 내 서재 이야기 목록
-export async function getStoryList(user_pk: number) {
-  const response: AxiosResponse = await axios.get(
-    `${BASE_URL}/story/list/${user_pk}`,
-  )
-  return response
-}
+// const BASE_URL = "http://192.168.100.166:8000/api"; // 테스트 서버
+const BASE_URL = 'https://j8d103.p.ssafy.io/api'
+
 // 이야기 생성
 export async function createStory(text: string, genre: string) {
-  console.log(text + ' ' + genre)
   const response: AxiosResponse = await axios.post(`${BASE_URL}/story/create`, {
     text: text,
     genre: genre,
   })
   return response
 }
-
+// 이야기 가져오기
 export async function getStory(id: number) {
-  const response: AxiosResponse = await axios.get(`/api/story/${id}`)
-  const info = {
-    title: 'hihi',
-    genre: 'romance',
-  }
-  return info
+  const response: AxiosResponse = await axios.get(`${BASE_URL}/story/${id}`)
+  return response
 }
+
 // 이야기 저장
 export async function postSaveStory(formData: object) {
   try {
@@ -43,4 +34,38 @@ export async function postSaveStory(formData: object) {
     console.log(error)
     return
   }
+}
+
+// 음성 생성
+export async function createVoice(content: string, genre: string) {
+  const response: AxiosResponse = await axios.post(`${BASE_URL}/story/voice`, {
+    content: content,
+    genre: genre,
+  })
+  return response
+}
+
+// 단어 번역 검색
+export async function translateWord(content: string) {
+  const response: AxiosResponse = await axios.post(`${BASE_URL}/story/word`, {
+    content: content,
+  })
+  return response
+}
+
+// 이야기 번역
+export async function translateStory(content: string) {
+  const response: AxiosResponse = await axios.post(
+    `${BASE_URL}/story/translate`,
+    { content: content },
+  )
+  return response
+}
+
+// 이야기 삭제
+export async function deleteStory(id: number) {
+  const response: AxiosResponse = await axios.delete(
+    `${BASE_URL}/story/delete/${id}`,
+  )
+  return response
 }

@@ -1,17 +1,26 @@
-import axios, { AxiosResponse } from 'axios'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useRecoilState } from 'recoil'
-import { ImageBit, genreAtom, loadingAtom, storyAtom } from '../../atoms'
-import { createStory } from '../../api/storyApi'
+import {
+  ImageBit,
+  genreAtom,
+  loadingAtom,
+  storyEn,
+  storyKo,
+  voiceAtom,
+} from '../../atoms'
+import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
 
 export default function ImageUpload() {
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
-  const [content, setContent] = useState('') // 이미지 켑셔닝 결과
-  const [story, setStory] = useRecoilState(storyAtom)
+  const [text, setText] = useState('') // 이미지 켑셔닝 결과
+  const [storyKorean, setStoryKorean] = useRecoilState(storyKo)
+  const [storyEnglish, setStoryEnglish] = useRecoilState(storyEn)
+  const [voice, setVoice] = useRecoilState(voiceAtom)
+
   const navigate = useNavigate()
 
   const clickGenre = (e: any) => {
@@ -26,6 +35,14 @@ export default function ImageUpload() {
   const Image2 = Image.substring(23)
 
   const ImageCaptioning = async () => {
+    if (!Image) {
+      alert('사진을 선택해 주세요')
+      return
+    }
+    if (!genre) {
+      alert('장르를 선택해 주세요')
+      return
+    }
     runClip()
   }
 
@@ -72,22 +89,40 @@ export default function ImageUpload() {
       .catch((error) => console.log('error', error))
   }
 
-  const sendContent = async (content: string, genre: string) => {
-    setContent(content)
-    setLoading(false)
-    const response = await createStory(content, genre)
+  const sendContent = async (text: string, genre: string) => {
+    setText(text)
+    const response = await createStory(text, genre)
+    const result = response.data.content
+    setStoryEnglish(result)
     if (response.status === 200) {
-      setStory(response.data.content_kr)
+      console.log(response.data)
+      setLoading(false)
       navigate('/storyResult')
+      makeVoice(result, genre)
+      translate(result)
     }
   }
-  const num = true
+
+  const makeVoice = async (storyEng: string, genre: string) => {
+    const response = await createVoice(storyEng, genre)
+    console.log('voice_response.data:', response.data.voice)
+    setVoice(`../../${response.data.voice}`)
+  }
+
+  const translate = async (storyEng: string) => {
+    const response = await translateStory(storyEng)
+    setStoryKorean(response.data)
+    console.log('storyEng:', response.data)
+    console.log('StoryKorean:', storyKorean)
+  }
+
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <div>
+          <audio src={voice} loop></audio>
           <div className={styles.container}>
             {items.map((item, idx) => {
               let id = 'genreBtn-' + (idx + 1)
