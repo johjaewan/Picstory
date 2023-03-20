@@ -19,8 +19,6 @@ import BGMPlayer from '../components/storyResult/bgm'
 import AudioPlayer from '../components/storyResult/audio'
 import WordSearch from '../components/storyResult/wordSearch'
 
-const style = classNames.bind(styles)
-
 export default function StoryResultPage() {
   // 모달
   const setModalOpen = useSetRecoilState(modalState)
@@ -47,55 +45,62 @@ export default function StoryResultPage() {
   const voice = useRecoilValue(voiceAtom)
 
   return (
-    <div className="story-result-container">
-      <div className={style('story-img-container')}>
-        {/* 이미지 */}
-        <ResultImg />
-        {/* 설정 버튼 */}
-        <div className={style('story-result-btns')}>
-          {/* 배경음악 */}
-          <BGMPlayer genre={genre} />
-          {/* 음성파일 */}
-          <AudioPlayer />
-          {/* 언어설정 */}
-          <button
-            disabled={storyResultKo ? false : true}
-            className={style('story-result-button')}
-            onClick={transLang}
-          >
-            {lang ? 'Korean' : '영어'}
-          </button>
-          {/* 저장 모달 */}
-          <button
-            disabled={storyResultKo && voice ? false : true} // 이게 진짜
-            // disabled={storyResultKo ? false : true} // 테스트코드
-            className={style('story-result-button')}
-            onClick={handleRegister}
-          >
-            저장
-          </button>
-          <Modal />
+    <div className={styles.container}>
+      <div className={styles.container1}>
+        <div className={styles.story_img_container}>
+          {/* 이미지 */}
+          <ResultImg />
+          {/* 설정 버튼 */}
+          <div className={styles.story_result_btns}>
+            {/* 배경음악 */}
+            <BGMPlayer genre={genre} />
+            {/* 음성파일 */}
+            <AudioPlayer />
+            {/* 언어설정 */}
+            <button
+              disabled={storyResultKo ? false : true}
+              className={styles.story_result_button}
+              onClick={transLang}
+            >
+              {lang ? 'Korean' : '영어'}
+            </button>
+            {/* 저장 모달 */}
+            <button
+              disabled={storyResultKo && voice ? false : true} // 이게 진짜
+              // disabled={storyResultKo ? false : true} // 테스트코드
+              className={styles.story_result_button}
+              onClick={handleRegister}
+            >
+              저장
+            </button>
+            <Modal />
+          </div>
+        </div>
+
+        <button className={(styles.story_result_button, styles.redo_button)}>
+          <Link to="/storyCreatePage">다시만들기</Link>
+        </button>
+      </div>
+      <div className={styles.container2}>
+        {/* 이야기 결과 */}
+        <div className={styles.content}>
+          {/* {cnt === 0 ? (
+            <TypeIt
+              options={{
+                speed: 30,
+                waitUntilVisible: true,
+              }}
+            >
+              {storyResultEn}
+            </TypeIt>
+          ) : ( */}
+          <StoryResult />
+          {/* )} */}
         </div>
       </div>
-      {/* 이야기 결과 */}
-      <div>
-        {cnt === 0 ? (
-          <TypeIt
-            options={{
-              speed: 30,
-              waitUntilVisible: true,
-            }}
-          >
-            {storyResultEn}
-          </TypeIt>
-        ) : (
-          <StoryResult />
-        )}
+      <div className={styles.container3}>
+        <WordSearch></WordSearch>
       </div>
-      <button className={style('story-result-button')}>
-        <Link to="/storyCreatePage">다시만들기</Link>
-      </button>
-      <WordSearch></WordSearch>
     </div>
   )
 }
