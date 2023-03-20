@@ -24,6 +24,7 @@ class JWTAuthenticationMiddleware:
                                       'api/story/list/<int:user_pk>/',
                                       'api/story/word/','api/story/test/',
                                       'api/vocabulary/save/', 'api/vocabulary/', 'api/vocabulary/all/',
+                                      'api/accounts/check/duplicate/email/','api/accounts/check/duplicate/nickname/'
                                     ]
 
     def __call__(self, request):
