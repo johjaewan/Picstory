@@ -77,6 +77,35 @@ def signup(request):
         return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
     
 
+
+@csrf_exempt
+def check_duplicate_email(request):
+    """이메일 중복검사
+    :param str: email
+    :return boolean: 0,1
+    """
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        if Member.objects.filter(email=email).exists():
+            return JsonResponse({'result': True})
+        else:
+            return JsonResponse({'result': False})
+        
+@csrf_exempt
+def check_duplicate_nickname(request):
+    """닉네임 중복검사
+    :param str: nickname
+    :return boolean: 0,1
+    """
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        nickname = data.get('nickname')
+        if Member.objects.filter(nickname=nickname).exists():
+            return JsonResponse({'result': True})
+        else:
+            return JsonResponse({'result': False})
+
 @csrf_exempt
 def send_email_verify_code(request):
     """이메일 인증코드 재전송
