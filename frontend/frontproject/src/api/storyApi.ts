@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
 // const BASE_URL = "http://192.168.100.166:8000/api"; // 테스트 서버
-const BASE_URL = 'http://j8d103.p.ssafy.io/api'
+const BASE_URL = 'https://j8d103.p.ssafy.io/api'
 
 // 이야기 생성
 export async function createStory(text: string, genre: string) {
