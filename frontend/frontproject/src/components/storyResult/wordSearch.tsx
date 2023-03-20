@@ -52,16 +52,15 @@ export default function WordSearch() {
             type="text"
             value={dragText}
           ></input>
+          <button className={styles.btn} onClick={search}>
+            search
+          </button>
         </div>
-        <button className={styles.btn} onClick={search}>
-          click
-        </button>
       </div>
-      <div className={styles.container}>11</div>
       {searchList.map((item) => {
         return (
           <>
-            <div>{item.text}</div>
+            <div className={styles.searchResult}>{item.text}</div>
           </>
         )
       })}
