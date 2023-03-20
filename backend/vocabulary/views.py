@@ -43,7 +43,7 @@ def get_vocabulary(request):
     if criteria == '':
         # vocabulary = Vocabulary.objects.filter(member=member).order_by('created_at')
         vocabulary = Vocabulary.objects.all().order_by('created_at')
-    else:
+    elif criteria == 'alpha':
         # vocabulary = Vocabulary.objects.filter(member=member).order_by('word')
         vocabulary = Vocabulary.objects.all().order_by('word')
 
