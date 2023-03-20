@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from decouple import config
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,14 +28,16 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'story',
-    'accounts',
+    # 'accounts',
+
+    'storages',
 
     # CORS policy
     "corsheaders",
@@ -56,8 +60,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# 인가 기본 설정을 rest_framework_simplejwt로 하겠다
-# 이것을 하면 인증인가 설정 모델의 is_active필드가 false이면 에러메세지를 반환해준다
+
+###########################AWS
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = config('AWS_REGION')
+
+###S3 Storages
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -98,9 +115,19 @@ MIDDLEWARE = [
 
 # vue origin 허용
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
+    'http://localhost:3000', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
+    'http://127.0.0.1:3000',
+    'http://localhost:8000',
     # 'http://localhost:8081',
 ]
+
+# CORS_ORIGIN_WHITELIST = [
+#        'http://127.0.0.1:8000',
+#        'http://127.0.0.1:3000',
+# ]
+
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'config.urls'
 
@@ -125,24 +152,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# 로컬 DB연결
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql', # 마지막에 원하는 db이름 넣기 ex)postgresql
-#         'NAME': 'test',  					  # db이름
-#         'USER': 'root',
-#         'PASSWORD': 'ssafy',
-#         'HOST': 'localhost',
-#         'PORT': '3306',  					  # port번호
-#         'OPTIONS':{
-#             'charset': 'utf8mb4',			  # MySQL에서 사용되는 문자 인코딩 방식을 설정
-#             								  # 4바이트 문자(이모티콘, 일부 이중바이트 문자, 특정 언어의 문자) 저장가능
-#         },
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -208,7 +217,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.Member'            
 
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.naver.com' # 메일 호스트 서버
 EMAIL_PORT = 587
@@ -224,4 +232,3 @@ SIMPLE_JWT = {
   "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
   # ...
 }
-

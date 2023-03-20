@@ -12,6 +12,7 @@ class MemberManager(BaseUserManager):
         #     return self.create_user(email, password, **extra_fields)
     """
 
+
     def create_member(self, email, password=None, **extra_fields):
         """ 일반유저 생성
         :param String email: 이메일(로그인 id)
