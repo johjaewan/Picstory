@@ -27,27 +27,26 @@ export const loadingAtom = atom({
 })
 // 영어 이야기 생성 결과
 export const storyEn = atom({
-	key: "storyEn",
-	default: "",
-});
+  key: 'storyEn',
+  default: '',
+})
 // 한글 이야기 생성 결과
 export const storyKo = atom({
-	key: "storyKo",
-	default: "",
-});
+  key: 'storyKo',
+  default: '',
+})
 // 오디오 생성 결과
 export const voiceAtom = atom({
-	key: "voiceAtom",
-	default: "",
-});
+  key: 'voiceAtom',
+  default: '',
+})
 // 모달 상태
 export const modalState = atom({
   key: 'modalState',
   default: false,
-});
+})
 // 언어 상태
 export const language = atom({
-	key: "language",
-	default: true,
-});
-
+  key: 'language',
+  default: true,
+})

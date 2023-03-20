@@ -4,7 +4,6 @@ import { voiceAtom } from '../../atoms'
 import styles from '../../assets/css/storyResultPage.module.css'
 import classNames from 'classnames/bind'
 
-
 //버튼 아이콘
 import { TbPlayerPauseFilled } from 'react-icons/tb'
 import { TbPlayerPlayFilled } from 'react-icons/tb'
@@ -17,10 +16,11 @@ export const audioState = atom<boolean>({
 
 function AudioPlayer() {
   // 재생 상태
+  const [voice, setVoice] = useRecoilState(voiceAtom)
   const myRef = useRef<HTMLAudioElement>(null)
   const [play, setPlay] = useRecoilState(audioState)
   //오디오 파일
-  const voice = useRecoilValue(voiceAtom)
+
   //테스트 오디오
 
   // 	const getModule = (moduleName: string) => {
@@ -52,9 +52,10 @@ function AudioPlayer() {
   useEffect(() => {
     if (!myRef.current) return
 
-    if (voice) {
-      const voiceFile = require(voice)
-      setVoiceAudio(voiceFile)
+    if (voice.length >= 1) {
+      // const voiceFile = require(voice)
+      const audio = new Audio(voice)
+      audio.play()
     } else {
       return
     }
