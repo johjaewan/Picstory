@@ -5,9 +5,9 @@ const TheHeader = () => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.contents}>
-				<Link to="/">
+				{/* <Link to="/">
 					<button>Logo</button>
-				</Link>
+				</Link> */}
 				{/* <h1>this is header space!</h1> */}
 				<nav className={styles.navigation}>
 					<ul>
