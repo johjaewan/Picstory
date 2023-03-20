@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.core.files import File
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -26,7 +27,7 @@ class S3Bucket:
         self.bucket_name = settings.AWS_STORAGE_BUCKET_NAME
         self.location = settings.AWS_REGION
 
-    def get_image_url(self, url):
+    def get_url(self, url):
         return f'https://{self.bucket_name}.s3.{self.location}.amazonaws.com/{url}'
 
     def upload(self, file):
@@ -50,7 +51,7 @@ class S3Bucket:
         else:
             # custom exception 구현해야 함
             raise TypeError
-
+        
         url = f'{uuid.uuid4().hex}.{file_extension}'
 
         s3_client.upload_fileobj(
@@ -79,6 +80,26 @@ class S3Bucket:
             Key=url,
         )
 
+    def upload_temp_wav(self, file):
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+        
+        url = f'create-story-wav/{uuid.uuid4().hex}.wav'
+
+        s3_client.upload_fileobj(
+            file,
+            self.bucket_name,
+            url,
+            ExtraArgs={
+                "ContentType": 'audio/wav'
+            }
+        )
+        return url
+        
+
 
 @api_view(['GET'])
 def get_story(request, story_pk):
@@ -88,8 +109,8 @@ def get_story(request, story_pk):
     :return: story 객체
     """
     story = get_object_or_404(Story, pk=story_pk)
-    story.image = S3Bucket().get_image_url(story.image)
-    story.voice = S3Bucket().get_image_url(story.voice)
+    story.image = S3Bucket().get_url(story.image)
+    story.voice = S3Bucket().get_url(story.voice)
     serializer = StoryDetailSerializer(story)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -213,7 +234,7 @@ def create_voice(request):
     """이야기로 음성 파일 생성
 
     TODO: 저장된 파일에 VC 적용
-    TODO: EC2 directory에 음성 파일 저장 확인
+    TODO: S3 저장된 음성 파일 특정 시간에 제거
     """
     print('create voice======================')
     content = request.data.get('content', False)
@@ -229,12 +250,17 @@ def create_voice(request):
 
     url = uuid.uuid4().hex
     tts_en = gTTS(text=content, lang='en')
-    tts_en.save(f'media/audio/{url}.wav')
+    tts_en.save(f'audio/{url}.wav')
     logging.info('음성 저장 완료')
 
-    file_path = f'media/audio/{url}.wav'
+    f = open(f'audio/{url}.wav', 'rb')
+    file = File(f)
 
-    return Response({'voice': file_path}, status=status.HTTP_200_OK)
+    s3 = S3Bucket()
+    s3_file_url = s3.upload_temp_wav(file)
+    s3_file_url = s3.get_url(s3_file_url)
+
+    return Response({'voice': s3_file_url}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -249,7 +275,7 @@ def get_library(request, user_pk):
     # library = get_list_or_404(Story, member=member? member_pk)
     library = get_list_or_404(Story)
     for i in range(len(library)):
-        library[i].image = S3Bucket().get_image_url(library[i].image)
+        library[i].image = S3Bucket().get_url(library[i].image)
     serializers = StoryListSerializer(library, many=True)
     return Response(serializers.data, status=status.HTTP_200_OK)
 
