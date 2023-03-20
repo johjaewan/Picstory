@@ -57,7 +57,6 @@ function AudioPlayer() {
     if (voice.length >= 1) {
       console.log('!!')
       const url = 'comedian-117016.mp3'
-
       const tmp = require(`../../assets/audio/../../${voice}`)
       console.log(tmp)
       const audio = new Audio(tmp)
@@ -73,8 +72,8 @@ function AudioPlayer() {
 
   return (
     <>
-      {/* <audio ref={myRef} src={voice} loop></audio> */}
-      {/* {play ? (
+      <audio ref={myRef} src={voice} loop></audio>
+      {play ? (
         // 일시정지 버튼
         <button
           disabled={voice ? false : true}
@@ -83,16 +82,16 @@ function AudioPlayer() {
         >
           <TbPlayerPauseFilled className={styles.sound_icon} />
         </button>
-      ) : ( */}
-      // 재생 버튼
-      <button
-        // disabled={voice ? false : true}
-        className={styles.sound_btn}
-        onClick={start}
-      >
-        <TbPlayerPlayFilled className={styles.sound_icon} />
-      </button>
-      {/* )} */}
+      ) : (
+        // 재생 버튼
+        <button
+          disabled={voice ? false : true}
+          className={styles.sound_btn}
+          onClick={start}
+        >
+          <TbPlayerPlayFilled className={styles.sound_icon} />
+        </button>
+      )}
     </>
   )
 }
