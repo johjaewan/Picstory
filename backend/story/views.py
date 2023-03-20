@@ -42,9 +42,6 @@ class S3Bucket:
             aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
         )
 
-        print('================================')
-        print(file.content_type)
-
         file_type = file.content_type.split('/')
         if file_type[0] == 'image':
             file_extension = 'jpg'
@@ -247,9 +244,9 @@ def get_library(request, user_pk):
     :param int user_pk: user id
     :return list: 유저의 story 목록 리턴
     
-    TODO: user 구현 후 user_pk 적용
+    :TODO: user 구현 후 db 컬럼명 확인
     """
-    # library = get_list_or_404(Story, many=user_pk)
+    # library = get_list_or_404(Story, member=member? member_pk)
     library = get_list_or_404(Story)
     for i in range(len(library)):
         library[i].image = S3Bucket().get_image_url(library[i].image)
@@ -287,11 +284,3 @@ def search_word(request):
         return Response({'content': trans_txt}, status=status.HTTP_200_OK)
     else:
         return Response({'error': '번역 실패'}, status=res.status_code)
-
-
-@api_view(['POST'])
-def test(request):
-
-    print('test======================')
-
-    return Response({'test success'}, status=status.HTTP_200_OK)

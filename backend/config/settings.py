@@ -28,6 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
+# TODO: EC2 서버 호스트로 지정
 ALLOWED_HOSTS = ['*']
 
 
@@ -36,7 +37,9 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'story',
     'accounts',
+    'vocabulary',
 
+    # S3
     'storages',
 
     # CORS policy
@@ -44,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'django_extensions',
-
 
     # ...
     'allauth',
@@ -60,13 +62,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-
-###########################AWS
+# AWS
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_REGION = config('AWS_REGION')
 
-###S3 Storages
+# S3 Storages
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
 AWS_S3_OBJECT_PARAMETERS = {
@@ -79,8 +80,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
-    # 'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE' : 10,
 }
 
 # redis 설정
@@ -102,32 +101,21 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
 
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-
     # custom middleware 클래스 추가
     'accounts.middleware.custom_middleware.JWTAuthenticationMiddleware',
 ]
 
-# vue origin 허용
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
+    'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
     'http://127.0.0.1:3000',
-    'http://localhost:8000',
-    # 'http://localhost:8081',
+    'https://j8D103.p.ssafy.io',
 ]
-
-# CORS_ORIGIN_WHITELIST = [
-#        'http://127.0.0.1:8000',
-#        'http://127.0.0.1:3000',
-# ]
-
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'config.urls'
 
