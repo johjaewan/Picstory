@@ -1,11 +1,4 @@
 .container {
-  background: rgb(255, 3, 93);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 3, 93, 1) 0%,
-    rgba(255, 43, 116, 1) 0%,
-    rgba(255, 0, 130, 0) 100%
-  );
   margin: 150px 100px 0 100px;
   display: flex;
   align-items: center;

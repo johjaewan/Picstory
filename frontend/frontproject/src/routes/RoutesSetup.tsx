@@ -16,5 +16,5 @@ export default function RoutesSetup() {
       <Route path="/storyDetail/:id" element={<StoryDetailPage />}></Route>
       <Route path="/Loading" element={<Loading />}></Route>
     </Routes>
-  ) 
+  )
 }
