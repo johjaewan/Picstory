@@ -16,8 +16,8 @@ class JWTAuthenticationMiddleware:
     """ 
     def __init__(self, get_response):
         self.get_response = get_response
-        self.excluded_url_patterns = ['accounts/signup/', 'accounts/login/','accounts/verify-email/',
-                                      'accounts/api/token/','accounts/resend/code/','accounts/token/refresh/',
+        self.excluded_url_patterns = ['api/accounts/signup/', 'api/accounts/login/','api/accounts/verify-email/',
+                                      'api/accounts/api/token/','api/accounts/resend/code/','api/accounts/token/refresh/',
                                       'api/story/<int:story_pk>/','api/story/create/',
                                       'api/story/delete/<int:story_pk>/',
                                       'api/story/save/','api/story/translate/','api/story/voice/',
@@ -27,7 +27,6 @@ class JWTAuthenticationMiddleware:
 
     def __call__(self, request):
         current_url_pattern = resolve(request.path_info).route
-        print(current_url_pattern)
         if current_url_pattern in self.excluded_url_patterns:
             response = self.get_response(request)
             return response
