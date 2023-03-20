@@ -9,7 +9,6 @@ import {
   storyKo,
   voiceAtom,
 } from '../atoms'
-import classNames from 'classnames/bind'
 import styles from '../assets/css/storyResultPage.module.css'
 import TypeIt from 'typeit-react'
 import StoryResult from '../components/storyResult/storyResult'
@@ -46,6 +45,9 @@ export default function StoryResultPage() {
 
   return (
     <div className={styles.container}>
+      <button className={styles.top_redo_button}>
+        <Link to="/storyCreatePage">다시만들기</Link>
+      </button>
       <div className={styles.container1}>
         <div className={styles.story_img_container}>
           {/* 이미지 */}
@@ -77,7 +79,7 @@ export default function StoryResultPage() {
           </div>
         </div>
 
-        <button className={(styles.story_result_button, styles.redo_button)}>
+        <button className={styles.bottom_redo_button}>
           <Link to="/storyCreatePage">다시만들기</Link>
         </button>
       </div>

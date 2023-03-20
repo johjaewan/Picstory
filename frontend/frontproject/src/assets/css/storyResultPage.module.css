@@ -1,42 +1,66 @@
 @media (max-width: 600px) {
-  .container1 {
-    display: flex;
-    flex-direction: column;
-    width: 90vw;
-    margin: 30px auto;
-  }
-
-  .story-img-container {
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
+  .container {
     justify-content: center;
+    margin: 100px 50px 0 50px;
+  }
+  .container1 {
   }
 
-  .story-result-image {
+  .content {
+    margin: 0 2vw;
+    /* width: 30vw; */
+  }
+  .container2 {
+  }
+  .container3 {
+    width: 20vw;
+    margin: 0 auto;
+  }
+
+  .top_redo_button {
+    font-size: 12px;
+    float: right;
+    cursor: pointer;
     border-radius: 30px;
-    margin: auto;
-    height: auto;
-    width: 70vw;
-    height: 40vw;
+    height: 30px;
+    width: 80px;
+    margin-bottom: 20px;
+    background-color: rgb(255, 255, 255);
+    border-style: none;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
 
-  .story-result-btns {
+  .bottom_redo_button {
+    display: none;
+  }
+
+  .story_img_container {
+    /* margin: auto;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px;
+    flex-direction: column; */
   }
 
-  .sound-icon {
+  .story_result_image {
+    margin: 20vh auto 2vh auto;
+    width: 300px;
+    height: 200px;
+
+    border-radius: 30px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+
+  .story_result_btns {
+    display: flex;
+    margin: 20px 0;
+  }
+
+  .sound_icon {
     margin: auto;
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
   }
 
-  .sound-btn {
+  .sound_btn {
     cursor: pointer;
     border-radius: 999px;
     height: 40px;
@@ -47,20 +71,15 @@
     margin: auto;
   }
 
-  .story-result-button {
+  .story_result_button {
     cursor: pointer;
     border-radius: 30px;
     height: 40px;
-    width: 60px;
+    width: 100px;
     margin: auto;
     background-color: rgb(255, 255, 255);
     border-style: none;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  }
-
-  .story-result-text {
-    width: 80vw;
-    margin: 30px auto;
   }
 }
 
@@ -90,6 +109,19 @@
     /* float: left;
     width: calc(20vw); */
   }
+  .top_redo_button {
+    display: none;
+  }
+  .bottom_redo_button {
+    margin: 200px 0;
+    cursor: pointer;
+    border-radius: 30px;
+    height: 50px;
+    width: 120px;
+    background-color: rgb(255, 255, 255);
+    border-style: none;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
 
   .story_img_container {
     /* margin: auto;
@@ -106,7 +138,6 @@
 
   .story_result_btns {
     display: flex;
-
     margin: 20px 0;
   }
 

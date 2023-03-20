@@ -1,32 +1,65 @@
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+@media (max-width: 600px) {
+  .container {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.wordSearch {
-  margin-bottom: 10px;
-}
+  .wordSearch {
+    display: flex;
+    margin-bottom: 10px;
+  }
 
-.wordInput {
-  width: 200px;
-  border: 1px solid black;
-  padding: 0 10px;
-}
+  .wordInput {
+    width: 200px;
+    border: 1px solid black;
+    padding: 0 10px;
+  }
 
-.searchResult {
-  text-align: center;
-}
+  .searchResult {
+    text-align: center;
+  }
 
-.redo-button {
-  display: inline;
-}
+  .redo-button {
+    display: inline;
+  }
 
-.btn {
-  margin: 0 10px;
-  width: 100px;
-  border: 1px solid black;
+  .btn {
+    margin: 0 10px;
+    width: 100px;
+    border: 1px solid black;
+  }
 }
+@media (min-width: 600px) {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.chat {
+  .wordSearch {
+    display: flex;
+    margin-bottom: 10px;
+  }
+
+  .wordInput {
+    width: 200px;
+    border: 1px solid black;
+    padding: 0 10px;
+  }
+
+  .searchResult {
+    text-align: center;
+  }
+
+  .redo-button {
+    display: inline;
+  }
+
+  .btn {
+    margin: 0 10px;
+    width: 100px;
+    border: 1px solid black;
+  }
 }
