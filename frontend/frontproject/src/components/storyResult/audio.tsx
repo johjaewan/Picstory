@@ -19,6 +19,8 @@ function AudioPlayer() {
   const [voice, setVoice] = useRecoilState(voiceAtom)
   let myRef = useRef<HTMLAudioElement | null>(null)
   const [play, setPlay] = useRecoilState(audioState)
+
+  const [url, setUrl] = useState('')
   //오디오 파일
 
   //테스트 오디오
@@ -53,11 +55,13 @@ function AudioPlayer() {
     if (!myRef.current) return
 
     if (voice.length >= 1) {
-      console.log(voice)
-      const tmp = require(voice)
-      myRef.current = new Audio(tmp)
-      // const voiceFile = require(voice)
-      console.log('333')
+      console.log('!!')
+      const url = 'comedian-117016.mp3'
+
+      const tmp = require(`../../assets/audio/../../${voice}`)
+      console.log(tmp)
+      const audio = new Audio(tmp)
+      audio.play()
     } else {
       return
     }
@@ -69,8 +73,8 @@ function AudioPlayer() {
 
   return (
     <>
-      <audio ref={myRef} src={voiceAudio} loop></audio>
-      {play ? (
+      {/* <audio ref={myRef} src={voice} loop></audio> */}
+      {/* {play ? (
         // 일시정지 버튼
         <button
           disabled={voice ? false : true}
@@ -79,16 +83,16 @@ function AudioPlayer() {
         >
           <TbPlayerPauseFilled className={styles.sound_icon} />
         </button>
-      ) : (
-        // 재생 버튼
-        <button
-          disabled={voice ? false : true}
-          className={styles.sound_btn}
-          onClick={start}
-        >
-          <TbPlayerPlayFilled className={styles.sound_icon} />
-        </button>
-      )}
+      ) : ( */}
+      // 재생 버튼
+      <button
+        // disabled={voice ? false : true}
+        className={styles.sound_btn}
+        onClick={start}
+      >
+        <TbPlayerPlayFilled className={styles.sound_icon} />
+      </button>
+      {/* )} */}
     </>
   )
 }
