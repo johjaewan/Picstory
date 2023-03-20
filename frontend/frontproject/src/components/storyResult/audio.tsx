@@ -57,10 +57,10 @@ function AudioPlayer() {
     if (voice.length >= 1) {
       console.log('!!')
       const url = 'comedian-117016.mp3'
-      const tmp = require(`../../assets/audio/../../../${voice}`)
-      console.log(tmp)
-      const audio = new Audio(tmp)
-      audio.play()
+      // const tmp = require(`../../assets/audio/../../../${voice}`)
+      // console.log(tmp)
+      // const audio = new Audio(tmp)
+      // audio.play()
     } else {
       return
     }
