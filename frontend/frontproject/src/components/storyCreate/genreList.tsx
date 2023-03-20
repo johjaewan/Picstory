@@ -35,11 +35,11 @@ export default function ImageUpload() {
   const Image2 = Image.substring(23)
 
   const ImageCaptioning = async () => {
-    if (!Image){
+    if (!Image) {
       alert('사진을 선택해 주세요')
       return
     }
-    if (!genre){
+    if (!genre) {
       alert('장르를 선택해 주세요')
       return
     }
@@ -95,6 +95,7 @@ export default function ImageUpload() {
     const result = response.data.content
     setStoryEnglish(result)
     if (response.status === 200) {
+      console.log(response.data)
       setLoading(false)
       navigate('/storyResult')
       makeVoice(result, genre)
@@ -102,7 +103,7 @@ export default function ImageUpload() {
     }
   }
 
-  const makeVoice = async (storyEng: string, genre:string) => {
+  const makeVoice = async (storyEng: string, genre: string) => {
     const response = await createVoice(storyEng, genre)
     console.log('voice_response.data:', response.data.voice)
     setVoice(`../../${response.data.voice}`)
@@ -110,7 +111,9 @@ export default function ImageUpload() {
 
   const translate = async (storyEng: string) => {
     const response = await translateStory(storyEng)
-    setStoryKorean(response.data.content)
+    setStoryKorean(response.data)
+    console.log('storyEng:', response.data)
+    console.log('StoryKorean:', storyKorean)
   }
 
   return (
@@ -119,6 +122,7 @@ export default function ImageUpload() {
         <Loading />
       ) : (
         <div>
+          <audio src={voice} loop></audio>
           <div className={styles.container}>
             {items.map((item, idx) => {
               let id = 'genreBtn-' + (idx + 1)
