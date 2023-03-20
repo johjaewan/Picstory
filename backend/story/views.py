@@ -97,7 +97,7 @@ class S3Bucket:
                 "ContentType": 'audio/wav'
             }
         )
-        return url
+        return self.get_url(url)
         
 
 
@@ -256,9 +256,7 @@ def create_voice(request):
     f = open(f'audio/{url}.wav', 'rb')
     file = File(f)
 
-    s3 = S3Bucket()
-    s3_file_url = s3.upload_temp_wav(file)
-    s3_file_url = s3.get_url(s3_file_url)
+    s3_file_url = S3Bucket().upload_temp_wav(file)
 
     return Response({'voice': s3_file_url}, status=status.HTTP_200_OK)
 
