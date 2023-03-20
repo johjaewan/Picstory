@@ -35,6 +35,14 @@ export default function ImageUpload() {
   const Image2 = Image.substring(23)
 
   const ImageCaptioning = async () => {
+    if (!Image) {
+      alert('사진을 선택해 주세요')
+      return
+    }
+    if (!genre) {
+      alert('장르를 선택해 주세요')
+      return
+    }
     runClip()
   }
 
@@ -90,18 +98,15 @@ export default function ImageUpload() {
       console.log(response.data)
       setLoading(false)
       navigate('/storyResult')
-      makeVoice(response.data)
+      makeVoice(result, genre)
       translate(result)
     }
   }
 
-  const makeVoice = async (content: string) => {
-    const response = await createVoice(content, genre)
-    const data1 = response.data
-    const data2 = URL.createObjectURL(data1)
-
-    console.log(response.data)
-    setVoice(data2)
+  const makeVoice = async (storyEng: string, genre: string) => {
+    const response = await createVoice(storyEng, genre)
+    console.log('voice_response.data:', response.data.voice)
+    setVoice(`../../${response.data.voice}`)
   }
 
   const translate = async (storyEng: string) => {
@@ -109,10 +114,6 @@ export default function ImageUpload() {
     setStoryKorean(response.data)
     console.log('storyEng:', response.data)
     console.log('StoryKorean:', storyKorean)
-  }
-
-  const trans = async () => {
-    const response = await createVoice('hihihi', 'nima')
   }
 
   return (
@@ -152,7 +153,6 @@ export default function ImageUpload() {
           <button className={styles.createBtn} onClick={ImageCaptioning}>
             이야기 만들기
           </button>
-          <button onClick={trans}>test</button>
         </div>
       )}
     </>

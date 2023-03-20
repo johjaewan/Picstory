@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 
-const BASE_URL = 'http://192.168.100.166:8000/api' // 연결할 서버 ip주소로 바꾸기
+const BASE_URL = "http://192.168.100.166:8000/api"; // 테스트 서버
+// const BASE_URL = "http://j8d103.p.ssafy.io:9999/api"; // 연결할 서버 ip주소로 바꾸기
 
 // 이야기 생성
 export async function createStory(text: string, genre: string) {
