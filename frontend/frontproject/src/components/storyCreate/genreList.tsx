@@ -35,11 +35,11 @@ export default function ImageUpload() {
   const Image2 = Image.substring(23)
 
   const ImageCaptioning = async () => {
-    if (!Image){
+    if (!Image) {
       alert('사진을 선택해 주세요')
       return
     }
-    if (!genre){
+    if (!genre) {
       alert('장르를 선택해 주세요')
       return
     }
@@ -102,10 +102,11 @@ export default function ImageUpload() {
     }
   }
 
-  const makeVoice = async (storyEng: string, genre:string) => {
+  const makeVoice = async (storyEng: string, genre: string) => {
     const response = await createVoice(storyEng, genre)
     console.log('voice_response.data:', response.data.voice)
     setVoice(`../../../${response.data.voice}`)
+    console.log('111')
   }
 
   const translate = async (storyEng: string) => {

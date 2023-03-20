@@ -53,9 +53,12 @@ function AudioPlayer() {
     if (!myRef.current) return
 
     if (voice.length >= 1) {
+      console.log('222')
+
       // const voiceFile = require(voice)
       const audio = new Audio(voice)
       audio.play()
+      console.log('333')
     } else {
       return
     }
