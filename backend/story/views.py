@@ -15,6 +15,7 @@ import openai
 import time
 import logging
 import requests
+import os
 
 
 class S3Bucket:
@@ -103,6 +104,7 @@ def delete_story(request, story_pk):
     """
     story = get_object_or_404(Story, pk=story_pk)
     S3Bucket().delete(story.image)
+    S3Bucket().delete(story.voice)
     story.delete()
     return Response('ok', status=status.HTTP_200_OK)
 
@@ -116,11 +118,11 @@ def create_story(request):
     genre = request.data.get('genre', False)
     if not genre:
         logging.error('genre가 없습니다.')
-        raise Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
     text = request.data.get('text', False)
     if not text:
         logging.error('text가 없습니다.')
-        raise Response({'error': 'text가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'text가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     openai.api_key = config('CHAT_GPT_API_KEY')
     prompt = f"make a {genre} story related the comment '{text}'"
@@ -146,6 +148,7 @@ def save_story(request):
     """이야기 저장
 
     :return str: ok
+    TODO: user 구현 시 적용
     """
     image_file = request.FILES.get('image', False)
     if not image_file:
@@ -218,19 +221,21 @@ def create_voice(request):
     print('create voice======================')
     content = request.data.get('content', False)
     if not content:
-        logging.error('content가 없습니다.')
-        raise Response({'error': 'content 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+        logging.info('content가 없습니다.')
+        print('not content')
+        return Response({'error': 'content 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
     genre = request.data.get('genre', False)
     if not genre:
-        logging.error('genre가 없습니다.')
-        raise Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+        logging.info('genre가 없습니다.')
+        print('not genre')
+        return Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     url = uuid.uuid4().hex
     tts_en = gTTS(text=content, lang='en')
     tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
-    file_path = f'home/ubuntu/media/audio/{url}.wav'
+    file_path = f'media/audio/{url}.wav'
 
     return Response({'voice': file_path}, status=status.HTTP_200_OK)
 
@@ -242,7 +247,7 @@ def get_library(request, user_pk):
     :param int user_pk: user id
     :return list: 유저의 story 목록 리턴
     
-    :TODO: user 구현 후 user_pk 적용
+    TODO: user 구현 후 user_pk 적용
     """
     # library = get_list_or_404(Story, many=user_pk)
     library = get_list_or_404(Story)
