@@ -17,7 +17,7 @@ export default function Vocabulary() {
   const getList = async (sortState: boolean) => {
     console.log('!!')
     const response = await getWordList(sortState ? '' : 'alpha')
-    setWordList(wordList.filter((item) => item.word === '-1'))
+    setWordList(wordList.filter((item) => item.word === '-3'))
     response.data.forEach((item: any) =>
       setWordList((wordList) => [...wordList, item]),
     )
