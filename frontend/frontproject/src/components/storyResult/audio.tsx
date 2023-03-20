@@ -17,7 +17,7 @@ export const audioState = atom<boolean>({
 function AudioPlayer() {
   // 재생 상태
   const [voice, setVoice] = useRecoilState(voiceAtom)
-  const myRef = useRef<HTMLAudioElement>(null)
+  let myRef = useRef<HTMLAudioElement | null>(null)
   const [play, setPlay] = useRecoilState(audioState)
   //오디오 파일
 
@@ -53,11 +53,10 @@ function AudioPlayer() {
     if (!myRef.current) return
 
     if (voice.length >= 1) {
-      console.log('222')
-
+      console.log(voice)
+      const tmp = require(voice)
+      myRef.current = new Audio(tmp)
       // const voiceFile = require(voice)
-      const audio = new Audio(voice)
-      audio.play()
       console.log('333')
     } else {
       return
