@@ -21,11 +21,5 @@ urlpatterns = [
 
 
     path('token/refresh/', token_refresh, name='refresh_token'),
-    # # access 토큰과 refresh토큰을 발급
-    # path('api/token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'), 
-
-    # # refresh토큰을 받았을 때 새로운 access토큰과 refresh토큰을 발급
-    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),  
-
     path('test/',test)
 ]

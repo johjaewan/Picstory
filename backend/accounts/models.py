@@ -4,6 +4,12 @@ class MemberManager(BaseUserManager):
     """ 회원정보 관리 매니저
     BaseUserManager 클래스를 상속받아 Member 모델의 매니저를 정의
     BaseUserManager 는 장고에서 기본으로 제공하는 user 매니저
+    #TODO:
+        # 관리자 계정 만들때 추가 코드
+        # def create_superuser(self, email, password=None, **extra_fields):
+        #     extra_fields.setdefault('is_staff', True)
+        #     extra_fields.setdefault('is_superuser', True)
+        #     return self.create_user(email, password, **extra_fields)
     """
 
     def create_member(self, email, password=None, **extra_fields):
@@ -20,14 +26,6 @@ class MemberManager(BaseUserManager):
         member.save(using=self._db)
         return member
 
-    # def create_superuser(self, email, password=None, **extra_fields):
-    #     """ 슈퍼유저 생성
-    #     is_staff와 is_superuser를 추가로 설정
-    #     """
-    #     extra_fields.setdefault('is_staff', True)
-    #     extra_fields.setdefault('is_superuser', True)
-    #     return self.create_user(email, password, **extra_fields)
-
 
 class Member(AbstractBaseUser):
     """ 커스텀 사용자 모델
@@ -37,7 +35,6 @@ class Member(AbstractBaseUser):
     :param String email: 이메일(로그인 id)
     :param String nickname: 닉네임
     :param String password: 패스워드
-
     """
     email = models.EmailField(unique=True)
     nickname = models.CharField(max_length=55, unique=True)

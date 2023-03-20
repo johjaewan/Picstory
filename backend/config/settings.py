@@ -127,37 +127,37 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # 로컬 DB연결
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # 마지막에 원하는 db이름 넣기 ex)postgresql
-        'NAME': 'test',  					  # db이름
-        'USER': 'root',
-        'PASSWORD': 'ssafy',
-        'HOST': 'localhost',
-        'PORT': '3306',  					  # port번호
-        'OPTIONS':{
-            'charset': 'utf8mb4',			  # MySQL에서 사용되는 문자 인코딩 방식을 설정
-            								  # 4바이트 문자(이모티콘, 일부 이중바이트 문자, 특정 언어의 문자) 저장가능
-        },
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': config('NAME'),
-#         'USER': config('USER'),
-#         'PASSWORD': config('PASSWORD'),
-#         'HOST': config('HOST'),
-#         'PORT': '3306',
-#         'OPTION': {
-#             'serverTimezone': 'UTC',
-#             'useUnicode': 'true',
-#             'characterEncoding': 'utf8',
-#         }
+#         'ENGINE': 'django.db.backends.mysql', # 마지막에 원하는 db이름 넣기 ex)postgresql
+#         'NAME': 'test',  					  # db이름
+#         'USER': 'root',
+#         'PASSWORD': 'ssafy',
+#         'HOST': 'localhost',
+#         'PORT': '3306',  					  # port번호
+#         'OPTIONS':{
+#             'charset': 'utf8mb4',			  # MySQL에서 사용되는 문자 인코딩 방식을 설정
+#             								  # 4바이트 문자(이모티콘, 일부 이중바이트 문자, 특정 언어의 문자) 저장가능
+#         },
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': '3306',
+        'OPTION': {
+            'serverTimezone': 'UTC',
+            'useUnicode': 'true',
+            'characterEncoding': 'utf8',
+        }
+    }
+}
 
 
 # Password validation
@@ -218,8 +218,8 @@ EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 from datetime import timedelta
 SIMPLE_JWT = {
-  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=1),
-  'REFRESH_TOKEN_LIFETIME': timedelta(seconds=600),
+  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=600),
+  'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
   # It will work instead of the default serializer(TokenObtainPairSerializer).
   "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
   # ...

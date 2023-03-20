@@ -25,11 +25,15 @@ from django.middleware.csrf import get_token
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 
-redis_client = redis.Redis(host='localhost', port=6379, db=0)
+redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0)
 
 
 @csrf_exempt
 def signup(request):
+    """회원가입
+    #TODO:
+        소셜로그인 구현 이후 docs작성
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
@@ -75,6 +79,10 @@ def signup(request):
 
 @csrf_exempt
 def send_email_verify_code(request):
+    """이메일 인증코드 재전송
+    #TODO:
+        소셜로그인 구현 이후 docs작성
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
@@ -103,6 +111,10 @@ def send_email_verify_code(request):
 
 @csrf_exempt
 def verify_email(request):
+    """이메일 인증 확인
+    #TODO:
+        소셜로그인 구현 이후 docs작성
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         # POST 요청에서 인증코드와 이메일을 받아옴
@@ -122,15 +134,20 @@ def verify_email(request):
 
 @csrf_exempt
 def login(request):
+    """로그인
+    #TODO:
+        소셜로그인 구현 이후 docs작성
+        # 쿠키가 아닌 header에 넣을 시 변경할 코드
+        # response['Refresh-Token'] = f'Bearer {str(refresh_token)}'
+        # response['Authorization'] = f'Bearer {str(access_token)}'
+        response['X-CSRFToken'] = get_token(request)
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-
         email = data.get('email')
         password = data.get('password')
         
         member = Member.objects.filter(email=email).first()
-        print(member)
-        print(member.is_active)
 
         if member is None: # 해당 email의 user가 존재하지 않는 경우
             return JsonResponse({'error': '존재하지 않는 이메일'}, status=404)
@@ -138,21 +155,14 @@ def login(request):
             return JsonResponse({'error ':'비활성화인 계정입니다'}, status=403)
         if not check_password(password, member.password): # 비밀번호에서 틀린 경우
             return JsonResponse({'error': '비밀번호가 틀렸습니다'}, status=403)
-
         token = MyTokenObtainPairSerializer.get_token(member)
         refresh_token = str(token)
         access_token = str(token.access_token)
         print('access_token=',access_token)
         print('refresh_token=',refresh_token)
-
         response = JsonResponse({'email':member.email,'nickname':member.nickname}, status=200)
         response.set_signed_cookie('access_token', access_token, httponly=True)
         response.set_signed_cookie('refresh_token', refresh_token, httponly=True)
-
-        # response['Refresh-Token'] = f'Bearer {str(refresh_token)}'
-        # response['Authorization'] = f'Bearer {str(access_token)}'
-
-        response['X-CSRFToken'] = get_token(request)
         return response
     return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)
 
@@ -160,7 +170,8 @@ def login(request):
 @csrf_exempt
 def token_refresh(request):
     """새로고침시 새로운 access_token 발송
-
+    #TODO:
+        소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
         refresh_token = request.get_signed_cookie('refresh_token', default=None)
@@ -178,12 +189,10 @@ def token_refresh(request):
             return JsonResponse({'error':'refresh 토큰이 유효하지 않습니다. 다시 로그인하여 주세요'},status=401)
     return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)   
     
-# @api_view(['POST'])
-# @csrf_exempt
+
 def test(request):
     access_token = request.COOKIES.get('access_token')
     refresh_token = request.COOKIES.get('refresh_token')
     print(access_token)
     print(refresh_token)
     return JsonResponse({'message':'access_token은 header에 refresh토큰은 cookie에 담겨 전송됨'},status = 200)
-
