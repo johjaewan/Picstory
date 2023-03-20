@@ -46,15 +46,6 @@ export default function WordSearch() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.content}>
-          Once upon a time, there was a woman named Emily who lived in a small
-          village nestled in the countryside. Emily was a kind-hearted woman who
-          loved animals and spent most of her time taking care of them. One day,
-          as Emily was walking through the village, she saw a small, scruffy cat
-          hiding in an alleyway. The cat was thin and looked as though it hadn't
-          eaten in days. Emily immediately felt sorry for the little creature
-          and picked it up, holding it close to her chest.
-        </div>
         <div className={styles.wordSearch}>
           <input
             className={styles.wordInput}
@@ -65,7 +56,6 @@ export default function WordSearch() {
         <button className={styles.btn} onClick={search}>
           click
         </button>
-        <div>result</div>
       </div>
       <div className={styles.container}>11</div>
       {searchList.map((item) => {
