@@ -7,3 +7,10 @@ class VocabularySerializer(serializers.ModelSerializer):
         model = Vocabulary
         fields = ('id', 'created_at', 'word', 'mean',)
         # read_only_fields = ('member',)
+
+
+class VocabularyListSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Vocabulary
+        fields = ('word', 'mean',)
