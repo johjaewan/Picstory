@@ -1,13 +1,11 @@
-import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 import styles from "../../assets/css/TheHeader.module.css";
 
 const TheHeader = () => {
 	return (
 		<header className={styles.header}>
 			<div className={styles.contents}>
-				<Link to="/">
-					<button>Logo</button>
-				</Link>
+				<img src= {logo} className={styles.logo}></img>
 				{/* <h1>this is header space!</h1> */}
 				<nav className={styles.navigation}>
 					<ul>
