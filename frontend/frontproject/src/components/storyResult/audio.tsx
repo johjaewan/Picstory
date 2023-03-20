@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue, atom } from 'recoil'
 import { voiceAtom } from '../../atoms'
 import styles from '../../assets/css/storyResultPage.module.css'
 import classNames from 'classnames/bind'
+
 
 //버튼 아이콘
 import { TbPlayerPauseFilled } from 'react-icons/tb'
@@ -20,6 +21,17 @@ function AudioPlayer() {
   const [play, setPlay] = useRecoilState(audioState)
   //오디오 파일
   const voice = useRecoilValue(voiceAtom)
+  //테스트 오디오
+
+  // 	const getModule = (moduleName: string) => {
+  //     const module = React.lazy(() => import(moduleName));
+  //     return module;
+  // };
+
+  //   const useCustomModule = (moduleName : string ) => {
+  //     return getModule(moduleName);
+  // };
+
   // 재생
   const start = () => {
     if (myRef.current) {
@@ -35,16 +47,26 @@ function AudioPlayer() {
     setPlay(false)
   }
 
+  const [voiceAudio, setVoiceAudio] = useState(undefined)
+
   useEffect(() => {
     if (!myRef.current) return
+
+    if (voice) {
+      const voiceFile = require(voice)
+      setVoiceAudio(voiceFile)
+    } else {
+      return
+    }
+
     if (play) {
       myRef.current.play()
     } else myRef.current.pause()
-  }, [play])
+  }, [play, voice])
 
   return (
     <>
-      <audio ref={myRef} src={voice} loop></audio>
+      <audio ref={myRef} src={voiceAudio} loop></audio>
       {play ? (
         // 일시정지 버튼
         <button
