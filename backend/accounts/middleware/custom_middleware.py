@@ -22,7 +22,8 @@ class JWTAuthenticationMiddleware:
                                       'api/story/delete/<int:story_pk>/',
                                       'api/story/save/','api/story/translate/','api/story/voice/',
                                       'api/story/list/<int:user_pk>/',
-                                      'api/story/word/','api/story/test/'
+                                      'api/story/word/','api/story/test/',
+                                      'api/vocabulary/save/', 'api/vocabulary/', 'api/vocabulary/all/',
                                     ]
 
     def __call__(self, request):
