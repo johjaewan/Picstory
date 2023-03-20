@@ -4,6 +4,7 @@ import { voiceAtom } from '../../atoms'
 import styles from '../../assets/css/storyResultPage.module.css'
 import classNames from 'classnames/bind'
 
+
 //버튼 아이콘
 import { TbPlayerPauseFilled } from 'react-icons/tb'
 import { TbPlayerPlayFilled } from 'react-icons/tb'
