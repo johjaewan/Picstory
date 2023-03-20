@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'story',
-    # 'accounts',
+    'accounts',
 
     'storages',
 
