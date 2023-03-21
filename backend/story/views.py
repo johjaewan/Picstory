@@ -36,6 +36,11 @@ class S3Bucket:
         return '/'.join(url.split('/')[-2:])
 
     def change_voice_path(self, url):
+        """S3에 저장된 파일 경로 변경
+
+        :param str url: S3 음성 파일 경로
+        :return str: DB에 저장할 새로운 음성 파일명.확장자
+        """
         s3_client = boto3.client(
             's3',
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
