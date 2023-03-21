@@ -105,8 +105,7 @@ export default function ImageUpload() {
   const makeVoice = async (storyEng: string, genre: string) => {
     const response = await createVoice(storyEng, genre)
     console.log('voice_response.data:', response.data.voice)
-    setVoice(`../../../${response.data.voice}`)
-    console.log('111')
+    setVoice(response.data.voice)
   }
 
   const translate = async (storyEng: string) => {

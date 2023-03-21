@@ -36,7 +36,7 @@ export const storyKo = atom({
   default: '',
 })
 // 오디오 생성 결과
-export const voiceAtom = atom({
+export const voiceAtom = atom<string>({
   key: 'voiceAtom',
   default: '',
 })

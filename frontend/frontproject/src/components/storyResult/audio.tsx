@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue, atom } from 'recoil'
 import { voiceAtom } from '../../atoms'
 import styles from '../../assets/css/storyResultPage.module.css'
-import classNames from 'classnames/bind'
 
 //버튼 아이콘
 import { TbPlayerPauseFilled } from 'react-icons/tb'
@@ -20,19 +19,7 @@ function AudioPlayer() {
   let myRef = useRef<HTMLAudioElement | null>(null)
   const [play, setPlay] = useRecoilState(audioState)
 
-  const [url, setUrl] = useState('')
   //오디오 파일
-
-  //테스트 오디오
-
-  // 	const getModule = (moduleName: string) => {
-  //     const module = React.lazy(() => import(moduleName));
-  //     return module;
-  // };
-
-  //   const useCustomModule = (moduleName : string ) => {
-  //     return getModule(moduleName);
-  // };
 
   // 재생
   const start = () => {
@@ -49,26 +36,13 @@ function AudioPlayer() {
     setPlay(false)
   }
 
-  const [voiceAudio, setVoiceAudio] = useState(undefined)
-
   useEffect(() => {
     if (!myRef.current) return
-
-    if (voice.length >= 1) {
-      console.log('!!')
-      const url = 'comedian-117016.mp3'
-      // const tmp = require(`../../assets/audio/../../../${voice}`)
-      // console.log(tmp)
-      // const audio = new Audio(tmp)
-      // audio.play()
-    } else {
-      return
-    }
 
     if (play) {
       myRef.current.play()
     } else myRef.current.pause()
-  }, [play, voice])
+  }, [play])
 
   return (
     <>
