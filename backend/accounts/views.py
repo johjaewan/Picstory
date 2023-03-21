@@ -70,6 +70,10 @@ def signup(request):
 
 @csrf_exempt
 def check_duplicate_email(request):
+    """이메일 중복검사
+    :param str: email
+    :return boolean: 0,1
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
@@ -81,6 +85,10 @@ def check_duplicate_email(request):
        
 @csrf_exempt
 def check_duplicate_nickname(request):
+    """닉네임 중복검사
+    :param str: nickname
+    :return boolean: 0,1
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         nickname = data.get('nickname')

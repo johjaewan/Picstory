@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, get_list_or_404
+from django.core.files import File
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
@@ -22,12 +23,44 @@ class S3Bucket:
     """S3 Bucket 접근
     """
 
+    
+
     def __init__(self):
         self.bucket_name = settings.AWS_STORAGE_BUCKET_NAME
         self.location = settings.AWS_REGION
 
-    def get_image_url(self, url):
+    def get_url(self, url):
         return f'https://{self.bucket_name}.s3.{self.location}.amazonaws.com/{url}'
+
+    def get_file_path(self, url):
+        return '/'.join(url.split('/')[-2:])
+
+    def change_voice_path(self, url):
+        """S3에 저장된 파일 경로 변경
+
+        :param str url: S3 음성 파일 경로
+        :return str: DB에 저장할 새로운 음성 파일명.확장자
+        """
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+        source_bucket = self.bucket_name
+        source_key = self.get_file_path(url)
+
+        destination_key = f'{uuid.uuid4().hex}.wav'
+
+        s3_client.copy_object(
+            Bucket=source_bucket,
+            CopySource={'Bucket': source_bucket, 'Key': source_key},
+            Key=destination_key
+        )
+        s3_client.delete_object(
+            Bucket=source_bucket,
+            Key=source_key,
+        )
+        return destination_key
 
     def upload(self, file):
         """file을 받아서 S3 Bucket에 업로드
@@ -50,7 +83,7 @@ class S3Bucket:
         else:
             # custom exception 구현해야 함
             raise TypeError
-
+        
         url = f'{uuid.uuid4().hex}.{file_extension}'
 
         s3_client.upload_fileobj(
@@ -79,6 +112,26 @@ class S3Bucket:
             Key=url,
         )
 
+    def upload_temp_wav(self, file):
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+        
+        url = f'create-story-wav/{uuid.uuid4().hex}.wav'
+
+        s3_client.upload_fileobj(
+            file,
+            self.bucket_name,
+            url,
+            ExtraArgs={
+                "ContentType": 'audio/wav'
+            }
+        )
+        return self.get_url(url)
+        
+
 
 @api_view(['GET'])
 def get_story(request, story_pk):
@@ -88,8 +141,8 @@ def get_story(request, story_pk):
     :return: story 객체
     """
     story = get_object_or_404(Story, pk=story_pk)
-    story.image = S3Bucket().get_image_url(story.image)
-    story.voice = S3Bucket().get_image_url(story.voice)
+    story.image = S3Bucket().get_url(story.image)
+    story.voice = S3Bucket().get_url(story.voice)
     serializer = StoryDetailSerializer(story)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -151,13 +204,13 @@ def save_story(request):
     if not image_file:
         logging.error('image 파일이 없습니다.')
         return Response({'error': 'image 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
-    voice_file = request.FILES.get('voice', False)
-    if not voice_file:
-        logging.error('voice 파일이 없습니다.')
-        return Response({'error': 'voice 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+    voice_path = request.POST.get('voice', False)
+    if not voice_path:
+        logging.error('voice 경로가 없습니다.')
+        return Response({'error': 'voice 경로가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     image_url = S3Bucket().upload(image_file)
-    voice_url = S3Bucket().upload(voice_file)
+    voice_url = S3Bucket().change_voice_path(voice_path)
     data = {
         'title': request.POST['title'],
         'image': image_url,
@@ -166,7 +219,7 @@ def save_story(request):
         'content_ko': request.POST['content_ko'],
         'voice': voice_url,
     }
-    print(data)
+
     serializer = StorySerializer(data=data)
     if serializer.is_valid(raise_exception=True):
         # serializer.save(user=request.user)
@@ -213,7 +266,7 @@ def create_voice(request):
     """이야기로 음성 파일 생성
 
     TODO: 저장된 파일에 VC 적용
-    TODO: EC2 directory에 음성 파일 저장 확인
+    TODO: S3 저장된 음성 파일 특정 시간에 제거
     """
     print('create voice======================')
     content = request.data.get('content', False)
@@ -232,9 +285,12 @@ def create_voice(request):
     tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
-    file_path = f'media/audio/{url}.wav'
+    f = open(f'media/audio/{url}.wav', 'rb')
+    file = File(f)
 
-    return Response({'voice': file_path}, status=status.HTTP_200_OK)
+    s3_file_url = S3Bucket().upload_temp_wav(file)
+
+    return Response({'voice': s3_file_url}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
@@ -249,7 +305,7 @@ def get_library(request, user_pk):
     # library = get_list_or_404(Story, member=member? member_pk)
     library = get_list_or_404(Story)
     for i in range(len(library)):
-        library[i].image = S3Bucket().get_image_url(library[i].image)
+        library[i].image = S3Bucket().get_url(library[i].image)
     serializers = StoryListSerializer(library, many=True)
     return Response(serializers.data, status=status.HTTP_200_OK)
 
