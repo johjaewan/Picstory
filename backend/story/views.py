@@ -23,12 +23,39 @@ class S3Bucket:
     """S3 Bucket 접근
     """
 
+    
+
     def __init__(self):
         self.bucket_name = settings.AWS_STORAGE_BUCKET_NAME
         self.location = settings.AWS_REGION
 
     def get_url(self, url):
         return f'https://{self.bucket_name}.s3.{self.location}.amazonaws.com/{url}'
+
+    def get_file_path(self, url):
+        return '/'.join(url.split('/')[-2:])
+
+    def change_voice_path(self, url):
+        s3_client = boto3.client(
+            's3',
+            aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.AWS_SECRET_ACCESS_KEY
+        )
+        source_bucket = self.bucket_name
+        source_key = self.get_file_path(url)
+
+        destination_key = f'{uuid.uuid4().hex}.wav'
+
+        s3_client.copy_object(
+            Bucket=source_bucket,
+            CopySource={'Bucket': source_bucket, 'Key': source_key},
+            Key=destination_key
+        )
+        s3_client.delete_object(
+            Bucket=source_bucket,
+            Key=source_key,
+        )
+        return destination_key
 
     def upload(self, file):
         """file을 받아서 S3 Bucket에 업로드
@@ -172,13 +199,13 @@ def save_story(request):
     if not image_file:
         logging.error('image 파일이 없습니다.')
         return Response({'error': 'image 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
-    voice_file = request.FILES.get('voice', False)
-    if not voice_file:
-        logging.error('voice 파일이 없습니다.')
-        return Response({'error': 'voice 파일이 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+    voice_path = request.POST.get('voice', False)
+    if not voice_path:
+        logging.error('voice 경로가 없습니다.')
+        return Response({'error': 'voice 경로가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     image_url = S3Bucket().upload(image_file)
-    voice_url = S3Bucket().upload(voice_file)
+    voice_url = S3Bucket().change_voice_path(voice_path)
     data = {
         'title': request.POST['title'],
         'image': image_url,
@@ -187,7 +214,7 @@ def save_story(request):
         'content_ko': request.POST['content_ko'],
         'voice': voice_url,
     }
-    print(data)
+
     serializer = StorySerializer(data=data)
     if serializer.is_valid(raise_exception=True):
         # serializer.save(user=request.user)
