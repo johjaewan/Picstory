@@ -1,5 +1,4 @@
 .btn1 {
-  margin-top: 40vh;
   width: 140px;
   height: 45px;
   font-family: 'Roboto', sans-serif;
@@ -7,7 +6,6 @@
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
-  color: #000000;
   background-color: #fff;
   border: none;
   border-radius: 45px;
@@ -15,17 +13,23 @@
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
+  animation: bounce;
   /* margin-top: 64vh; */
 }
 .btn1:hover {
-  /* background-color: #ff1778; */
-  /* box-shadow: 0px 15px 20px #ff1778, 0.7; */
-  color: #000000;
+  border: 3px solid white;
+  background-color: rgba(0, 0, 0, 0);
+  color: #ffffff;
   font-weight: 700;
-  transform: translateY(-7px);
+  transform: translateY(-15px);
 }
-
-.container {
+/* html {
+  width: 100vw;
+  height: 100vh;
+} */
+.container,
+html,
+body {
   width: 100vw;
   height: 100vh;
 
@@ -54,10 +58,6 @@
 .clear {
   clear: both;
 }
-.picstory {
-  padding-top: 25vh;
-  height: 200px;
-}
 
 h1 {
   height: 100px;
@@ -69,7 +69,7 @@ h1 span {
   display: inline-block;
   animation: bounce 0.3s ease infinite alternate;
   /* font-family: 'Titan One', cursive; */
-  font-size: 12vw;
+
   font-weight: 1000;
   color: #fff;
   text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
@@ -101,9 +101,47 @@ h1 span:nth-child(8) {
 
 @keyframes bounce {
   100% {
-    top: -20px;
+    top: -1.5vw;
     text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
       0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc,
       0 50px 25px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (min-width: 650px) {
+  .btn1 {
+    margin-top: calc(40vh);
+  }
+  .picstory {
+    padding-top: 25vh;
+    height: 200px;
+  }
+  h1 span {
+    font-size: calc(15vw - 50px);
+  }
+}
+@media (max-width: 650px) {
+  .btn1 {
+    margin-top: calc(30vh);
+  }
+  .picstory {
+    padding-top: 25vh;
+    height: 200px;
+  }
+  h1 span {
+    font-size: 9vh;
+  }
+}
+
+@media (max-height: 600px) {
+  .btn1 {
+    margin-top: calc(10vh);
+  }
+  .picstory {
+    padding-top: 20vh;
+    height: 200px;
+  }
+  h1 span {
+    font-size: 20vh;
   }
 }
