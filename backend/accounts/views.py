@@ -81,7 +81,7 @@ def check_duplicate_email(request):
             return JsonResponse({'result': True})
         else:
             return JsonResponse({'result': False})
-    return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)
+    return JsonResponse({'erorr': 'Only POST requests are allowed' },status=405)
        
 @csrf_exempt
 def check_duplicate_nickname(request):
@@ -96,7 +96,7 @@ def check_duplicate_nickname(request):
             return JsonResponse({'result': True})
         else:
             return JsonResponse({'result': False})
-    return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)
+    return JsonResponse({'erorr': 'Only POST requests are allowed' },status=405)
 
 
 
@@ -123,7 +123,7 @@ def send_email_verify_code(request):
         fail_silently = False
         send_mail(subject, message, from_email, recipient_list, fail_silently)
         return JsonResponse({'message': 'Please verify your email address'},status=200)
-    return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)
+    return JsonResponse({'erorr': 'Only POST requests are allowed' },status=405)
 
 @csrf_exempt
 def verify_email(request):
@@ -142,7 +142,7 @@ def verify_email(request):
             if value==code:
                 return JsonResponse({'result': True },status=200)
         return JsonResponse({'result': False },status=200)
-    return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)
+    return JsonResponse({'erorr': 'Only POST requests are allowed' },status=405)
 
 @csrf_exempt
 def login(request):
@@ -177,7 +177,7 @@ def login(request):
         response.set_signed_cookie('access_token', access_token, httponly=True)
         response.set_signed_cookie('refresh_token', refresh_token, httponly=True)
         return response
-    return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)
+    return JsonResponse({'erorr': 'Only POST requests are allowed' },status=405)
 
 
 @csrf_exempt
@@ -201,7 +201,7 @@ def token_refresh(request):
             return JsonResponse({'error':'refresh이 만료되었습니다. 다시 로그인하여 주세요'},status=401)
         except (TokenError,jwt.exceptions.PyJWTError):
             return JsonResponse({'error':'refresh 토큰이 유효하지 않습니다. 다시 로그인하여 주세요'},status=401)
-    return JsonResponse({'eroor': 'Only POST requests are allowed' },status=405)   
+    return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
     
 
 def test(request):
