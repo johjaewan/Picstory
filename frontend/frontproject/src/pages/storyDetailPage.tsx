@@ -71,7 +71,7 @@ export default function StoryDetailPage() {
       <div className={styles.left_container}>
         <img className={styles.image} src={storyInfo.image}></img>
         <div className={styles.btnBox}>
-          <BGMPlayer genre={storyInfo.genre} />
+          <BGMPlayer />
           <AudioPlayer />
           <button className={styles.langBtn} onClick={transLang}>
             {lang ? 'Korean' : '영어'}
