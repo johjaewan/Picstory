@@ -250,10 +250,10 @@ def create_voice(request):
 
     url = uuid.uuid4().hex
     tts_en = gTTS(text=content, lang='en')
-    tts_en.save(f'audio/{url}.wav')
+    tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
-    f = open(f'audio/{url}.wav', 'rb')
+    f = open(f'media/audio/{url}.wav', 'rb')
     file = File(f)
 
     s3_file_url = S3Bucket().upload_temp_wav(file)
