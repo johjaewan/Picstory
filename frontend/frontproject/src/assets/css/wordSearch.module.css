@@ -21,10 +21,6 @@
     text-align: center;
   }
 
-  .redo-button {
-    display: inline;
-  }
-
   .btn {
     margin-left: 10px;
     width: 100px;
@@ -45,21 +41,20 @@
 
   .wordInput {
     width: 200px;
-    border: 1px solid black;
-    padding: 0 10px;
+    border: 2px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    padding: 3px 10px;
   }
 
   .searchResult {
     text-align: center;
   }
 
-  .redo-button {
-    display: inline;
-  }
-
   .btn {
     margin-left: 10px;
-    width: 100px;
-    border: 1px solid black;
+    width: 75px;
+    background-color: rgb(255, 28, 123);
+    /* background-color: white; */
+    border-radius: 5px;
   }
 }
