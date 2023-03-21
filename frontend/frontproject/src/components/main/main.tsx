@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import TheHeader from "./TheHeader";
 import styles from "../../assets/css/main.module.css";
 import background from "../../assets/labtop.gif";
+import { Helmet } from 'react-helmet';
 
 export default function Main() {
 	return (
 		<div className="App">
-			<TheHeader></TheHeader>
+      <Helmet><title>Picstory</title></Helmet>
 			<div
 				style={{
 					paddingTop: "80px",

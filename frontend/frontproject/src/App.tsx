@@ -9,7 +9,6 @@ import { RecoilRoot } from 'recoil'
 function App() {
   return (
     <RecoilRoot>
-      <TheHeader></TheHeader>
       <BrowserRouter>
         <RoutesSetup />
       </BrowserRouter>
