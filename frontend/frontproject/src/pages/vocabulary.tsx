@@ -1,49 +1,81 @@
 import { useState, useEffect } from 'react'
-import { getWordList } from '../api/vocabulary'
+import { getWordList } from '../api/vocabularyApi'
 import styles from '../assets/css/vocabulary.module.css'
 export default function Vocabulary() {
-  const [sortState, setSortState] = useState(true)
-  const [wordList, setWordList] = useState([
+  const [isSortTime, setIsSortTime] = useState(true)
+
+  const [wordListTime, setWordListTime] = useState([
     {
-      word: '-1',
+      word: ' ',
+      mean: '',
+    },
+  ])
+  const [wordListAlpha, setWordListAlpha] = useState([
+    {
+      word: ' ',
       mean: '',
     },
   ])
 
   const click = () => {
-    getList(!sortState)
-    setSortState(!sortState)
+    getList(!isSortTime)
+    setIsSortTime(!isSortTime)
   }
-  const getList = async (sortState: boolean) => {
+  const getList = async (isSortTime: boolean) => {
+    console.log(wordListTime)
+    console.log(wordListAlpha)
     console.log('!!')
-    const response = await getWordList(sortState ? '' : 'alpha')
-    setWordList(wordList.filter((item) => item.word === '-3'))
-    response.data.forEach((item: any) =>
-      setWordList((wordList) => [...wordList, item]),
-    )
+
+    const response = await getWordList(isSortTime ? '' : 'alpha')
+
+    if (isSortTime) {
+      setWordListTime(wordListTime.filter((item) => item.word === ''))
+      response.data.forEach((item: any) =>
+        setWordListTime((wordList) => [...wordList, item]),
+      )
+    } else if (!isSortTime) {
+      setWordListAlpha(wordListAlpha.filter((item) => item.word === ''))
+      response.data.forEach((item: any) =>
+        setWordListAlpha((wordList) => [...wordList, item]),
+      )
+    }
   }
 
   useEffect(() => {
     // setWordList(wordList.filter((item) => item.word === '-2'))
     // console.log(wordList)
-    setWordList(wordList.filter((item) => item.word !== '-1'))
+    setWordListTime(wordListTime.filter((item) => item.word !== ' '))
+    setWordListAlpha(wordListAlpha.filter((item) => item.word !== ' '))
+    console.log(wordListTime)
+    console.log(wordListAlpha)
     getList(true)
+    getList(false)
   }, [])
 
   return (
     <div className={styles.container}>
       <button className={styles.sortBtn} onClick={click}>
-        알파벳순 정렬
+        {isSortTime ? '알파벳순 정렬' : '시간순 정렬'}
       </button>
+      <div className={styles.clear}></div>
       <table className={styles.word_table}>
-        {wordList.map((item) => {
-          return (
-            <tr>
-              <td className={styles.word}>{item.word}</td>
-              <td className={styles.mean}>{item.mean}</td>
-            </tr>
-          )
-        })}
+        {isSortTime
+          ? wordListTime.map((item) => {
+              return (
+                <tr className={styles.table_row}>
+                  <td className={styles.word}>{item.word}</td>
+                  <td className={styles.mean}>{item.mean}</td>
+                </tr>
+              )
+            })
+          : wordListAlpha.map((item) => {
+              return (
+                <tr>
+                  <td className={styles.word}>{item.word}</td>
+                  <td className={styles.mean}>{item.mean}</td>
+                </tr>
+              )
+            })}
       </table>
     </div>
   )
