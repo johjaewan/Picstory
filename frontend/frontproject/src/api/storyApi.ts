@@ -18,23 +18,23 @@ export async function getStory(id: number) {
 }
 
 // 이야기 저장
-export async function postSaveStory(formData: object) {
-  try {
-    const response: AxiosResponse = await axios.post(
-      `${BASE_URL}/story/`,
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      },
-    )
-    return response
-  } catch (error) {
-    console.log(error)
-    return
-  }
-}
+// export async function postSaveStory(formData: object) {
+//   try {
+//     const response: AxiosResponse = await axios.post(
+//       `${BASE_URL}/story/`,
+//       formData,
+//       {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       },
+//     )
+//     return response
+//   } catch (error) {
+//     console.log(error)
+//     return
+//   }
+// }
 
 // 음성 생성
 export async function createVoice(content: string, genre: string) {
