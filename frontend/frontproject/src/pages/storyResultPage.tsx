@@ -55,7 +55,7 @@ export default function StoryResultPage() {
           {/* 설정 버튼 */}
           <div className={styles.story_result_btns}>
             {/* 배경음악 */}
-            <BGMPlayer genre={genre} />
+            <BGMPlayer />
             {/* 음성파일 */}
             <AudioPlayer />
             {/* 언어설정 */}
