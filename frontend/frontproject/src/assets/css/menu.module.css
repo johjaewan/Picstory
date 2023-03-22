@@ -1,0 +1,11 @@
+.modal {
+  display: none;
+  left: 100px;
+}
+
+.openModal {
+  position: absolute;
+  left: 100px;
+  width: 100px;
+  height: 100px;
+}
