@@ -12,20 +12,7 @@ function StoryResult() {
 
   const lang = useRecoilValue(language)
 
-  return (
-    <>
-      {/* {lang ? storyResultEn : storyResultKo} */}
-      <div>
-        Once upon a time, there was a woman named Emily who lived in a small
-        village nestled in the countryside. Emily was a kind-hearted woman who
-        loved animals and spent most of her time taking care of them. One day,
-        as Emily was walking through the village, she saw a small, scruffy cat
-        hiding in an alleyway. The cat was thin and looked as though it hadn't
-        eaten in days. Emily immediately felt sorry for the little creature and
-        picked it up, holding it close to her chest.
-      </div>
-    </>
-  )
+  return <>{lang ? storyResultEn : storyResultKo}</>
 }
 
 export default StoryResult

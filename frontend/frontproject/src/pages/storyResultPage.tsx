@@ -8,6 +8,7 @@ import {
   storyEn,
   storyKo,
   voiceAtom,
+  colorAtom,
 } from '../atoms'
 import styles from '../assets/css/storyResultPage.module.css'
 import TypeIt from 'typeit-react'
@@ -17,6 +18,7 @@ import Modal from '../components/storyResult/modal'
 import BGMPlayer from '../components/storyResult/bgm'
 import AudioPlayer from '../components/storyResult/audio'
 import WordSearch from '../components/storyResult/wordSearch'
+import { TbColorFilter } from 'react-icons/tb'
 
 export default function StoryResultPage() {
   // 모달
@@ -42,6 +44,13 @@ export default function StoryResultPage() {
 
   // 음성 파일
   const voice = useRecoilValue(voiceAtom)
+
+  const [color, setColor] = useRecoilState(colorAtom)
+
+  if (genre === '재미') setColor('yellow')
+  else if (genre === '슬픔') setColor('gray')
+  else if (genre === '로맨스') setColor('pink')
+  else if (genre === '공포') setColor('black')
 
   return (
     <div className={styles.container}>
@@ -83,10 +92,10 @@ export default function StoryResultPage() {
           <Link to="/storyCreatePage">다시만들기</Link>
         </button>
       </div>
-      <div className={styles.container2}>
+      <div className={`${styles.container2}  ${styles[color]}`}>
         {/* 이야기 결과 */}
         <div className={styles.content}>
-          {/* {cnt === 0 ? (
+          {cnt === 0 ? (
             <TypeIt
               options={{
                 speed: 30,
@@ -95,9 +104,9 @@ export default function StoryResultPage() {
             >
               {storyResultEn}
             </TypeIt>
-          ) : ( */}
-          <StoryResult />
-          {/* )} */}
+          ) : (
+            <StoryResult />
+          )}
         </div>
       </div>
       <div className={styles.container3}>
