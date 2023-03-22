@@ -47,7 +47,7 @@ export default function ImageUpload() {
     <>
       {loading ? null : (
         <div className={styles.filebox}>
-          <div>
+          <div className={styles.container}>
             {bitImage != '' ? (
               <div className={styles.image_box}>
                 <img id={styles.image} src={bitImage} />
@@ -63,7 +63,7 @@ export default function ImageUpload() {
               </div>
             )}
           </div>
-          <input className={styles.upload_name} value={imageName} />
+          <input className={styles.upload_name} value={imageName} disabled />
           <label id={styles.bottom_label} htmlFor="file">
             파일찾기
           </label>

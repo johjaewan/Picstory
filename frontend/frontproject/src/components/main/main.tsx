@@ -1,27 +1,36 @@
-import { Link } from "react-router-dom";
-import TheHeader from "./TheHeader";
-import styles from "../../assets/css/main.module.css";
-import background from "../../assets/labtop.gif";
+import { Link } from 'react-router-dom'
+import styles from '../../assets/css/main.module.css'
+import { Helmet } from 'react-helmet'
+import { useRecoilState } from 'recoil'
+import { colorAtom } from '../../atoms'
+import { useState } from 'react'
 
 export default function Main() {
-	return (
-		<div className="App">
-			<TheHeader></TheHeader>
-			<div
-				style={{
-					paddingTop: "80px",
-					height: "100vh",
-					// 아래 코드를 삽입하면 배경이 가득찬 상태에서 반응형으로 줄여짐
-					backgroundImage: `url(${background})`,
-					backgroundRepeat: "no-repeat",
-					backgroundSize: "cover",
-					backgroundPosition: "center",
-				}}
-			>
-				<Link to="/storyCreatePage">
-					<button className={styles.btn1}>TRY</button>
-				</Link>
-			</div>
-		</div>
-	);
+  const idx = Math.floor(Math.random() * 6)
+  const [color, setColor] = useRecoilState(colorAtom)
+  const colorList = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+  setColor(colorList[idx])
+  return (
+    <div className={`${styles['container']} ${styles[color]}`}>
+      <Helmet>
+        <title>Picstory</title>
+      </Helmet>
+      <div className={styles.picstory}>
+        <h1>
+          <span>p</span>
+          <span>i</span>
+          <span>c</span>
+          <span>s</span>
+          <span>t</span>
+          <span>o</span>
+          <span>r</span>
+          <span>y</span>
+        </h1>
+      </div>
+      <div className={styles.clear}></div>
+      <Link to="/storyCreatePage">
+        <button className={styles.btn1}>TRY</button>
+      </Link>
+    </div>
+  )
 }

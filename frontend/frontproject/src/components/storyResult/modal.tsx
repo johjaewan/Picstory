@@ -46,16 +46,18 @@ export default function Modal() {
 
 		const formData = new FormData();
 
-		formData.append("image", imageFile);
-		formData.append("voice", voice);
 		formData.append("title", title);
+		formData.append("image", imageFile);
 		formData.append("genre", genre);
-		formData.append("content_ko", storyResultKo);
 		formData.append("content_en", storyResultEn);
+		formData.append("content_ko", storyResultKo);
+		formData.append("voice", voice);
 
 		await axios({
 			method: "POST",
-			url: `http://192.168.100.166:8000/api/story/save`,
+			url: `https://j8d103.p.ssafy.io/api/story/save/`,
+			// url: `http://192.168.100.166:8000/api/story/save/`,
+			
 			headers: {
 				"Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
 			},

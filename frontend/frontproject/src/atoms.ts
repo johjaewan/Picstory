@@ -50,3 +50,9 @@ export const language = atom({
   key: 'language',
   default: true,
 })
+
+// 테마 색
+export const colorAtom = atom({
+  key: 'colorAtom',
+  default: 'red',
+})
