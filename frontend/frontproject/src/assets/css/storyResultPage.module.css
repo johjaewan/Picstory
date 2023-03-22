@@ -1,20 +1,30 @@
 @media (max-width: 600px) {
+  .clear {
+    clear: both;
+  }
   .container {
     justify-content: center;
-    margin: 100px 50px 0 50px;
+    margin: 20px 30px 0 30px;
   }
   .container1 {
   }
 
   .content {
-    margin: 0 2vw;
+    margin: 0 1vw;
     /* width: 30vw; */
   }
   .container2 {
+    margin: 0 auto;
+    /* width: 300px; */
+    padding: 10px;
+    border-radius: 15px;
+  }
+  .saveBtn {
+    display: block;
   }
   .container3 {
-    width: 20vw;
-    margin: 0 auto;
+    /* width: 20vw; */
+    /* margin: 0 auto; */
   }
 
   .top_redo_button {
@@ -41,10 +51,9 @@
   }
 
   .story_result_image {
-    margin: 20vh auto 2vh auto;
+    margin: 2vh auto 2vh auto;
     width: 300px;
     height: 200px;
-
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
@@ -89,31 +98,35 @@
   .container {
     display: flex;
     justify-content: center;
-    margin: 150px 50px;
+    margin-top: 15vh;
   }
+
   .container1 {
     /* float: left;
     width: calc(20vw); */
   }
 
   .content {
+    line-height: 30px;
     width: 30vw;
   }
   .container2 {
-    /* float: left;
-    width: calc(20vw); */
     margin: 0 30px;
+    padding: 20px 30px;
+    border-radius: 15px;
   }
   .container3 {
     width: 20vw;
     /* float: left;
     width: calc(20vw); */
   }
+
   .top_redo_button {
     display: none;
   }
   .bottom_redo_button {
-    margin: 200px 0;
+    float: left;
+    margin-top: 10vh;
     cursor: pointer;
     border-radius: 30px;
     height: 50px;
@@ -174,4 +187,16 @@
     margin: auto;
     padding: 10px;
   }
+}
+.pink {
+  border: 1px solid rgb(255, 169, 208);
+}
+.gray {
+  border: 1px solid #b1b1b1;
+}
+.black {
+  border: 1px solid #424242;
+}
+.yellow {
+  border: 1px solid #f9da5b;
 }
