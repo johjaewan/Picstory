@@ -24,7 +24,7 @@
     font-size: 15px;
     cursor: pointer;
     border-radius: 30px;
-    padding: 10px 20px;
+    padding: 10px 15px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     background-color: rgb(25, 30, 139);
     color: #ffffff;
@@ -33,7 +33,7 @@
     cursor: pointer;
     border-radius: 30px;
     height: 50px;
-    width: 120px;
+    width: 130px;
     margin: 50px 50px;
     padding: auto 20px;
     background-color: rgb(255, 255, 255);
@@ -71,18 +71,42 @@
     padding: 10px 20px;
     margin: 0 3vw;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: rgb(25, 30, 139);
     color: #ffffff;
   }
   .createBtn {
     cursor: pointer;
     border-radius: 30px;
     height: 50px;
-    width: 120px;
+    width: 130px;
     margin: 50px 50px;
     padding: auto 20px;
     background-color: rgb(255, 255, 255);
     border-style: none;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   }
+}
+
+.red {
+  background: #fb4e88;
+}
+.red:hover {
+  background: #fb4e88;
+}
+.orange {
+  background: #ff9634;
+}
+.yellow {
+  background: #f9da5b;
+}
+.green {
+  background: #37d51f;
+}
+.blue {
+  background: #2279dc;
+}
+.blue:hover {
+  background: #2279dc;
+}
+.purple {
+  background: #cb39ec;
 }

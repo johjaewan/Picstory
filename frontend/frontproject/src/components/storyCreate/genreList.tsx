@@ -8,12 +8,14 @@ import {
   storyEn,
   storyKo,
   voiceAtom,
+  colorAtom,
 } from '../../atoms'
 import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
 
 export default function ImageUpload() {
+  const [color, setColor] = useRecoilState(colorAtom)
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
   const [text, setText] = useState('') // 이미지 켑셔닝 결과
@@ -134,8 +136,8 @@ export default function ImageUpload() {
                   <label
                     className={
                       items[idx] == genre
-                        ? `${styles.genre_label_active}`
-                        : `${styles.genre_label}`
+                        ? `${styles['genre_label_active']} ${styles[color]}`
+                        : `${styles['genre_label']}`
                     }
                     htmlFor={styles[`${id}`]}
                   >
