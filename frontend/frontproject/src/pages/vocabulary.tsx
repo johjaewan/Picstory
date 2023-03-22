@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
 import { getWordList } from '../api/vocabularyApi'
 import styles from '../assets/css/vocabulary.module.css'
+import { colorAtom } from '../atoms'
+
 export default function Vocabulary() {
+  const [color, setColor] = useRecoilState(colorAtom)
   const [isSortTime, setIsSortTime] = useState(true)
 
   const [wordListTime, setWordListTime] = useState([
@@ -54,7 +58,7 @@ export default function Vocabulary() {
 
   return (
     <div className={styles.container}>
-      <button className={styles.sortBtn} onClick={click}>
+      <button className={`${styles.sortBtn} ${styles[color]}`} onClick={click}>
         {isSortTime ? '알파벳순 정렬' : '시간순 정렬'}
       </button>
       <div className={styles.clear}></div>

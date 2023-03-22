@@ -128,3 +128,9 @@
     text-align: center;
   }
 }
+input:disabled {
+  background: #ffffff;
+}
+input:focus {
+  outline: none;
+}

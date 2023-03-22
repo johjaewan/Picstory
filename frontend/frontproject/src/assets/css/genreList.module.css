@@ -33,7 +33,7 @@
     cursor: pointer;
     border-radius: 30px;
     height: 50px;
-    width: 130px;
+    width: 150px;
     margin: 50px 50px;
     padding: auto 20px;
     background-color: rgb(255, 255, 255);
@@ -71,13 +71,14 @@
     padding: 10px 20px;
     margin: 0 3vw;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: rgb(25, 30, 139);
     color: #ffffff;
   }
   .createBtn {
     cursor: pointer;
     border-radius: 30px;
     height: 50px;
-    width: 130px;
+    width: 150px;
     margin: 50px 50px;
     padding: auto 20px;
     background-color: rgb(255, 255, 255);

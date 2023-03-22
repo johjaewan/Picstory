@@ -7,6 +7,7 @@ import LibraryPage from '../pages/LibraryPage'
 import Loading from '../components/storyCreate/loading'
 import NotFound from '../pages/NotFound'
 import Layout from '../components/main/Layout'
+import Vocabulary from '../pages/vocabulary'
 
 export default function RoutesSetup() {
   return (
@@ -18,6 +19,7 @@ export default function RoutesSetup() {
         <Route path="/library" element={<LibraryPage />} />
         <Route path="/storyDetail/:id" element={<StoryDetailPage />} />
         <Route path="/Loading" element={<Loading />} />
+        <Route path="/vocabulary" element={<Vocabulary />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
