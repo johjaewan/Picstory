@@ -171,7 +171,7 @@ def login(request):
         access_token = str(token.access_token)
         print('access_token=',access_token)
         print('refresh_token=',refresh_token)
-        response = JsonResponse({'email':member.email,'nickname':member.nickname}, status=200)
+        response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
         response.set_cookie("access_token", access_token, httponly=True)
         response.set_cookie("refresh_token", refresh_token, httponly=True)
         return response
