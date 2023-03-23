@@ -172,8 +172,8 @@ def login(request):
         print('access_token=',access_token)
         print('refresh_token=',refresh_token)
         response = JsonResponse({'email':member.email,'nickname':member.nickname}, status=200)
-        response.set_signed_cookie('access_token', access_token, httponly=True)
-        response.set_signed_cookie('refresh_token', refresh_token, httponly=True)
+        response.set_cookie("access_token", access_token, httponly=True)
+        response.set_cookie("refresh_token", refresh_token, httponly=True)
         return response
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
