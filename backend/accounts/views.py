@@ -164,8 +164,6 @@ def login(request):
         print(member)
         if member is None: # 해당 email의 user가 존재하지 않는 경우
             return JsonResponse({'error': '존재하지 않는 이메일'}, status=404)
-        if not member.is_active:
-            return JsonResponse({'error ':'비활성화인 계정입니다'}, status=403)
         if not check_password(password, member.password): # 비밀번호에서 틀린 경우
             return JsonResponse({'error': '비밀번호가 틀렸습니다'}, status=403)
         token = MyTokenObtainPairSerializer.get_token(member)
