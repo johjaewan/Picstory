@@ -1,11 +1,11 @@
 .container {
   text-align: center;
-  margin: 100px;
-  padding: 0 400px;
+  margin: 50px 0;
+  padding: 0 2vw;
 }
 
 .sortBtn {
-  margin: 20px 0;
+  margin: 0 5vw;
   float: right;
   color: rgb(255, 255, 255);
   /* border: 1px solid rgb(255, 26, 137); */
@@ -15,9 +15,8 @@
 }
 
 .sortBtn:hover {
-  margin: 20px 0;
+  margin: 0 5vw;
   float: right;
-  color: rgb(255, 26, 137);
   /* border: 1px solid rgb(255, 26, 137); */
   background-color: rgb(255, 255, 255);
   border-radius: 30px;
@@ -44,18 +43,42 @@
 .red {
   background: #fb4e88;
 }
+.red:hover {
+  color: #fb4e88;
+  border: 1px solid #fb4e88;
+}
 .orange {
   background: #ff9634;
+}
+.orange:hover {
+  color: #ff9634;
+  border: 1px solid #ff9634;
 }
 .yellow {
   background: #f9da5b;
 }
+.yellow:hover {
+  color: #f9da5b;
+  border: 1px solid #f9da5b;
+}
 .green {
   background: #37d51f;
+}
+.green:hover {
+  color: #37d51f;
+  border: 1px solid #37d51f;
 }
 .blue {
   background: #2279dc;
 }
+.blue:hover {
+  color: #2279dc;
+  border: 1px solid #2279dc;
+}
 .purple {
   background: #cb39ec;
+}
+.purple:hover {
+  color: #cb39ec;
+  border: 1px solid #cb39ec;
 }
