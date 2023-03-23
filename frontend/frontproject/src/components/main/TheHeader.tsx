@@ -1,5 +1,5 @@
 import styles from '../../assets/css/TheHeader.module.css'
-import { colorAtom } from '../../atoms'
+import { colorAtom, menuState } from '../../atoms'
 import { useRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import menuIcon from '../../assets/menu.png'
@@ -9,8 +9,8 @@ import Menu from '../main/menu'
 const TheHeader = () => {
   const navigation = useNavigate()
   const [color, setColor] = useRecoilState(colorAtom)
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-  console.log(modalIsOpen)
+  const [menu, setMenu] = useRecoilState(menuState)
+  console.log(menu)
   return (
     <header className={`${styles['header']} ${styles[color]}`}>
       <div className={styles.contents}>
@@ -54,7 +54,7 @@ const TheHeader = () => {
             </li>
             <li
               onClick={() => {
-                setModalIsOpen(true)
+                setMenu(true)
               }}
             >
               <img
@@ -63,13 +63,6 @@ const TheHeader = () => {
                 width={30}
                 alt=""
               />
-              <button
-                onClick={() => {
-                  setModalIsOpen(!modalIsOpen)
-                }}
-              >
-                {modalIsOpen && <Menu setModalIsOpen={setModalIsOpen}></Menu>}
-              </button>
             </li>
           </ul>
         </nav>

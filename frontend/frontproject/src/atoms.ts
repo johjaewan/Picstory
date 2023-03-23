@@ -45,6 +45,11 @@ export const modalState = atom({
   key: 'modalState',
   default: false,
 })
+// 메뉴 모달 상태
+export const menuState = atom({
+  key: 'menuState',
+  default: false,
+})
 // 언어 상태
 export const language = atom({
   key: 'language',
