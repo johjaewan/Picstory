@@ -27,63 +27,6 @@ export default function LibraryPage() {
     )
   }
 
-  const listItem = [
-    {
-      title: '사진',
-      img:
-        'https://cdn.pixabay.com/photo/2021/08/23/01/03/cubic-house-6566412_960_720.jpg',
-      id: 1,
-    },
-    {
-      title: '사진2',
-      img:
-        'https://cdn.pixabay.com/photo/2021/08/08/14/16/road-6531031_960_720.jpg',
-      id: 2,
-    },
-    {
-      title: '사진3',
-      img:
-        'https://cdn.pixabay.com/photo/2013/08/20/15/47/poppies-174276_960_720.jpg',
-      id: 3,
-    },
-    {
-      title: '사진4',
-      img:
-        'https://cdn.pixabay.com/photo/2017/02/20/18/03/cat-2083492_960_720.jpg',
-      id: 4,
-    },
-    {
-      title: '사진5',
-      img:
-        'https://cdn.pixabay.com/photo/2017/12/11/15/34/lion-3012515_960_720.jpg',
-      id: 5,
-    },
-    {
-      title: '사진6',
-      img:
-        'https://cdn.pixabay.com/photo/2018/10/01/09/21/pets-3715733_960_720.jpg',
-      id: 6,
-    },
-    {
-      title: '사진7',
-      img:
-        'https://cdn.pixabay.com/photo/2015/04/20/17/39/man-731900_960_720.jpg',
-      id: 7,
-    },
-    {
-      title: '사진8',
-      img:
-        'https://cdn.pixabay.com/photo/2016/11/23/13/48/beach-1852945_960_720.jpg',
-      id: 8,
-    },
-    {
-      title: '사진9',
-      img:
-        'https://cdn.pixabay.com/photo/2016/11/23/13/48/beach-1852945_960_720.jpg',
-      id: 9,
-    },
-  ]
-
   return (
     <div className={styles.container}>
       {listItems.map((item, idx) => {

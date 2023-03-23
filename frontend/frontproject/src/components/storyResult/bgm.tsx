@@ -62,10 +62,12 @@ function BGMPlayer() {
   const [bgm, setBgm] = useState('')
 
   const changeBgm = (idx: number) => {
+    console.log('222')
     if (genre === '재미') setBgm(funBgm[idx])
     else if (genre === '슬픔') setBgm(sadBgm[idx])
     else if (genre === '로맨스') setBgm(romanceBgm[idx])
     else if (genre === '공포') setBgm(thrillerBgm[idx])
+    console.log(genre)
     start()
   }
   // 재생

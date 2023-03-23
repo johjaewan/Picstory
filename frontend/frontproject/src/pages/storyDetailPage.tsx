@@ -6,13 +6,14 @@ import styles from '../assets/css/storyDetailPage.module.css'
 import BGMPlayer from '../components/storyResult/bgm'
 import AudioPlayer from '../components/storyResult/audio'
 import StoryResult from '../components/storyResult/storyResult'
-import { voiceAtom } from '../atoms'
+import { voiceAtom, genreAtom } from '../atoms'
 import { useRecoilState } from 'recoil'
 
 export default function StoryDetailPage() {
   const params = useParams()
   const id = Number(params.id)
   const [voice, setVoice] = useRecoilState(voiceAtom)
+  const [genre, setGenre] = useRecoilState(genreAtom)
   const navigate = useNavigate()
   const [storyInfo, setStoryInfo] = useState({
     title: '',
@@ -30,9 +31,11 @@ export default function StoryDetailPage() {
   const [lang, setLang] = useState(true)
 
   const getStoryItem = async () => {
+    console.log('111')
     const response = await getStory(id)
     const result = response.data
     setVoice(result.voice)
+    setGenre(result.genre)
     console.log(result)
 
     setStoryInfo((prevState) => {
@@ -66,12 +69,11 @@ export default function StoryDetailPage() {
 
   return (
     <div className={styles.container}>
-      {' '}
       <div className={styles.title}>{storyInfo.title}</div>
       <div className={styles.left_container}>
         <img className={styles.image} src={storyInfo.image}></img>
         <div className={styles.btnBox}>
-          <BGMPlayer />
+          {genre ? <BGMPlayer /> : null}
           <AudioPlayer />
           <button className={styles.langBtn} onClick={transLang}>
             {lang ? 'Korean' : '영어'}
