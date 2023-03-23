@@ -252,7 +252,7 @@ def translate_story(request):
     )
 
     generated_text = response['choices'][0]['message']['content']
-    generated_text = generated_text.replace("\n", "")
+    generated_text = generated_text.replace("\n", "").replace("\\", "")
 
     end_time = time.time()
     execution_time = end_time - start_time
