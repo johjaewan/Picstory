@@ -5,8 +5,6 @@ from rest_framework import status
 from .serializers import VocabularySerializer, VocabularyListSerializer
 from .models import Vocabulary
 
-import random
-
 # Create your views here.
 @api_view(['POST'])
 def save_word(request):
@@ -51,6 +49,7 @@ def get_vocabulary(request):
     return Response(serializers.data, status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
 def get_all_vocabulary(request):
     """로딩 화면에서 보여줄 단어 랜덤 조회
 
@@ -63,7 +62,6 @@ def get_all_vocabulary(request):
     # if not member.is_authenticated:
     #     return Response({"error": "권한이 없습니다."}, status=status.HTTP_401_UNAUTHORIZED)
     
-    vocabulary = Vocabulary.objects.all()[:100]
-    random.shuffle(vocabulary)
+    vocabulary = Vocabulary.objects.all().order_by('?')[:100]
     serializers = VocabularyListSerializer(vocabulary, many=True)
     return Response(serializers.data, status=status.HTTP_200_OK)
