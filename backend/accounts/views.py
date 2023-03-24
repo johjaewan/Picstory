@@ -250,8 +250,8 @@ def kakaoCallBack(request):
 @csrf_exempt
 @api_view(['POST'])
 def test(request):
-    # access_token = request.headers.get('Authorization').split(' ')[1]
+    access_token = request.headers.get('Authorization').split(' ')[1]
     # refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
-    # print(access_token)
+    print(access_token)
     # print(refresh_token)
     return JsonResponse({'message':'테스트 성공'},status = 200)
