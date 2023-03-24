@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import styles from '../../assets/css/loading.module.css'
 import loadingIcon from '../../assets/loading.gif'
-import { isFinished } from '../../atoms'
+import { isFinished, loadingAtom } from '../../atoms'
 import { list } from './wordList'
 
 export default function Loading() {
@@ -13,6 +13,7 @@ export default function Loading() {
   const [correct, setCorrect] = useState(false)
   const [incorrect, setIncorrect] = useState(false)
   const [finished, setFinished] = useRecoilState(isFinished)
+  const [loading, setLoading] = useRecoilState(loadingAtom)
   const navigation = useNavigate()
 
   useEffect(() => {
@@ -38,6 +39,7 @@ export default function Loading() {
   const move = () => {
     setCorrect(false)
     setIncorrect(false)
+    setLoading(false)
     navigation('/storyResult')
   }
   return (

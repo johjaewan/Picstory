@@ -74,6 +74,7 @@ function BGMPlayer() {
   const start = () => {
     if (myRef.current) {
       myRef.current.play()
+      myRef.current.volume = 0.5
     }
     setPlay(true)
   }
