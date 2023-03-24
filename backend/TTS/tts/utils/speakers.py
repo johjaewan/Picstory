@@ -282,20 +282,14 @@ class SpeakerManager:
 
     # Req. 2-3
     ################################################################################
-    # TODO: compute_speaker_embedding() 메소드 구현                                   #
+    # TODO: docs 추후 작성 예정                                                     #
     ################################################################################
     def compute_speaker_embedding(self, wav_file: str):
-        # d_vector=None
         sig, sr = librosa.load(wav_file, sr=16000)
         temp_tensor = torch.FloatTensor(sig).unsqueeze(0)
         return self.speaker_encoder.compute_embedding(temp_tensor)
-    ################################################################################
-    # TODO: compute_speaker_embedding() 메소드 구현                                   #
-    ################################################################################
+
     # Req. 2-4
-    ################################################################################
-    # TODO: compute_d_vector_from_clip() 메소드 구현                                  #
-    ################################################################################
     def compute_d_vector_from_clip(self, wav_file: Union[str, list]) -> list:
         """Compute a d_vector from a given audio file.
 
@@ -321,7 +315,7 @@ class SpeakerManager:
         mean_embedding = embeddings/num_files
         return mean_embedding
     ################################################################################
-    # TODO: compute_d_vector_from_clip() 메소드 구현                                  #
+    # TODO: docs 추후 작성 예정                                                     #
     ################################################################################
 
 

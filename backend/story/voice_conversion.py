@@ -21,6 +21,11 @@ import librosa
 
 
 def VC(src_file, genre):
+  """Voice Conversion 코드
+
+  :param str src_file: VC 적용시킬 음성 파일명
+  :param str genre: 이야기 장르
+  """
   start_time = time.time()
   CONFIG_SE_PATH = "config_se.json"
   CHECKPOINT_SE_PATH = "SE_checkpoint.pth.tar"
