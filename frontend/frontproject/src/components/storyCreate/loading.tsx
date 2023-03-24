@@ -47,7 +47,10 @@ export default function Loading() {
           <>
             <div className={styles.text}>이야기 생성 완료</div>
             <button className={styles.resultBtn} onClick={move}>
-              이야기 결과 보기
+              <img
+                className={styles.nextIcon}
+                src="https://cdn-icons-png.flaticon.com/512/2985/2985034.png"
+              ></img>
             </button>
           </>
         ) : (

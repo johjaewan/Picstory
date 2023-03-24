@@ -42,6 +42,18 @@
   margin: 20px auto;
   padding: 10px 0;
   width: 30%;
+  /* transition: all ease 1s; */
+  animation: sizeChange2 1s infinite alternate;
+}
+.submit:hover {
+  transform: rotate(-45deg);
+  display: block;
+  border: 1px solid black;
+  border-radius: 30px;
+  margin: 20px auto;
+  padding: 10px 0;
+  width: 30%;
+  animation: sizeChange2 0.5s infinite;
 }
 
 .notice {
@@ -73,9 +85,24 @@
 }
 .resultBtn {
   margin-left: 20px;
-  padding: 10px;
-  border: 1px solid red;
-  /* height: 120px; */
+  padding: 10px 15px;
+  border-radius: 5px;
+  /* border: 2px solid rgb(207, 255, 254); */
+  background-color: rgb(242, 242, 242);
+  /* box-shadow: 0px 5px 0px 0px rgb(213, 213, 213); */
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+}
+.resultBtn:hover {
+  margin-left: 20px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: rgb(242, 242, 242);
+  animation: sizeChange 1s linear infinite alternate;
+  /* box-shadow: 0px 0px 0px 0px rgb(213, 213, 213); */
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+}
+.nextIcon {
+  width: 20px;
 }
 
 @keyframes colorChange {
@@ -84,5 +111,39 @@
   }
   to {
     background-color: rgb(211, 255, 80);
+  }
+}
+
+@keyframes sizeChange {
+  0% {
+    transform: scale(1);
+    transform: rotate(-7deg);
+  }
+  14% {
+    transform: scale(1.1);
+    transform: rotate(7deg);
+  }
+  28% {
+    transform: scale(1);
+    transform: rotate(-7deg);
+  }
+  42% {
+    transform: scale(1.1);
+    transform: rotate(7deg);
+  }
+  70% {
+    transform: scale(1);
+    transform: rotate(-7deg);
+  }
+}
+
+@keyframes sizeChange2 {
+  50% {
+    transform: scale(1);
+    /* transform: translateY(-5px); */
+  }
+  100% {
+    transform: scale(1.1);
+    /* transform: translateY(0); */
   }
 }
