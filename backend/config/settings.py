@@ -28,6 +28,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
+REDIS_KEY = config('REDIS_KEY')
+
 # TODO: EC2 서버 호스트로 지정
 ALLOWED_HOSTS = ['*']
 
@@ -62,26 +64,62 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-# AWS
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_REGION = config('AWS_REGION')
+# # AWS
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_REGION = config('AWS_REGION')
 
-# S3 Storages
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+# # S3 Storages
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
 
+# 주석처리
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
+
+
+
+# ###
+# CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = ["*"]
+# CORS_ALLOWED_ORIGINS = [
+# 'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
+# 'http://127.0.0.1:3000',
+# 'https://j8D103.p.ssafy.io',
+# 'http://j8D103.p.ssafy.io',
+# ]
+# CORS_ALLOW_METHODS  =  [ 
+#     'DELETE' , 
+#     'GET' , 
+#     'OPTIONS' , 
+#     'PATCH' , 
+#     'POST' , 
+#     'PUT' , 
+# ]
+
+# CORS_ALLOW_HEADERS  =  [ 
+#     'accept' , 
+#     'accept-encoding' , 
+#     'Authorization' , 
+#     'Refresh-Token' ,
+#     'content-type' , 
+#     'dnt' , 
+#     'origin' , 
+#     'user-agent' , 
+#     'x-csrftoken' , 
+#     'x-requested-with' , 
+# ]
+# ###
 # redis 설정
 CACHES = {
     "default": {
@@ -92,6 +130,9 @@ CACHES = {
         }
     }
 }
+
+
+
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -108,9 +149,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # custom middleware 클래스 추가
-    'accounts.middleware.custom_middleware.JWTAuthenticationMiddleware',
+    'middleware.custom_middleware.JWTAuthenticationMiddleware',
 ]
 
+# 주석해제
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
     'http://127.0.0.1:3000',

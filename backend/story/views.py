@@ -340,3 +340,10 @@ def search_word(request):
         return Response({'content': trans_txt}, status=status.HTTP_200_OK)
     else:
         return Response({'error': '번역 실패'}, status=res.status_code)
+
+
+
+from django.http import JsonResponse
+@api_view(['POST'])
+def test(request):
+    return JsonResponse({'message':'success'})
