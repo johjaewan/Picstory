@@ -6,7 +6,7 @@ from rest_framework import status
 from decouple import config
 from gtts import gTTS
 from config import settings
-
+from .voice_conversion import VC
 
 from .models import Story
 from .serializers import StorySerializer, StoryDetailSerializer, StoryListSerializer
@@ -265,7 +265,7 @@ def translate_story(request):
 def create_voice(request):
     """이야기로 음성 파일 생성
 
-    TODO: 저장된 파일에 VC 적용
+    TODO: VC 적용 고도화 필요
     TODO: S3 저장된 음성 파일 특정 시간에 제거
     """
     print('create voice======================')
@@ -285,6 +285,10 @@ def create_voice(request):
     tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
+    # url 파일 Voice Conversion 적용
+    VC(url, genre)
+
+    # VC 적용된 url 파일
     f = open(f'media/audio/{url}.wav', 'rb')
     file = File(f)
 

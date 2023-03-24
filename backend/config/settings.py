@@ -107,7 +107,6 @@ MIDDLEWARE = [
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
 
     # 'django.middleware.csrf.CsrfViewMiddleware',
     
@@ -119,12 +118,37 @@ MIDDLEWARE = [
     'middleware.custom_middleware.JWTAuthenticationMiddleware',
 ]
 
-# 주석해제
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
-    'http://127.0.0.1:3000',
-    'https://j8D103.p.ssafy.io',
+CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOWED_ORIGINS = ["*"]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
+#     'http://127.0.0.1:3000',
+#     'https://j8D103.p.ssafy.io',
+#     'http://j8D103.p.ssafy.io',
+# ]
+
+CORS_ALLOW_METHODS  =  [ 
+    'DELETE' , 
+    'GET' , 
+    'OPTIONS' , 
+    'PATCH' , 
+    'POST' , 
+    'PUT' , 
 ]
+
+CORS_ALLOW_HEADERS  =  [ 
+    'accept' , 
+    'accept-encoding' , 
+    'Authorization' , 
+    'Refresh-Token' ,
+    'content-type' , 
+    'dnt' , 
+    'origin' , 
+    'user-agent' , 
+    'x-csrftoken' , 
+    'x-requested-with' , 
+]
+
 
 ROOT_URLCONF = 'config.urls'
 
