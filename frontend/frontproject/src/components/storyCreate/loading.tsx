@@ -52,6 +52,7 @@ export default function Loading() {
               <img
                 className={styles.nextIcon}
                 src="https://cdn-icons-png.flaticon.com/512/2985/2985034.png"
+                alt=""
               ></img>
             </button>
           </>
@@ -85,7 +86,7 @@ export default function Loading() {
           <div className={styles.box}>
             <div className={styles.word}>정답</div>
             <div className={styles.answer}>
-              {list[idx].word} : {list[idx].mean}
+              {list[idx].word} {list[idx].mean}
             </div>
             <button
               className={`${styles['submit']} ${styles['nextBtn']}`}
@@ -99,7 +100,7 @@ export default function Loading() {
           <div className={styles.box}>
             <div className={styles.word}>오답</div>
             <div className={styles.answer}>
-              {list[idx].word} : {list[idx].mean}
+              {list[idx].word} {list[idx].mean}
             </div>
 
             <button
