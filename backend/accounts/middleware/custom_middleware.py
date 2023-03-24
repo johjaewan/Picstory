@@ -33,11 +33,12 @@ class JWTAuthenticationMiddleware:
             response = self.get_response(request)
             return response
         response = self.get_response(request)
-        access_token = request.get_signed_cookie('access_token', default=None)
+        access_token = request.headers.get('Authorization').split(' ')[1]
+        print(access_token)
         if not access_token:
             return JsonResponse({'error': 'access 토큰이 필요합니다.'}, status=401)
         try:
-            payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+            jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         # access_token이 만료되었을때
         except jwt.ExpiredSignatureError:
             return JsonResponse({'error':'access_token이 만료되었습니다.'},status=401)
