@@ -18,7 +18,6 @@ import Modal from '../components/storyResult/modal'
 import BGMPlayer from '../components/storyResult/bgm'
 import AudioPlayer from '../components/storyResult/audio'
 import WordSearch from '../components/storyResult/wordSearch'
-import { TbColorFilter } from 'react-icons/tb'
 
 export default function StoryResultPage() {
   // 모달
@@ -78,7 +77,6 @@ export default function StoryResultPage() {
             {/* 저장 모달 */}
             <button
               disabled={storyResultKo && voice ? false : true} // 이게 진짜
-              // disabled={storyResultKo ? false : true} // 테스트코드
               className={styles.story_result_button}
               onClick={handleRegister}
             >

@@ -1,89 +1,55 @@
-import styles from '../assets/css/libraryPage.module.css'
 import { getStoryList } from '../api/libraryApi'
-import { useEffect, useState } from 'react'
-
+import { useCallback, useEffect, useState } from 'react'
+import Card from '../components/storyResult/card'
+import { useNavigate } from 'react-router-dom'
 export default function LibraryPage() {
-  const [listItems, setListItems] = useState([
-    {
-      created_at: '',
-      id: -1,
-      title: '',
-      image: '',
-      genre: '',
-    },
-  ])
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    setListItems(listItems.filter((item) => item.id !== -1))
-    console.log('useEffect')
-    getList()
-  }, [])
-
-  const getList = async () => {
-    const response = await getStoryList(1)
-    console.log(response.data)
-    response.data.forEach((item: any) =>
-      setListItems((listItems) => [...listItems, item]),
-    )
+  // 이야기 리스트
+  interface storyDetailsType {
+      created_at: string
+      id: number
+      title: string
+      image: string
+      genre: string
   }
 
+  const [newlistItems, setNewListItems] = useState<storyDetailsType[]>([])
+  // 이야기 받아오기
+  const handleLoad = useCallback(
+    
+    async () => {
+      try{
+        const response = await getStoryList(1);
+        if (!response) return;
+  
+        const item = response.data;
+        
+        setNewListItems((prevItems) => [...prevItems, ...item]);
+      }
+      catch(error) {
+        navigate('/404')
+      }
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    handleLoad()
+  }, [handleLoad])
+
   return (
-    <div className={styles.container}>
-      {listItems.map((item, idx) => {
-        //listItem -> listItems로 바꾸기
-        // 확인 요청. Warning: Each child in a list should have a unique "key" prop. 키 값 필요.
-        if ((idx + 1) % 3 === 0)
+    <section className="mx-auto mt-[50px] aut xl:w-8/12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 p-5 justify-items-center min-w-fit ">
+      {newlistItems.map((item, idx) => {
           return (
-            <>
-              <div
-                className={styles.item_box}
-                onClick={() => {
-                  window.location.href = `storyDetail/${item.id}`
-                }}
-              >
-                <img
-                  className={styles.image}
-                  src={item.image}
-                  alt="imageName"
-                ></img>
-                <div className={styles.title}>{item.title}</div>
-              </div>
-              <div className={styles.clear_line}></div>{' '}
-            </>
-          )
-        else if ((idx + 1) % 3 === 2)
-          return (
-            <div
-              className={styles.item_box_second}
-              onClick={() => {
-                window.location.href = `storyDetail/${item.id}`
-              }}
-            >
-              <img
-                className={styles.image}
-                src={item.image}
-                alt="imageName"
-              ></img>
-              <div className={styles.title}>{item.title}</div>
-            </div>
-          )
-        else
-          return (
-            <div
-              className={styles.item_box}
-              onClick={() => {
-                window.location.href = `storyDetail/${item.id}`
-              }}
-            >
-              <img
-                className={styles.image}
-                src={item.image}
-                alt="imageName"
-              ></img>
-              <div className={styles.title}>{item.title}</div>
+            <div key={idx} onClick={() => {
+              window.location.href = `storyDetail/${item.id}`
+            }}>
+              <Card imageSrc={item.image} title={item.title} id={item.id}></Card>
             </div>
           )
       })}
-    </div>
+    </section>
+
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useRecoilState, atom, RecoilState } from 'recoil'
+import { useRecoilState, atom, useRecoilValue } from 'recoil'
 import { genreAtom } from '../../atoms'
 import styles from '../../assets/css/storyResultPage.module.css'
 import fun1 from '../../assets/audio/fun/fun1.mp3'
@@ -27,7 +27,6 @@ import thriller5 from '../../assets/audio/thriller/thriller5.mp3'
 import { RiMusic2Fill } from 'react-icons/ri'
 import { TbMusicOff } from 'react-icons/tb'
 
-//음원 출처: https://pixabay.com/ko/music/
 //배경음악 플레이, 일시정지
 export const playState = atom<boolean>({
   key: 'playState',
@@ -38,42 +37,29 @@ function BGMPlayer() {
   // 재생 상태
   const myRef = useRef<HTMLAudioElement>(null)
   const [play, setPlay] = useRecoilState(playState)
-  // 오디오 파일
-  // interface audioFileType {
-  //   [key: string]: [value: string]
-  // }
 
-  const [genre, setGenre] = useRecoilState(genreAtom)
+  const genre = useRecoilValue(genreAtom)
+  let idx: number = Math.floor(Math.random() * 3)
+  // 장르별 배경음악 파일
+  const funBgm: string[] = [fun1, fun2, fun3, fun4, fun5]
+  const sadBgm: string[] = [sad1, sad2, sad3, sad4, sad5]
+  const romanceBgm: string[] = [romance1, romance2, romance3, romance4, romance5]
+  const thrillerBgm: string[] = [thriller1, thriller2, thriller3, thriller4, thriller5]
+  
+  const [bgm, setBgm] = useState<string>('')
 
-  let idx = Math.floor(Math.random() * 3)
-
-  const funBgm = [fun1, fun2, fun3, fun4, fun5]
-  const sadBgm = [sad1, sad2, sad3, sad4, sad5]
-  const romanceBgm = [romance1, romance2, romance3, romance4, romance5]
-  const thrillerBgm = [thriller1, thriller2, thriller3, thriller4, thriller5]
-
-  //   const audioFile: audioFileType = {
-  //     재미:[]=[fun1, fun2, fun3, fun4, fun5],
-  //     슬픔:=[fun1, fun2, fun3, fun4, fun5],
-  //    재미=[fun1, fun2, fun3, fun4, fun5],
-  //  재미=[fun1, fun2, fun3, fun4, fun5],
-  //   }
-
-  const [bgm, setBgm] = useState('')
-
-  const changeBgm = (idx: number) => {
-    console.log('222')
+    const changeBgm = (idx: number) => {
     if (genre === '재미') setBgm(funBgm[idx])
     else if (genre === '슬픔') setBgm(sadBgm[idx])
     else if (genre === '로맨스') setBgm(romanceBgm[idx])
     else if (genre === '공포') setBgm(thrillerBgm[idx])
-    console.log(genre)
     start()
   }
   // 재생
   const start = () => {
     if (myRef.current) {
       myRef.current.play()
+      myRef.current.volume=0.5
     }
     setPlay(true)
   }
@@ -86,7 +72,6 @@ function BGMPlayer() {
   }
 
   useEffect(() => {
-    idx = Math.floor(Math.random() * 3)
     changeBgm(idx)
   }, [])
 
