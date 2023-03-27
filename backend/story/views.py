@@ -7,23 +7,21 @@ from decouple import config
 from gtts import gTTS
 from config import settings
 from .voice_conversion import VC
+from accounts.models import Member
 
 from .models import Story
 from .serializers import StorySerializer, StoryDetailSerializer, StoryListSerializer
 import boto3
 import uuid
 import openai
-import time
 import logging
 import requests
-import os
+import jwt
 
 
 class S3Bucket:
     """S3 Bucket 접근
     """
-
-    
 
     def __init__(self):
         self.bucket_name = settings.AWS_STORAGE_BUCKET_NAME
@@ -68,7 +66,6 @@ class S3Bucket:
         :param file: (이미지 or 음성 파일)
         :return str: s3에 저장될 url 리턴
         """
-        print(type(file))
         s3_client = boto3.client(
             's3',
             aws_access_key_id=settings.AWS_ACCESS_KEY_ID,
@@ -140,7 +137,11 @@ def get_story(request, story_pk):
     :param int story_pk:
     :return: story 객체
     """
-    story = get_object_or_404(Story, pk=story_pk)
+    access_token = request.headers.get('Authorization').split(' ')[1]
+    payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+    member_id = payload.get('user_id')
+
+    story = get_object_or_404(Story, pk=story_pk, member_id=member_id)
     story.image = S3Bucket().get_url(story.image)
     story.voice = S3Bucket().get_url(story.voice)
     serializer = StoryDetailSerializer(story)
@@ -152,7 +153,11 @@ def delete_story(request, story_pk):
     """이야기 삭제
 
     """
-    story = get_object_or_404(Story, pk=story_pk)
+    access_token = request.headers.get('Authorization').split(' ')[1]
+    payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+    member_id = payload.get('user_id')
+
+    story = get_object_or_404(Story, pk=story_pk, member_id=member_id)
     S3Bucket().delete(story.image)
     S3Bucket().delete(story.voice)
     story.delete()
@@ -198,8 +203,13 @@ def save_story(request):
     """이야기 저장
 
     :return str: ok
-    TODO: user 구현 시 적용
     """
+    access_token = request.headers.get('Authorization').split(' ')[1]
+    payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+    member_id = payload.get('user_id')
+
+    member = get_object_or_404(Member, pk=member_id)
+
     image_file = request.FILES.get('image', False)
     if not image_file:
         logging.error('image 파일이 없습니다.')
@@ -222,8 +232,7 @@ def save_story(request):
 
     serializer = StorySerializer(data=data)
     if serializer.is_valid(raise_exception=True):
-        # serializer.save(user=request.user)
-        serializer.save()
+        serializer.save(member=member)
         return Response('ok', status=status.HTTP_200_OK)
 
 
@@ -233,15 +242,12 @@ def translate_story(request):
 
     :return str: 한글로 번역한 글
     """
-    print('translate================================')
-    start_time = time.time()
     content = request.data.get('content', False)
     if not content:
         logging.error('content가 없습니다.')
         return Response({'error': 'content가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     openai.api_key = config('CHAT_GPT_API_KEY')
-    start_time = time.time()
     model = "gpt-3.5-turbo"
     response = openai.ChatCompletion.create(
         model=model,
@@ -254,10 +260,6 @@ def translate_story(request):
     generated_text = response['choices'][0]['message']['content']
     generated_text = generated_text.replace("\n", "").replace("\\", "")
 
-    end_time = time.time()
-    execution_time = end_time - start_time
-    print(f"Execution time: {execution_time} seconds")
-    print(generated_text)
     return Response({'content': generated_text}, status=status.HTTP_200_OK)
 
 
@@ -266,7 +268,7 @@ def create_voice(request):
     """이야기로 음성 파일 생성
 
     TODO: VC 적용 고도화 필요
-    TODO: S3 저장된 음성 파일 특정 시간에 제거
+    TODO: 마무리할 때 음성 파일 로컬 저장 경로 주석 삭제
     """
     print('create voice======================')
     content = request.data.get('content', False)
@@ -282,6 +284,7 @@ def create_voice(request):
 
     url = uuid.uuid4().hex
     tts_en = gTTS(text=content, lang='en')
+    # tts_en.save(f'audio/{url}.wav')
     tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
@@ -289,6 +292,7 @@ def create_voice(request):
     VC(url, genre)
 
     # VC 적용된 url 파일
+    # f = open(f'audio/{url}.wav', 'rb')
     f = open(f'media/audio/{url}.wav', 'rb')
     file = File(f)
 
@@ -298,16 +302,17 @@ def create_voice(request):
 
 
 @api_view(['GET'])
-def get_library(request, user_pk):
+def get_library(request):
     """유저의 서재 출력
 
     :param int user_pk: user id
     :return list: 유저의 story 목록 리턴
-    
-    :TODO: user 구현 후 db 컬럼명 확인
     """
-    # library = get_list_or_404(Story, member=member? member_pk)
-    library = get_list_or_404(Story)
+    access_token = request.headers.get('Authorization').split(' ')[1]
+    payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+    member_id = payload.get('user_id')
+
+    library = get_list_or_404(Story, member_id=member_id)
     for i in range(len(library)):
         library[i].image = S3Bucket().get_url(library[i].image)
     serializers = StoryListSerializer(library, many=True)
