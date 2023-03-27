@@ -76,8 +76,7 @@ def signup(request):
             elif not code:
                 return JsonResponse({'error': 'Code field is required'}, status=400)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-
-
+    
 
 
 def check_duplicate_email(request):
@@ -126,7 +125,6 @@ def send_email_verify_code(request):
         if redis_client.exists(email):
             redis_client.delete(email)
         redis_client.set(email,code,ex=3600)
-
         print(code)
         # 이메일 보내기
         subject = "Verify your email address"
