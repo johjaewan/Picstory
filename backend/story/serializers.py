@@ -6,7 +6,6 @@ class StorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Story
         fields = ('id', 'created_at', 'title', 'image', 'genre', 'content_en', 'content_ko', 'voice')
-        # read_only_fields = ('user',)
 
 
 class StoryDetailSerializer(serializers.ModelSerializer):
@@ -22,5 +21,4 @@ class StoryListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Story
-        fields = ('created_at', 'id', 'title', 'image', 'genre',)
-        # read_only_fields = ('user',)
+        fields = ('created_at', 'id', 'title', 'image', 'genre')

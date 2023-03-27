@@ -25,6 +25,7 @@ def VC(src_file, genre):
 
   :param str src_file: VC 적용시킬 음성 파일명
   :param str genre: 이야기 장르
+  TODO: 마무리 시 로컬 저장 경로 주석 삭제
   """
   start_time = time.time()
   CONFIG_SE_PATH = "config_se.json"
@@ -81,11 +82,15 @@ def VC(src_file, genre):
       return target_emb, driving_emb
 
   # 서버 로컬 폴더
-  target_files = [f"/usr/src/app/story/source/{genre}/tar.wav",
-                  f"/usr/src/app/story/source/{genre}/tar1.wav",
-                  ]
+  target_files = [
+    #   f"{settings.BASE_DIR}/story/source/{genre}/tar.wav",
+    #   f"{settings.BASE_DIR}/story/source/{genre}/tar1.wav",
+      f"/usr/src/app/story/source/{genre}/tar.wav",
+      f"/usr/src/app/story/source/{genre}/tar1.wav",
+  ]
   # 서버에 저장된 기본 음성 파일
   driving_file = f"/usr/src/app/media/audio/{src_file}.wav"
+#   driving_file = f"{settings.BASE_DIR}/audio/{src_file}.wav"
   driving_file = [driving_file]
   driving_spec = compute_spec(driving_file[0])
 
@@ -104,4 +109,5 @@ def VC(src_file, genre):
 
   # VC 적용된 파일 저장
   write(f"media/audio/{src_file}.wav", SAMPLING_RATE, ref_wav_voc)
+#   write(f"audio/{src_file}.wav", SAMPLING_RATE, ref_wav_voc)
 
