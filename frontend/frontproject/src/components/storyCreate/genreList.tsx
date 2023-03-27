@@ -9,6 +9,7 @@ import {
   storyKo,
   voiceAtom,
   colorAtom,
+  isFinished,
 } from '../../atoms'
 import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
@@ -91,8 +92,7 @@ export default function ImageUpload() {
     const result = response.data.content
     setStoryEnglish(result)
     if (response.status === 200) {
-      setLoading(false)
-      navigate('/storyResult')
+      setFinished(true)
       makeVoice(result, genre)
       translate(result)
     }

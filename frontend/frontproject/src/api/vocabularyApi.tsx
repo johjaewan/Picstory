@@ -16,3 +16,8 @@ export async function saveWord(word: string, mean: string) {
 	});
 	return response;
 }
+
+export async function getRandomWord() {
+  const response: AxiosResponse = await axios.get(`${BASE_URL}/vocabulary/all/`)
+  return response
+}
