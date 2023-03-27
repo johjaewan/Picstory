@@ -24,11 +24,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.middleware.csrf import get_token
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
+from django.shortcuts import redirect
+import requests
 
-redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0)
 
 
-@csrf_exempt
+redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = settings.REDIS_KEY)
+
+
 def signup(request):
     """회원가입
     #TODO:
@@ -72,10 +75,7 @@ def signup(request):
             elif not code:
                 return JsonResponse({'error': 'Code field is required'}, status=400)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-    
 
-
-@csrf_exempt
 def check_duplicate_email(request):
     """이메일 중복검사
     :param str: email
@@ -90,7 +90,6 @@ def check_duplicate_email(request):
             return JsonResponse({'result': False})
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
        
-@csrf_exempt
 def check_duplicate_nickname(request):
     """닉네임 중복검사
     :param str: nickname
@@ -105,9 +104,6 @@ def check_duplicate_nickname(request):
             return JsonResponse({'result': False})
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-
-
-@csrf_exempt
 def send_email_verify_code(request):
     """이메일 인증코드 전송
     #TODO:
@@ -134,7 +130,6 @@ def send_email_verify_code(request):
         return JsonResponse({'message': 'Please verify your email address'},status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-@csrf_exempt
 def verify_email(request):
     """이메일 인증 확인
     #TODO:
@@ -154,7 +149,6 @@ def verify_email(request):
         return JsonResponse({'result': False },status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-@csrf_exempt
 def login(request):
     """로그인
     #TODO:
@@ -191,8 +185,6 @@ def login(request):
         return response
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-
-@csrf_exempt
 def token_refresh(request):
     """새로고침시 새로운 access_token 발송
     #TODO:
@@ -214,8 +206,47 @@ def token_refresh(request):
             return JsonResponse({'error':'Your refresh token has expired. Please log in again to obtain a new one'},status=401)
         except (TokenError,jwt.exceptions.PyJWTError):
             return JsonResponse({'error':'Invalid refresh token'},status=401)
-    return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
+    return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
     
+def kakao_login(request):
+    code = request.GET.get('code')
+    print(code)
+    client_id = settings.CLIENT_ID
+    redirect_uri = "https://j8d103.p.ssafy.io/"
+    return redirect(
+        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
+    )
+
+def kakao_callback(request):
+    print(request)
+    code = request.GET.get("code")
+    client_id = settings.CLIENT_ID
+    redirect_uri = "https://j8d103.p.ssafy.io/"
+
+    token_request = requests.get(
+        f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
+    )
+    token_json = token_request.json()
+    error = token_json.get("error",None)
+    if error is not None :
+        return JsonResponse({"message": "INVALID_CODE"}, status = 400)
+    access_token = token_json.get("access_token")
+    print("token_json : ",token_json)
+    print("access_token : ",access_token)
+    profile_request = requests.get(
+        "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+    )
+    profile_json = profile_request.json()
+    print("profile_json : ",profile_json)
+    kakao_account = profile_json.get("kakao_account")
+    print(profile_json)
+    email = kakao_account.get("email", None)
+    print(email)
+
+
+    # 회원가입
+    return JsonResponse({'message': email },status=200)
+
 
 def test(request):
     access_token = request.headers.get('Authorization').split(' ')[1]

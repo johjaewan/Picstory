@@ -17,26 +17,31 @@ class JWTAuthenticationMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         self.excluded_url_patterns = ['api/accounts/signup/', 'api/accounts/login/','api/accounts/verify/email/',
-                                      'api/accounts/api/token/','api/accounts/send/code/','api/accounts/token/refresh/',
+                                      'api/accounts/token/','api/accounts/send/code/','api/accounts/token/refresh/',
+                                      'api/accounts/kakao/login/',
                                       'api/story/<int:story_pk>/','api/story/create/',
                                       'api/story/delete/<int:story_pk>/',
                                       'api/story/save/','api/story/translate/','api/story/voice/',
                                       'api/story/list/<int:user_pk>/',
-                                      'api/story/word/','api/story/test/',
+                                      'api/story/word/',
                                       'api/vocabulary/save/', 'api/vocabulary/', 'api/vocabulary/all/',
                                       'api/accounts/check/duplicate/email/','api/accounts/check/duplicate/nickname/'
                                     ]
 
     def __call__(self, request):
         current_url_pattern = resolve(request.path_info).route
+        print('current_url_pattern :',current_url_pattern)
         if current_url_pattern in self.excluded_url_patterns:
             response = self.get_response(request)
             return response
         response = self.get_response(request)
-        access_token = request.headers.get('Authorization').split(' ')[1]
+
+        try:
+            access_token = request.headers.get('Authorization').split(' ')[1]
+        except (AttributeError, IndexError, TypeError) as e:
+            return JsonResponse({'error': 'access 양식이 잘못되었습니다.'}, status=401)
+        
         print(access_token)
-        if not access_token:
-            return JsonResponse({'error': 'access 토큰이 필요합니다.'}, status=401)
         try:
             jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         # access_token이 만료되었을때
