@@ -29,9 +29,15 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
+REDIS_KEY = config('REDIS_KEY')
+
 # TODO: EC2 서버 호스트로 지정
 ALLOWED_HOSTS = ['*']
 
+REDIS_KEY = config('REDIS_KEY')
+
+
+CLIENT_ID = config('CLIENT_ID')
 
 # Application definition
 
@@ -77,11 +83,13 @@ AWS_S3_OBJECT_PARAMETERS = {
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
+# 주석처리
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
+
 
 # redis 설정
 CACHES = {
@@ -108,7 +116,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # custom middleware 클래스 추가
-    'accounts.middleware.custom_middleware.JWTAuthenticationMiddleware',
+    'middleware.custom_middleware.JWTAuthenticationMiddleware',
 ]
 
 # 모든 호스트 허용

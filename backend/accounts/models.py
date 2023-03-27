@@ -39,7 +39,7 @@ class Member(AbstractBaseUser):
     """
     email = models.EmailField(unique=True)
     nickname = models.CharField(max_length=55, unique=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     objects = MemberManager()
     USERNAME_FIELD = 'email'
 

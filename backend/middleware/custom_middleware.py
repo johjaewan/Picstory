@@ -29,6 +29,7 @@ class JWTAuthenticationMiddleware:
 
     def __call__(self, request):
         current_url_pattern = resolve(request.path_info).route
+        print(current_url_pattern)
         if current_url_pattern in self.excluded_url_patterns:
             response = self.get_response(request)
             return response

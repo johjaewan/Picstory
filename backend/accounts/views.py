@@ -24,11 +24,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.middleware.csrf import get_token
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
+from django.shortcuts import redirect
+import requests
 
-redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0)
+
+from django.shortcuts import redirect
+
+redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = settings.REDIS_KEY)
 
 
-@csrf_exempt
 def signup(request):
     """회원가입
     #TODO:
@@ -75,7 +79,6 @@ def signup(request):
     
 
 
-@csrf_exempt
 def check_duplicate_email(request):
     """이메일 중복검사
     :param str: email
@@ -90,7 +93,6 @@ def check_duplicate_email(request):
             return JsonResponse({'result': False})
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
        
-@csrf_exempt
 def check_duplicate_nickname(request):
     """닉네임 중복검사
     :param str: nickname
@@ -107,7 +109,7 @@ def check_duplicate_nickname(request):
 
 
 
-@csrf_exempt
+
 def send_email_verify_code(request):
     """이메일 인증코드 전송
     #TODO:
@@ -134,7 +136,7 @@ def send_email_verify_code(request):
         return JsonResponse({'message': 'Please verify your email address'},status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-@csrf_exempt
+
 def verify_email(request):
     """이메일 인증 확인
     #TODO:
@@ -143,6 +145,7 @@ def verify_email(request):
     if request.method == 'POST':
         # request body에서 email, code받기
         data = json.loads(request.body.decode('utf-8'))
+        # POST 요청에서 인증코드와 이메일을 받아옴
         email = data.get('email')
         code = data.get('code')
         # 사용자가 보낸 code와 redis에 저장된 code가 일치하는지 확인
@@ -154,7 +157,7 @@ def verify_email(request):
         return JsonResponse({'result': False },status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-@csrf_exempt
+
 def login(request):
     """로그인
     #TODO:
@@ -162,8 +165,6 @@ def login(request):
         # 쿠키가 아닌 header에 넣을 시 변경할 코드
         # response['Refresh-Token'] = f'Bearer {str(refresh_token)}'
         # response['Authorization'] = f'Bearer {str(access_token)}'
-        response.set_cookie("access_token", access_token, httponly=False)
-        response.set_cookie("refresh_token", refresh_token, httponly=False)
         response['X-CSRFToken'] = get_token(request)
     """
     if request.method == 'POST':
@@ -192,7 +193,6 @@ def login(request):
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
 
-@csrf_exempt
 def token_refresh(request):
     """새로고침시 새로운 access_token 발송
     #TODO:
@@ -216,10 +216,50 @@ def token_refresh(request):
             return JsonResponse({'error':'Invalid refresh token'},status=401)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
     
+def kakao_login(request):
+    code = request.GET.get('code')
+    print(code)
+    client_id = settings.CLIENT_ID
+    redirect_uri = "https://j8d103.p.ssafy.io/"
+    return redirect(
+        f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
+    )
 
+def kakao_callback(request):
+    print(request)
+    code = request.GET.get("code")
+    client_id = settings.CLIENT_ID
+    redirect_uri = "https://j8d103.p.ssafy.io/"
+
+    token_request = requests.get(
+        f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
+    )
+    token_json = token_request.json()
+    error = token_json.get("error",None)
+    if error is not None :
+        return JsonResponse({"message": "INVALID_CODE"}, status = 400)
+    access_token = token_json.get("access_token")
+    print("token_json : ",token_json)
+    print("access_token : ",access_token)
+    profile_request = requests.get(
+        "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+    )
+    profile_json = profile_request.json()
+    print("profile_json : ",profile_json)
+    kakao_account = profile_json.get("kakao_account")
+    print(profile_json)
+    email = kakao_account.get("email", None)
+    print(email)
+
+
+    # 회원가입
+    return JsonResponse({'message': email },status=200)
+
+@csrf_exempt
+@api_view(['POST'])
 def test(request):
     access_token = request.headers.get('Authorization').split(' ')[1]
-    refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
-    print("access_token",access_token)
-    print("refresh_token",refresh_token)
-    return JsonResponse({'message':"인증성공"},status = 200)
+    # refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
+    print(access_token)
+    # print(refresh_token)
+    return JsonResponse({'message':'테스트 성공'},status = 200)
