@@ -84,7 +84,7 @@ function BGMPlayer() {
 
   return (
     <>
-      <audio ref={myRef} src={bgm} loop autoPlay></audio>
+      <audio ref={myRef} src={bgm} loop></audio>
       {play ? (
         // 일시정지 버튼
         <button className={styles.sound_btn} onClick={stop}>

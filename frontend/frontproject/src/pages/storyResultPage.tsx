@@ -86,6 +86,8 @@ export default function StoryResultPage() {
           </div>
         </div>
 
+
+
         <button className={styles.bottom_redo_button}>
           <Link to="/storyCreatePage">다시만들기</Link>
         </button>

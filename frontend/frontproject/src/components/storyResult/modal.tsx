@@ -53,14 +53,21 @@ export default function Modal() {
 		formData.append("content_ko", storyResultKo);
 		formData.append("voice", voice);
 
+		let access_token = localStorage.getItem("access_token");
+		if (access_token) {
+			access_token = JSON.parse(access_token);
+		}
+
 		await axios({
 			method: "POST",
-			url: `https://j8d103.p.ssafy.io/api/story/save/`,
-			
+			// url: `https://j8d103.p.ssafy.io/api/story/save/`,
+			url: `http://192.168.100.166:8000/api/story/save/`,
+
 			headers: {
-				"Content-Type": "multipart/form-data", 
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${access_token}`,
 			},
-			data: formData, 
+			data: formData,
 		})
 			.then((result) => {
 				setTitle("");
