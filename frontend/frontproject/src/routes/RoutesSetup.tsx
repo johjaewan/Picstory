@@ -19,7 +19,7 @@ export default function RoutesSetup() {
 			<Route path="/" element={<Main />} />
 			<Route element={<Layout />}>
 				<Route path="/user" element={<UserPage />} />
-				<Route path="/LoginForm" element={<LoginForm />} />
+				<Route path="/Login" element={<LoginForm />} />
 				<Route path="/signUp" element={<SignUp />} />
 				<Route path="/storyCreatePage" element={<StoryCreatePage />} />
 				<Route path="/storyResult" element={<StoryResultPage />} />
