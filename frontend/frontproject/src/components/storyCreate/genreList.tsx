@@ -22,7 +22,7 @@ export default function ImageUpload() {
   const setStoryKorean = useSetRecoilState(storyKo)
   const setStoryEnglish = useSetRecoilState(storyEn)
   const setVoice = useSetRecoilState(voiceAtom)
-
+  const [finished, setFinished] = useRecoilState(isFinished)
   const navigate = useNavigate()
 
   // 장르

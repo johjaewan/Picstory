@@ -18,6 +18,6 @@ export async function saveWord(word: string, mean: string) {
 }
 
 export async function getRandomWord() {
-  const response: AxiosResponse = await axios.get(`${BASE_URL}/vocabulary/all/`)
+  const response: AxiosResponse = await customAxios.get(`/vocabulary/all/`)
   return response
 }
