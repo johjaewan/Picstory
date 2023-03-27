@@ -1,9 +1,9 @@
-import UserSignUp from '../components/user/UserSignUp'
+import SignUp from "../components/user/SignUp";
 
 export default function userPage() {
-  return (
-    <div style={{ textAlign: 'center' }}>
-      <UserSignUp></UserSignUp>
-    </div>
-  )
+	return (
+		<div style={{ textAlign: "center" }}>
+			<SignUp></SignUp>
+		</div>
+	);
 }

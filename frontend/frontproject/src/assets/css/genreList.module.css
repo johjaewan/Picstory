@@ -1,7 +1,8 @@
 @media (max-width: 600px) {
   .container {
     text-align: center;
-    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
   }
 
   #genreBtn-1,
@@ -9,7 +10,7 @@
   #genreBtn-3,
   #genreBtn-4 {
     opacity: 0;
-    margin-top: 50px;
+    margin: 50px 0;
   }
 
   .genre_label {
@@ -47,6 +48,8 @@
 @media (min-width: 600px) {
   .container {
     text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   #genreBtn-1,

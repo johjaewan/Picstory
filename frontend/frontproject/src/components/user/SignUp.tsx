@@ -1,16 +1,28 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { signup, emailCheck } from "../../api/userAPI";
+import { signup, emailCheck, sendCode, checkCode } from "../../api/userAPI";
 
 import styles from "../../assets/css/testLogin.module.css";
 
 function SignUp() {
 	const navigate = useNavigate();
-	const { watch } = useForm();
-	// console.log(watch("password"));
 
-	const password = useRef();
+	const {
+		register,
+		handleSubmit,
+		getValues,
+		setError,
+		watch,
+		formState: { isSubmitting, isDirty, errors },
+		// isDirty는 어떤 필드든 사용자 입력이 있었는지 확인할 때 사용
+	} = useForm<FormData>();
+
+	// const { getValues, watch } = useForm();
+	// console.log(watch("email"));
+	// const email = useRef<string>();
+	// let email2 = (email.current = watch("email"));
+	const password = useRef<string>();
 	password.current = watch("password");
 
 	type FormData = {
@@ -18,16 +30,20 @@ function SignUp() {
 		password: string;
 		configPassword: string;
 		nickname: string;
+		code: string;
 	};
+
+	console.log(getValues("password"));
+	console.log(getValues("configPassword"));
 
 	//이메일 중복체크
 	const onEmailCheck = async () => {
-		const email = getValues("email");
-		console.log("email입니다", email);
 		try {
+			const email = getValues("email");
+			console.log("email", email);
+
 			const res = await emailCheck(email);
-			console.log("이메일중복체크응답res.data:", res.data);
-			console.log("이메일중복체크응답res.data:", res);
+			console.log("이메일 중복 체크 응답 res.data:", res.data);
 
 			if (res.status === 200) {
 				alert("사용 가능한 메일입니다.😊");
@@ -38,27 +54,67 @@ function SignUp() {
 		}
 	};
 
+	//이메일 인증 코드 보내기
+	const onEmailCodeSend = async () => {
+		try {
+			const email = getValues("email");
+			const res = await sendCode(email);
+			console.log("email 인증 코드 보내기", email);
+			console.log("res.data:", res.data);
+
+			if (res.status === 200) {
+				alert("해당 이메일에서 인증 코드를 확인해주세요");
+			}
+		} catch (error) {
+			alert("인증코드 전송이 실패되었습니다.");
+			console.log(error);
+		}
+	};
+
+	//이메일 인증 코드 보내기
+	const onEmailCodeCheck = async () => {
+		try {
+			const email = getValues("email");
+			const code = getValues("code");
+			const res = await checkCode(email, code);
+			console.log("email", email);
+			console.log("code", code);
+			console.log("res.data:", res.data);
+
+			if (res.status === 200) {
+				alert("인증 되었습니다.");
+			}
+		} catch (error) {
+			alert("올바른 인증코드를 작성해주세요 ");
+			console.log(error);
+		}
+	};
+
+	//비밀번호 확인
+	const onValid = (data: FormData) => {
+		if (data.password !== data.configPassword) {
+			setError(
+				"configPassword", // 에러 핸들링할 input요소 name
+				{ message: "비밀번호가 일치하지 않습니다." }, // 에러 메세지
+				{ shouldFocus: true } // 에러가 발생한 input으로 focus 이동
+			);
+		}
+	};
+
 	// 회원가입 제출
 	const onSubmit = async (data: FormData) => {
 		try {
-			const res = await signup(data.email, data.password, data.nickname);
+			const res = await signup(
+				data.email,
+				data.password,
+				data.nickname,
+				data.code
+			);
 			console.log("res 회원가입: ", res);
 			// 회원가입 요청 성공 시 메인 페이지 이동
 			const result = res.data;
 			if (res.status === 200) {
-				// sessionStorage에 이메일과 닉네임 저장
-				sessionStorage.setItem("userEmail", result.email);
-				sessionStorage.setItem("userNick", result.nickname);
-				// localStorage에 토큰 저장
-				localStorage.setItem(
-					"access_token",
-					JSON.stringify(result.access_token)
-				);
-				localStorage.setItem(
-					"refresh_token",
-					JSON.stringify(result.refresh_token)
-				);
-				//mainPage로 이동하기
+				alert("회원가입 완료!");
 				navigate("/");
 			}
 		} catch (error) {
@@ -66,14 +122,6 @@ function SignUp() {
 			console.log(error);
 		}
 	};
-
-	const {
-		register,
-		handleSubmit,
-		getValues,
-		formState: { isSubmitting, isDirty, errors },
-		// isDirty는 어떤 필드든 사용자 입력이 있었는지 확인할 때 사용
-	} = useForm<FormData>();
 
 	return (
 		<form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
@@ -94,8 +142,27 @@ function SignUp() {
 			/>
 			{errors.email && <small role="alert">{errors.email.message}</small>}
 			<button type="button" onClick={onEmailCheck}>
-				이메일중복확인
+				이메일 중복 체크
 			</button>
+
+			<label htmlFor="text">이메일 인증코드</label>
+			<input
+				id="code"
+				type="text"
+				placeholder="이메일 주소의 인증코드를 확인해주세요"
+				aria-invalid={!isDirty ? undefined : errors.code ? "true" : "false"}
+				{...register("code", {
+					required: "이메일 인증코드는 필수 입력입니다.",
+				})}
+			/>
+			{errors.code && <small role="alert">{errors.code.message}</small>}
+			<button type="button" onClick={onEmailCodeSend}>
+				이메일 인증코드 전송
+			</button>
+			<button type="button" onClick={onEmailCodeCheck}>
+				이메일 인증코드 체크
+			</button>
+
 			<label htmlFor="nickname">닉네임</label>
 			<input
 				id="nickname"
@@ -131,25 +198,27 @@ function SignUp() {
 				})}
 			/>
 			{errors.password && <small role="alert">{errors.password.message}</small>}
-			<label htmlFor="password">비밀번호 확인</label>
+
+			<label htmlFor="configPassword">비밀번호 확인</label>
 			<input
 				id="configPassword"
 				type="password"
-				placeholder="특수문자, 영어대/소문자, 숫자 포함 8글자 이상 "
+				placeholder="특수문자, 영어 대/소문자, 숫자 포함 8글자 이상 "
 				aria-invalid={
 					!isDirty ? undefined : errors.configPassword ? "true" : "false"
 				}
-				{...register("password", {
+				{...register("configPassword", {
 					required: "비밀번호는 필수 입력입니다.",
 					validate: (value) => value === password.current,
 				})}
 			/>
-			{errors.configPassword && (
+
+			{/* {errors.configPassword && (
 				<small role="alert">
 					{errors.configPassword.type === "required"} &&
 					<p> 비밀번호 확인은 필수 값입니다.</p>
 				</small>
-			)}
+			)} */}
 			{errors.configPassword && (
 				<small role="alert">
 					{errors.configPassword.type === "validate"}&&

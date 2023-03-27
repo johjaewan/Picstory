@@ -10,7 +10,7 @@ import Layout from "../components/main/Layout";
 import Vocabulary from "../pages/vocabulary";
 import Menu from "../components/main/menu";
 import UserPage from "../pages/userPage";
-import UserSignUp from "../components/user/UserSignUp";
+import SignUp from "../components/user/SignUp";
 import LoginForm from "../components/user/Login";
 
 export default function RoutesSetup() {
@@ -20,7 +20,7 @@ export default function RoutesSetup() {
 			<Route element={<Layout />}>
 				<Route path="/user" element={<UserPage />} />
 				<Route path="/LoginForm" element={<LoginForm />} />
-				<Route path="/signUp" element={<UserSignUp />} />
+				<Route path="/signUp" element={<SignUp />} />
 				<Route path="/storyCreatePage" element={<StoryCreatePage />} />
 				<Route path="/storyResult" element={<StoryResultPage />} />
 				<Route path="/library" element={<LibraryPage />} />
