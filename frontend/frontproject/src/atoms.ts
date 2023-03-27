@@ -61,3 +61,8 @@ export const colorAtom = atom({
   key: 'colorAtom',
   default: 'red',
 })
+
+export const isFinished = atom({
+  key: 'isFinished',
+  default: false,
+})

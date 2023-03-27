@@ -9,6 +9,7 @@ import {
   storyKo,
   voiceAtom,
   colorAtom,
+  isFinished,
 } from '../../atoms'
 import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
@@ -22,6 +23,7 @@ export default function ImageUpload() {
   const [storyKorean, setStoryKorean] = useRecoilState(storyKo)
   const [storyEnglish, setStoryEnglish] = useRecoilState(storyEn)
   const [voice, setVoice] = useRecoilState(voiceAtom)
+  const [finished, setFinished] = useRecoilState(isFinished)
 
   const navigate = useNavigate()
 
@@ -97,8 +99,7 @@ export default function ImageUpload() {
     const result = response.data.content
     setStoryEnglish(result)
     if (response.status === 200) {
-      setLoading(false)
-      navigate('/storyResult')
+      setFinished(true)
       makeVoice(result, genre)
       translate(result)
     }

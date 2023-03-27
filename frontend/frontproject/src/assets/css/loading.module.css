@@ -1,0 +1,125 @@
+@keyframes move {
+  from {
+    color: rgb(194, 194, 194);
+  }
+  to {
+    color: rgb(104, 104, 104);
+  }
+}
+
+.container {
+  /* height: 85vh; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid blue; */
+}
+.box {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  width: 550px;
+  height: 500px;
+}
+.word {
+  margin: 90px 0;
+  font-size: 80px;
+  font-weight: 800;
+  /* border: 1px solid blue; */
+}
+
+.input {
+  border: 1px solid black;
+  border-radius: 30px;
+  height: 10%;
+  width: 70%;
+  padding: 10px;
+  text-align: center;
+}
+
+.submit {
+  display: block;
+  border: 1px solid black;
+  border-radius: 30px;
+  margin: 20px auto;
+  padding: 10px 0;
+  width: 30%;
+  animation: sizeChange 1s infinite alternate;
+}
+.submit:hover {
+  display: block;
+  border: 1px solid black;
+  border-radius: 30px;
+  margin: 20px auto;
+  padding: 10px 0;
+  width: 30%;
+  animation: sizeChange 0s infinite alternate;
+  transform: scale(1.1);
+}
+
+.notice {
+  margin: 5px;
+  animation: move 0.5s linear infinite alternate;
+}
+
+.answer {
+  font-size: 20px;
+}
+.spinner {
+  display: block;
+  width: 120px;
+}
+.topBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+}
+.text {
+  float: left;
+  font-size: 20px;
+  width: 200px;
+  padding-left: 40px;
+}
+.nextBtn {
+  animation: sizeChange 0.6s linear infinite alternate;
+}
+.resultBtn {
+  margin-left: 20px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  /* border: 2px solid rgb(207, 255, 254); */
+  background-color: rgb(242, 242, 242);
+  /* box-shadow: 0px 5px 0px 0px rgb(213, 213, 213); */
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+}
+.resultBtn:hover {
+  margin-left: 20px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: rgb(242, 242, 242);
+  animation: sizeChange 1s linear infinite alternate;
+  /* box-shadow: 0px 0px 0px 0px rgb(213, 213, 213); */
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+}
+.nextIcon {
+  width: 20px;
+}
+
+@keyframes colorChange {
+  from {
+    border: 1px solid rgb(210, 210, 210);
+  }
+  to {
+    border: 1px solid black;
+  }
+}
+
+@keyframes sizeChange {
+  50% {
+    transform: scale(1);
+    /* transform: translateY(-5px); */
+  }
+  100% {
+    transform: scale(1.1);
+    /* transform: translateY(0); */
+  }
+}
