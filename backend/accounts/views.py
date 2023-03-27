@@ -39,19 +39,23 @@ def signup(request):
         소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
+        # request body의 email,password,nickname,code 받기
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
         password = data.get('password')
         nickname = data.get('nickname')
         code = data.get('code')
+        # email,password,nickname,code이 모두 있는지 확인
         if email and password and nickname and code:
             if Member.objects.filter(email=email).exists():
                 return JsonResponse({'error': 'Email is already registered'}, status=409)
             if Member.objects.filter(nickname=nickname).exists():
                 return JsonResponse({'error': 'Nickname is already taken'}, status=409)
 
+            # 레디스에 저장된 code와 일치하는지 확인
             if redis_client.exists(email):
                 value = redis_client.get(email).decode()
+                # 이메일 인증코드까지 유효하다면 회원저장
                 if value==code:
                     member = Member(email=email, nickname=nickname)
                     member.set_password(password)
@@ -104,15 +108,18 @@ def send_email_verify_code(request):
         소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
+        # request body에서 email 받기
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
 
+        # email-code쌍으로 레디스에 저장
         code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
         if redis_client.exists(email):
             redis_client.delete(email)
         redis_client.set(email,code,ex=3600)
 
         print(code)
+        # 이메일 보내기
         subject = "Verify your email address"
         message = f"Your verification code is: {code}"
         from_email = settings.EMAIL_HOST_USER
@@ -128,10 +135,12 @@ def verify_email(request):
         소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
+        # request body에서 email, code받기
         data = json.loads(request.body.decode('utf-8'))
         # POST 요청에서 인증코드와 이메일을 받아옴
         email = data.get('email')
         code = data.get('code')
+        # 사용자가 보낸 code와 redis에 저장된 code가 일치하는지 확인
         if redis_client.exists(email):
             value = redis_client.get(email).decode()
             # 이메일과 인증코드를 이용하여 사용자 인증 처리
@@ -150,27 +159,29 @@ def login(request):
         response['X-CSRFToken'] = get_token(request)
     """
     if request.method == 'POST':
+        # request body에서 email, password 추출
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
         print(email)
         password = data.get('password')
         
+        # 해당 email의 user가져오기
         member = Member.objects.filter(email=email).first()
         print(member)
-        if member is None: # 해당 email의 user가 존재하지 않는 경우
-            return JsonResponse({'error': '존재하지 않는 이메일'}, status=404)
 
+        # user가 있는지, 비밀번호가 맞는지 확인
+        if member is None:
+            return JsonResponse({'error': 'Email does not exist'}, status=404)
         if not check_password(password, member.password): # 비밀번호에서 틀린 경우
-            return JsonResponse({'error': '비밀번호가 틀렸습니다'}, status=403)
+            return JsonResponse({'error': 'Incorrect password'}, status=403)
+        
+        # 유효성검증 이후 jwt생성
         token = MyTokenObtainPairSerializer.get_token(member)
         refresh_token = str(token)
         access_token = str(token.access_token)
-        print('access_token=',access_token)
-        print('refresh_token=',refresh_token)
-        response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
 
-        response['Refresh-Token'] = f'Bearer {str(refresh_token)}'
-        response['Authorization'] = f'Bearer {str(access_token)}'
+        # response body에 사용자 정보와 jwt 저장
+        response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
         return response
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
@@ -180,21 +191,20 @@ def token_refresh(request):
         소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
-        refresh_token = request.get_signed_cookie('refresh_token', default=None)
-        try:
-            jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=['HS256'])
-            print(refresh_token)
-            refresh = RefreshToken(refresh_token)
-            print(refresh)
-            access_token = str(refresh.access_token)
-            response = JsonResponse({'message':'새로운 access_token 발급'})
-            response.set_signed_cookie('access_token', access_token, httponly=True)
-            return response
-        except jwt.ExpiredSignatureError:
-            return JsonResponse({'error':'refresh이 만료되었습니다. 다시 로그인하여 주세요'},status=401)
-        except (TokenError,jwt.exceptions.PyJWTError):
-            return JsonResponse({'error':'Invalid refresh token'},status=401)
-    return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
+         # request headers에서 refresh_token 가져오기
+    refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
+        # 해당 refresh_token이 유효하다면 새로운 access_token발급
+    try:
+        jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=['HS256'])
+        refresh = RefreshToken(refresh_token)
+        access_token = str(refresh.access_token)
+        response = JsonResponse({'access_token':access_token})
+        return response
+    except jwt.ExpiredSignatureError:
+        return JsonResponse({'error':'Your refresh token has expired. Please log in again to obtain a new one'},status=401)
+    except (TokenError,jwt.exceptions.PyJWTError):
+        return JsonResponse({'error':'Invalid refresh token'},status=401)
+    return JsonResponse({'error': 'Only POST requests are allowed' },status=405) 
     
 def kakao_login(request):
     code = request.GET.get('code')
