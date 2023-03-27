@@ -5,12 +5,14 @@ import customAxios from "./api";
 export async function signup(
 	email: string,
 	password: string,
-	nickname: string
+	nickname: string,
+	code: string
 ) {
 	const response: AxiosResponse = await customAxios.post(`/accounts/signup/`, {
 		email: email,
 		password: password,
 		nickname: nickname,
+		code: code,
 	});
 	return response;
 }
@@ -25,13 +27,24 @@ export async function login(email: string, password: string) {
 	return response;
 }
 
-// email 인증코드 재전송 요청
-export async function resendCode(email: string, password: string) {
+// email 인증코드 요청
+export async function sendCode(email: string) {
 	const response: AxiosResponse = await customAxios.post(
-		`/accounts/resend/code/`,
+		`/accounts/send/code/`,
 		{
 			email: email,
-			password: password,
+		}
+	);
+	return response;
+}
+
+// email 인증코드 요청
+export async function checkCode(email: string, code: string) {
+	const response: AxiosResponse = await customAxios.post(
+		`/accounts/verify/email/`,
+		{
+			email: email,
+			code: code,
 		}
 	);
 	return response;
@@ -63,17 +76,6 @@ export async function refreshToken(email: string, code: string) {
 	return response;
 }
 
-//닉네임 중복 체크
-export async function nicknameCheck(nickname: string) {
-	const response: AxiosResponse = await customAxios.post(
-		`/accounts/check/duplicate/nickname/`,
-		{
-			nickname: nickname,
-		}
-	);
-	return response;
-}
-
 //이메일 중복 체크
 export async function emailCheck(email: string) {
 	const response: AxiosResponse = await customAxios.post(
@@ -91,7 +93,10 @@ export async function deleteUser(id: number) {
 	return response;
 }
 
-export async function getTest(data : object) {
-	const response: AxiosResponse = await customAxios.post(`/accounts/test/`,data);
+export async function getTest(data: object) {
+	const response: AxiosResponse = await customAxios.post(
+		`/accounts/test/`,
+		data
+	);
 	return response;
 }
