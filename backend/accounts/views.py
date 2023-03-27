@@ -39,12 +39,14 @@ def signup(request):
         소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
+
         # request body의 email,password,nickname,code 받기
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
         password = data.get('password')
         nickname = data.get('nickname')
         code = data.get('code')
+
         # email,password,nickname,code이 모두 있는지 확인
         if email and password and nickname and code:
             if Member.objects.filter(email=email).exists():
@@ -55,6 +57,7 @@ def signup(request):
             # 레디스에 저장된 code와 일치하는지 확인
             if redis_client.exists(email):
                 value = redis_client.get(email).decode()
+
                 # 이메일 인증코드까지 유효하다면 회원저장
                 if value==code:
                     member = Member(email=email, nickname=nickname)
@@ -73,6 +76,9 @@ def signup(request):
             elif not code:
                 return JsonResponse({'error': 'Code field is required'}, status=400)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
+
+
+
 
 def check_duplicate_email(request):
     """이메일 중복검사
@@ -102,6 +108,9 @@ def check_duplicate_nickname(request):
             return JsonResponse({'result': False})
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
+
+
+
 def send_email_verify_code(request):
     """이메일 인증코드 전송
     #TODO:
@@ -129,6 +138,7 @@ def send_email_verify_code(request):
         return JsonResponse({'message': 'Please verify your email address'},status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
+
 def verify_email(request):
     """이메일 인증 확인
     #TODO:
@@ -148,6 +158,7 @@ def verify_email(request):
                 return JsonResponse({'result': True },status=200)
         return JsonResponse({'result': False },status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
+
 
 def login(request):
     """로그인
@@ -182,6 +193,7 @@ def login(request):
         response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
         return response
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
+
 
 def token_refresh(request):
     """새로고침시 새로운 access_token 발송
