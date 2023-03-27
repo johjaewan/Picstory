@@ -1,356 +1,167 @@
-import { LockClosedIcon } from "@heroicons/react/20/solid";
-import styles from "../../assets/css/UserSignUp.module.css";
-import React, { useState, useCallback, ChangeEvent } from "react";
-// import { useRecoilState, useRecoilCallback } from "recoil";
-import { nicknameCheck, signup, emailCheck } from "../../api/userAPI";
-import { Route } from "react-router-dom";
-import Login from "./Login";
+import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { signup, emailCheck } from "../../api/userAPI";
 
-//email 유효성 검사 양식
-const validateEmail = (email: string) => {
-	return email
-		.toLowerCase()
-		.match(
-			/([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-		);
-};
+import styles from "../../assets/css/testLogin.module.css";
 
-//password 유효성 검사 양식
-const validatePwd = (password: string) => {
-	return password
-		.toLowerCase()
-		.match(/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/);
-};
+function SignUp() {
+	const navigate = useNavigate();
+	const { watch } = useForm();
+	// console.log(watch("password"));
 
-//nickname 유효성 검사 양식
-const validateNickname = (nickname: string) => {
-	return nickname.toLowerCase().match(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|].{1,8}$/);
-};
+	const password = useRef();
+	password.current = watch("password");
 
-//유효성 검사로 이메일, 비밀번호, 닉네임 필터링해주기
-const UserSignUp = () => {
-	const [email, setEmail] = useState<string>("");
-	const [password, setPassword] = useState<string>("");
-	const [confirmPwd, setConfirmPwd] = useState<string>("");
-	const [nickname, setNickname] = useState<string>("");
+	type FormData = {
+		email: string;
+		password: string;
+		configPassword: string;
+		nickname: string;
+	};
 
-	const [emailMsg, setEmailMsg] = useState<string>("");
-	const [pwdMsg, setPwdMsg] = useState<string>("");
-	const [confirmPwdMsg, setConfirmPwdMsg] = useState<string>("");
-	const [nicknameMsg, setNicknameMsg] = useState<string>("");
-
-	//위에 있는 유효성 검사 함수로 정리하기
-	const isEmailValid = validateEmail(email);
-	console.log("isEmailValid=", isEmailValid);
-	const isPwdValid = validatePwd(password);
-	const isConfirmPwd = password === confirmPwd; //입력된 비밀번호와 비밀번호 확인 검사
-	const isNicknameValid = validateNickname(nickname);
-
-	//이메일 유효성 확인
-	const onChangeEmail = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			const currEmail: string = e.target.value;
-
-			if (!validateEmail(currEmail)) {
-				setEmailMsg("이메일 형식이 올바르지 않습니다.");
-			} else {
-				setEmailMsg("올바른 이메일 형식입니다.");
-				setEmail(currEmail);
-			}
-		},
-		[setEmail, validateEmail, setEmailMsg]
-	);
-	//비밀번호 유효성 확인
-	const onChangePwd = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			const currPwd: string = e.target.value;
-
-			if (!validatePwd(currPwd)) {
-				setPwdMsg("영문, 숫자, 특수기호 조합으로 8자리 이상 입력해주세요.");
-			} else {
-				setPwdMsg("안전한 비밀번호입니다.");
-				setPassword(currPwd);
-			}
-		},
-		[setPassword, validatePwd, setPassword]
-	);
-
-	//비밀번호 같은 지 확인
-	const onChangeConfirmPwd = useCallback(
-		(e: ChangeEvent<HTMLInputElement>) => {
-			const currConfirmPwd: string = e.target.value;
-
-			if (currConfirmPwd !== password) {
-				setConfirmPwdMsg("비밀번호가 일치하지 않습니다.");
-			} else {
-				setConfirmPwdMsg("비밀번호가 일치합니다.");
-				setConfirmPwd(currConfirmPwd);
-			}
-		},
-		[password]
-	);
-
-	//닉네임 유효성 확인
-	const onChangeNickname = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		const currNickname: string = e.target.value;
-
-		if (!validateNickname(currNickname)) {
-			setNicknameMsg("1글자 이상 9글자 미만으로 입력해주세요.");
-		} else {
-			setNicknameMsg("올바른 닉네임 형식입니다.");
-			setNickname(currNickname);
-		}
-	}, []);
-
-	//이메일, 닉네임 중복 확인
-	const [checkMail, setCheckMail] = useState(false);
-	const [checkNickname, setCheckNickname] = useState(false);
-
-	const onCheckEmail = async () => {
-		// e.preventDefault();
-		console.log(email);
+	//이메일 중복체크
+	const onEmailCheck = async () => {
+		const email = getValues("email");
+		console.log("email입니다", email);
 		try {
 			const res = await emailCheck(email);
-			console.log("res.data:", res.data);
-			console.log("res.data.result:", res.data.result);
-			const { result } = res.data.result;
-			console.log("result", result);
+			console.log("이메일중복체크응답res.data:", res.data);
+			console.log("이메일중복체크응답res.data:", res);
 
-			if (!result) {
-				setEmailMsg("이미 등록된 메일입니다. 다시 입력해주세요.");
-				setCheckMail(false);
-				console.log(emailMsg);
-			} else {
-				setEmailMsg("사용 가능한 메일입니다.😊");
-				setCheckMail(true);
-				console.log(emailMsg);
+			if (res.status === 200) {
+				alert("사용 가능한 메일입니다.😊");
 			}
-		} catch (err) {
-			console.log("email중복검사", err);
+		} catch (error) {
+			alert("이미 등록된 메일입니다. 다시 입력해주세요.");
+			console.log(error);
 		}
 	};
-	//닉네임 중복검사
-	const onCheckNickname = async () => {
-		console.log(nickname);
+
+	// 회원가입 제출
+	const onSubmit = async (data: FormData) => {
 		try {
-			const res = await nicknameCheck(nickname);
-			const { result } = res.data.result;
-
-			if (!result) {
-				setNicknameMsg("이미 등록된 닉네임입니다. 다시 입력해주세요.");
-				setCheckNickname(false);
-				console.log(nicknameMsg);
-			} else {
-				setNicknameMsg("사용 가능한 닉네임입니다 😊");
-				setCheckNickname(true);
-				console.log(nicknameMsg);
+			const res = await signup(data.email, data.password, data.nickname);
+			console.log("res 회원가입: ", res);
+			// 회원가입 요청 성공 시 메인 페이지 이동
+			const result = res.data;
+			if (res.status === 200) {
+				// sessionStorage에 이메일과 닉네임 저장
+				sessionStorage.setItem("userEmail", result.email);
+				sessionStorage.setItem("userNick", result.nickname);
+				// localStorage에 토큰 저장
+				localStorage.setItem(
+					"access_token",
+					JSON.stringify(result.access_token)
+				);
+				localStorage.setItem(
+					"refresh_token",
+					JSON.stringify(result.refresh_token)
+				);
+				//mainPage로 이동하기
+				navigate("/");
 			}
-		} catch (err) {
-			console.log("닉네임 중복검사", err);
+		} catch (error) {
+			alert("회원가입 실패");
+			console.log(error);
 		}
 	};
 
-	//가입하기 요청
-	// const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-	const onSubmit = async (e: any) => {
-		e.preventDefault();
+	const {
+		register,
+		handleSubmit,
+		getValues,
+		formState: { isSubmitting, isDirty, errors },
+		// isDirty는 어떤 필드든 사용자 입력이 있었는지 확인할 때 사용
+	} = useForm<FormData>();
 
-		try {
-			const res = await signup(email, password, nickname);
-			console.log("res.data", res.data);
-
-			const { result } = res.data;
-
-			if (result) {
-				//loginPage로 이동하기
-				alert("회원가입 완료!!");
-				<Route path="/" element={<Login />}></Route>;
-			}
-		} catch (err) {
-			alert("회원가입 실패!!");
-			console.log(err);
-		}
-	};
-
-	//앞에서 선언한 msg들 클릭이벤트핸들러
-	const onEmailMsgHandler = () => alert(emailMsg);
-	const onpwdMsgHandler = () => alert(pwdMsg);
-	const onConfirmPwdMsgHandler = () => alert(confirmPwdMsg);
-	const onNickMsgHandler = () => alert(nicknameMsg);
-
-	// 가입 버튼 활성화
-	// 앞에 정리한 유효성 검사를 한번에 묶어주고
-	// const isAllValid =
-	// 	isEmailValid &&
-	// 	isPwdValid &&
-	// 	isConfirmPwd &&
-	// 	isNicknameValid &&
-	// 	checkMail &&
-	// 	checkNickname;
-
-	// return 부분에서 disabled 값으로 제어해줌
 	return (
-		<>
-			<div
-				className="flex items-center justify-center min-h-full px-4 py-12 sm:px-6 lg:px-8"
-				style={{
-					paddingTop: "80px",
-					height: "100vh",
-				}}
-			>
-				<div className="w-full max-w-md space-y-8">
-					<div>
-						<h2 className="mt-6 text-3xl font-bold tracking-tight text-center text-gray-900">
-							Picstory
-						</h2>
-						<div className={styles.hrSign}>Sign UP</div>
-					</div>
-					{/* <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={onSubmit}> */}
-					<form className="mt-8 space-y-6" action="#" method="POST">
-						<input type="hidden" name="remember" defaultValue="true" />
-						<div className="-space-y-px rounded-md shadow-sm">
-							<div>
-								<label htmlFor="email-address" className="sr-only">
-									Email address
-								</label>
-								<input
-									id="email-address"
-									name="email"
-									type="email"
-									autoComplete="email"
-									required
-									className="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									placeholder="Email address"
-									onChange={onChangeEmail}
-								/>
-								<button
-									onClick={() => {
-										onCheckEmail();
-										onEmailMsgHandler();
-									}}
-									className="px-4 py-2 m-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-900"
-								>
-									이메일 중복 검사
-								</button>
-							</div>
+		<form className={styles.formContainer} onSubmit={handleSubmit(onSubmit)}>
+			<label htmlFor="email">이메일</label>
+			<input
+				id="email"
+				type="text"
+				placeholder="이메일을 입력해주세요."
+				aria-invalid={!isDirty ? undefined : errors.email ? "true" : "false"}
+				{...register("email", {
+					required: "이메일은 필수 입력입니다.",
+					pattern: {
+						value:
+							/([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/,
+						message: "이메일 형식에 맞지 않습니다.",
+					},
+				})}
+			/>
+			{errors.email && <small role="alert">{errors.email.message}</small>}
+			<button type="button" onClick={onEmailCheck}>
+				이메일중복확인
+			</button>
+			<label htmlFor="nickname">닉네임</label>
+			<input
+				id="nickname"
+				type="text"
+				placeholder="닉네임은 2글자 이상, 영어,숫자, 한글 사용가능"
+				aria-invalid={!isDirty ? undefined : errors.nickname ? "true" : "false"}
+				{...register("nickname", {
+					required: "닉네임은 필수 입력입니다.",
+					pattern: {
+						value: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|].{2,8}$/,
+						message: "닉네임 형식에 맞지 않습니다.",
+					},
+				})}
+			/>
+			{errors.nickname && <small role="alert">{errors.nickname.message}</small>}
 
-							<div>
-								<label htmlFor="password" className="sr-only">
-									Password
-								</label>
-								<input
-									id="password"
-									name="password"
-									type="password"
-									autoComplete="current-password"
-									required
-									className="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									placeholder="Password"
-									onChange={onChangePwd}
-								/>
-								<button
-									onClick={onpwdMsgHandler}
-									className="px-4 py-2 m-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-900"
-								>
-									비밀번호 확인
-								</button>
-							</div>
-							<div>
-								<label htmlFor="password" className="sr-only">
-									Confirm Password
-								</label>
-								<input
-									id="confirm-password"
-									name="password"
-									type="password"
-									autoComplete="current-password"
-									required
-									className="relative block w-full rounded-b-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-									placeholder="Confirm Password"
-									onChange={onChangeConfirmPwd}
-								/>
-							</div>
-							<button
-								onClick={onConfirmPwdMsgHandler}
-								className="px-4 py-2 m-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-900"
-							>
-								비밀번호 재 확인
-							</button>
-						</div>
-						<div>
-							<label htmlFor="nickname" className="sr-only">
-								nickname
-							</label>
-							<input
-								id="nickname"
-								name="nickname"
-								type="text"
-								autoComplete="text"
-								required
-								className="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-								placeholder="your nickname "
-								onChange={onChangeNickname}
-							/>
-							<button
-								onClick={() => {
-									onCheckNickname();
-									onNickMsgHandler();
-								}}
-								className="px-4 py-2 m-2 text-sm font-medium text-white bg-gray-800 rounded-md hover:bg-gray-900"
-							>
-								닉네임 중복 검사
-							</button>
-						</div>
-						{/* 
-						<div className={styles.divCenter}>
-							<div className={styles.codeCheck}>
-								<input type="text" required className={styles.input}></input>
-								<label>인증코드</label>
-								<span></span>
-							</div>
-							<button type="button" className={styles.checkBtn}>
-								이메일 인증 확인
-							</button>
-						</div> */}
-						<div>
-							<button
-								// type="submit"
-								className="relative flex justify-center w-full px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md group hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-								onClick={onSubmit}
-								// disabled={!isAllValid}
-							>
-								<span className="absolute inset-y-0 left-0 flex items-center">
-									<LockClosedIcon
-										className="w-5 h-5 text-indigo-500 group-hover:text-indigo-400"
-										aria-hidden="true"
-									/>
-								</span>
-								Sign Up
-							</button>
-						</div>
+			<label htmlFor="password">비밀번호</label>
+			<input
+				id="password"
+				type="password"
+				placeholder="비밀번호를 입력해주세요."
+				aria-invalid={!isDirty ? undefined : errors.password ? "true" : "false"}
+				{...register("password", {
+					required: "비밀번호는 필수 입력입니다.",
+					minLength: {
+						value: 8,
+						message: "8자리 이상 비밀번호를 사용하세요.",
+					},
+					pattern: {
+						value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/,
+						message: "비밀번호 형식에 맞지 않습니다.",
+					},
+				})}
+			/>
+			{errors.password && <small role="alert">{errors.password.message}</small>}
+			<label htmlFor="password">비밀번호 확인</label>
+			<input
+				id="configPassword"
+				type="password"
+				placeholder="특수문자, 영어대/소문자, 숫자 포함 8글자 이상 "
+				aria-invalid={
+					!isDirty ? undefined : errors.configPassword ? "true" : "false"
+				}
+				{...register("password", {
+					required: "비밀번호는 필수 입력입니다.",
+					validate: (value) => value === password.current,
+				})}
+			/>
+			{errors.configPassword && (
+				<small role="alert">
+					{errors.configPassword.type === "required"} &&
+					<p> 비밀번호 확인은 필수 값입니다.</p>
+				</small>
+			)}
+			{errors.configPassword && (
+				<small role="alert">
+					{errors.configPassword.type === "validate"}&&
+					<p>위의 비밀번호와 같지 않습니다.</p>
+				</small>
+			)}
 
-						<div className={styles.hrSect}>or</div>
-
-						{/* 카카오 sign up 버튼 */}
-						<div>
-							<button
-								type="submit"
-								className="relative flex justify-center w-full px-3 py-2 text-sm font-semibold text-white bg-yellow-600 rounded-md group hover:bg-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-600"
-							>
-								<span className="absolute inset-y-0 left-0 flex items-center">
-									<LockClosedIcon
-										className="w-5 h-5 text-yellow-500 group-hover:text-yellow-400"
-										aria-hidden="true"
-									/>
-								</span>
-								Kakao Sign Up
-							</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</>
+			<button type="submit" disabled={isSubmitting}>
+				회원가입
+			</button>
+		</form>
 	);
-};
+}
 
-export default UserSignUp;
+export default SignUp;
