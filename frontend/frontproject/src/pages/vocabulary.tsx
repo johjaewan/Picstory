@@ -33,13 +33,16 @@ export default function Vocabulary() {
 				if (!response) return;
 				//시간순 정렬
 				if (isSortTime) {
-					setWordListTime((prevItems) => [...item]);
+					setWordListTime(() => [...item]);
 
 					// 알파벳순 정렬
 				} else if (!isSortTime) {
-					setWordListAlpha((prevItems) => [...item]);
+					setWordListAlpha(() => [...item]);
 				}
-			} catch (err) {
+			} catch (error: any) {
+				if (error.response.status === 404) {
+					return
+				}
 				navigation("/404");
 			}
 		},
@@ -68,25 +71,25 @@ export default function Vocabulary() {
 					<table className={styles.word_table}>
 						{isSortTime
 							? wordListTime.map((item, idx) => {
-									return (
-										<tbody key={idx}>
-											<tr className={styles.table_row}>
-												<td className={styles.word}>{item.word}</td>
-												<td className={styles.mean}>{item.mean}</td>
-											</tr>
-										</tbody>
-									);
-							  })
+								return (
+									<tbody key={idx}>
+										<tr className={styles.table_row}>
+											<td className={styles.word}>{item.word}</td>
+											<td className={styles.mean}>{item.mean}</td>
+										</tr>
+									</tbody>
+								);
+							})
 							: wordListAlpha.map((item, idx) => {
-									return (
-										<tbody key={idx}>
-											<tr>
-												<td className={styles.word}>{item.word}</td>
-												<td className={styles.mean}>{item.mean}</td>
-											</tr>
-										</tbody>
-									);
-							  })}
+								return (
+									<tbody key={idx}>
+										<tr>
+											<td className={styles.word}>{item.word}</td>
+											<td className={styles.mean}>{item.mean}</td>
+										</tr>
+									</tbody>
+								);
+							})}
 					</table>
 				</div>
 			)}

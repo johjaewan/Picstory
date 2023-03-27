@@ -1,12 +1,30 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { signup, emailCheck, sendCode, checkCode } from "../../api/userAPI";
 
 import styles from "../../assets/css/testLogin.module.css";
-
+/*
+이메일 중복체크, 이메일 인증코드 전송, 이메일 인증코드 체크가 빈값인데 정상 처리됩니다.
+api의문인데.. 일부러 그래놓은건가요? 그렇더라도 일단 빈값이면 요청 안가게 해야할것같아요.
+이메일 중복체크: 존재하는이메일인데 정상처리 됩니다. 백에 물어보기.
+이메일 중복체크와 인증코드 체크가 되었는지 확인하고 안되었으면 경고 처리.
+*/
 function SignUp() {
 	const navigate = useNavigate();
+
+	const Toast = Swal.mixin({
+		toast: true,
+		position: 'top',
+		showConfirmButton: false,
+		timer: 3000,
+		timerProgressBar: true,
+		didOpen: (toast) => {
+			toast.addEventListener('mouseenter', Swal.stopTimer)
+			toast.addEventListener('mouseleave', Swal.resumeTimer)
+		}
+	})
 
 	const {
 		register,
@@ -46,10 +64,18 @@ function SignUp() {
 			console.log("이메일 중복 체크 응답 res.data:", res.data);
 
 			if (res.status === 200) {
-				alert("사용 가능한 메일입니다.😊");
+				Toast.fire({
+					icon: 'success',
+					title: '사용 가능한 메일입니다.😊'
+				})
+				// alert("사용 가능한 메일입니다.😊");
 			}
 		} catch (error) {
-			alert("이미 등록된 메일입니다. 다시 입력해주세요.");
+			Toast.fire({
+				icon: 'error',
+				title: '이미 등록된 메일입니다. 다시 입력해주세요.'
+			})
+			// alert("이미 등록된 메일입니다. 다시 입력해주세요.");
 			console.log(error);
 		}
 	};
@@ -63,10 +89,18 @@ function SignUp() {
 			console.log("res.data:", res.data);
 
 			if (res.status === 200) {
-				alert("해당 이메일에서 인증 코드를 확인해주세요");
+				Toast.fire({
+					icon: 'success',
+					title: '해당 이메일에서 인증 코드를 확인해주세요'
+				})
+				// alert("해당 이메일에서 인증 코드를 확인해주세요");
 			}
 		} catch (error) {
-			alert("인증코드 전송이 실패되었습니다.");
+			Toast.fire({
+				icon: 'error',
+				title: '인증코드 전송이 실패되었습니다.'
+			})
+			// alert("인증코드 전송이 실패되었습니다.");
 			console.log(error);
 		}
 	};
@@ -82,15 +116,23 @@ function SignUp() {
 			console.log("res.data:", res.data);
 
 			if (res.status === 200) {
-				alert("인증 되었습니다.");
+				Toast.fire({
+					icon: 'success',
+					title: '인증 되었습니다.'
+				})
+				// alert("인증 되었습니다.");
 			}
 		} catch (error) {
-			alert("올바른 인증코드를 작성해주세요 ");
+			Toast.fire({
+				icon: 'warning',
+				title: '올바른 인증코드를 작성해주세요.'
+			})
+			// alert("올바른 인증코드를 작성해주세요 ");
 			console.log(error);
 		}
 	};
 
-	//비밀번호 확인
+	// 비밀번호 확인
 	const onValid = (data: FormData) => {
 		if (data.password !== data.configPassword) {
 			setError(
@@ -114,11 +156,21 @@ function SignUp() {
 			// 회원가입 요청 성공 시 메인 페이지 이동
 			const result = res.data;
 			if (res.status === 200) {
-				alert("회원가입 완료!");
+
+				Toast.fire({
+					icon: 'success',
+					title: '회원가입 완료!'
+				})
+				// alert("회원가입 완료!");
 				navigate("/");
 			}
 		} catch (error) {
-			alert("회원가입 실패");
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: '회원가입 실패',
+			})
+			// alert("회원가입 실패");
 			console.log(error);
 		}
 	};
@@ -144,7 +196,8 @@ function SignUp() {
 			<button type="button" onClick={onEmailCheck}>
 				이메일 중복 체크
 			</button>
-
+			<br />
+			<br />
 			<label htmlFor="text">이메일 인증코드</label>
 			<input
 				id="code"
@@ -162,7 +215,8 @@ function SignUp() {
 			<button type="button" onClick={onEmailCodeCheck}>
 				이메일 인증코드 체크
 			</button>
-
+			<br />
+			<br />
 			<label htmlFor="nickname">닉네임</label>
 			<input
 				id="nickname"
@@ -178,7 +232,8 @@ function SignUp() {
 				})}
 			/>
 			{errors.nickname && <small role="alert">{errors.nickname.message}</small>}
-
+			<br />
+			<br />
 			<label htmlFor="password">비밀번호</label>
 			<input
 				id="password"
@@ -198,7 +253,8 @@ function SignUp() {
 				})}
 			/>
 			{errors.password && <small role="alert">{errors.password.message}</small>}
-
+			<br />
+			<br />
 			<label htmlFor="configPassword">비밀번호 확인</label>
 			<input
 				id="configPassword"
@@ -213,19 +269,20 @@ function SignUp() {
 				})}
 			/>
 
-			{/* {errors.configPassword && (
-				<small role="alert">
-					{errors.configPassword.type === "required"} &&
-					<p> 비밀번호 확인은 필수 값입니다.</p>
-				</small>
-			)} */}
 			{errors.configPassword && (
 				<small role="alert">
-					{errors.configPassword.type === "validate"}&&
+					{errors.configPassword.type === "required"}
+					<p> 비밀번호 확인은 필수 값입니다.</p>
+				</small>
+			)}
+			{errors.configPassword && (
+				<small role="alert">
+					{errors.configPassword.type === "validate"}
 					<p>위의 비밀번호와 같지 않습니다.</p>
 				</small>
 			)}
-
+			<br />
+			<br />
 			<button type="submit" disabled={isSubmitting}>
 				회원가입
 			</button>

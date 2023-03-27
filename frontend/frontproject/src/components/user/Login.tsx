@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { login } from "../../api/userAPI";
 import styles from "../../assets/css/Login.module.css";
 
@@ -31,10 +32,31 @@ function LoginForm() {
 					JSON.stringify(result.refresh_token)
 				);
 				//mainPage로 이동하기
+				const Toast = Swal.mixin({
+					toast: true,
+					position: 'top-end',
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener('mouseenter', Swal.stopTimer)
+						toast.addEventListener('mouseleave', Swal.resumeTimer)
+					}
+				})
+
+				Toast.fire({
+					icon: 'success',
+					title: `${result.nickname}님 안녕하세요!`
+				})
+
 				navigate("/");
 			}
 		} catch (error: any) {
-			alert(error.response.data.error);
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: error.response.data.error,
+			})
 			console.log(error);
 		}
 	};
