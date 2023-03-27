@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { ChangeEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import {
   ImageBit,
   genreAtom,
@@ -16,28 +16,27 @@ import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
 
 export default function ImageUpload() {
-  const [color, setColor] = useRecoilState(colorAtom)
+  const color = useRecoilValue(colorAtom)
   const [genre, setGenre] = useRecoilState(genreAtom)
   const [loading, setLoading] = useRecoilState(loadingAtom)
-  const [text, setText] = useState('') // 이미지 켑셔닝 결과
-  const [storyKorean, setStoryKorean] = useRecoilState(storyKo)
-  const [storyEnglish, setStoryEnglish] = useRecoilState(storyEn)
-  const [voice, setVoice] = useRecoilState(voiceAtom)
-  const [finished, setFinished] = useRecoilState(isFinished)
+  const setStoryKorean = useSetRecoilState(storyKo)
+  const setStoryEnglish = useSetRecoilState(storyEn)
+  const setVoice = useSetRecoilState(voiceAtom)
 
   const navigate = useNavigate()
 
-  const clickGenre = (e: any) => {
+  // 장르
+  const clickGenre = (e: ChangeEvent<HTMLInputElement>) => {
     e.target.classList.add('active')
     setGenre(e.target.value)
   }
-  const next = () => {}
+  const items: string[] = ['재미', '슬픔', '공포', '로맨스']
 
-  const items = ['재미', '슬픔', '공포', '로맨스']
-
+  // 이미지
   const Image = useRecoilValue(ImageBit)
   const Image2 = Image.substring(23)
 
+  // 이미지 캡셔닝 제출
   const ImageCaptioning = async () => {
     if (!Image) {
       alert('사진을 선택해 주세요')
@@ -49,7 +48,7 @@ export default function ImageUpload() {
     }
     runClip()
   }
-
+  // 이미지 캡셔닝
   const runClip = async () => {
     setLoading(true)
     const raw = JSON.stringify({
@@ -67,11 +66,6 @@ export default function ImageUpload() {
         },
       ],
     })
-
-    const info = {
-      detailImageFile: Object,
-      detailImageUrl: String,
-    }
 
     const requestOptions = {
       method: 'POST',
@@ -92,9 +86,8 @@ export default function ImageUpload() {
       })
       .catch((error) => console.log('error', error))
   }
-
+  // 이야기 생성 요청
   const sendContent = async (text: string, genre: string) => {
-    setText(text)
     const response = await createStory(text, genre)
     const result = response.data.content
     setStoryEnglish(result)
@@ -104,12 +97,12 @@ export default function ImageUpload() {
       translate(result)
     }
   }
-
+  // 음성파일 생성 요청
   const makeVoice = async (storyEng: string, genre: string) => {
     const response = await createVoice(storyEng, genre)
     setVoice(response.data.voice)
   }
-
+  // 번역 요청
   const translate = async (storyEng: string) => {
     const response = await translateStory(storyEng)
     setStoryKorean(response.data.content)
@@ -125,7 +118,7 @@ export default function ImageUpload() {
             {items.map((item, idx) => {
               let id = 'genreBtn-' + (idx + 1)
               return (
-                <>
+                <div key={idx}>
                   <input
                     id={styles[`${id}`]}
                     type="radio"
@@ -136,7 +129,7 @@ export default function ImageUpload() {
 
                   <label
                     className={
-                      items[idx] == genre
+                      items[idx] === genre
                         ? `${styles['genre_label_active']} ${styles[color]}`
                         : `${styles['genre_label']}`
                     }
@@ -144,7 +137,7 @@ export default function ImageUpload() {
                   >
                     {items[idx]}
                   </label>
-                </>
+                </div>
               )
             })}
           </div>

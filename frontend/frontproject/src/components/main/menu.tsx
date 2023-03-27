@@ -1,13 +1,22 @@
-import { useRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 import { colorAtom, menuState } from '../../atoms'
 import styles from '../../assets/css/menu.module.css'
 import closeIcon from '../../assets/close.png'
 import { useNavigate } from 'react-router-dom'
-const Menu = (props: any) => {
+
+const Menu = () => {
   const [menu, setMenu] = useRecoilState(menuState)
-  const [color, setColor] = useRecoilState(colorAtom)
+  const color = useRecoilValue(colorAtom)
   const navigation = useNavigate()
-  console.log(menu)
+
+  // 로그아웃
+  const logout =()=>{
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("refresh_token");
+  setMenu(false)
+  navigation('/')
+  }
+
   return (
     <div
       className={
@@ -56,10 +65,7 @@ const Menu = (props: any) => {
             </div>
             <div
               className={styles.item}
-              onClick={() => {
-                navigation('/')
-                setMenu(false)
-              }}
+              onClick={logout}
             >
               Logout
             </div>

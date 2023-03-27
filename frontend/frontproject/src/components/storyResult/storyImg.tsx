@@ -1,6 +1,5 @@
 import { useRecoilValue } from 'recoil'
 import { ImageBit } from '../../atoms'
-import classNames from 'classnames/bind'
 import styles from '../../assets/css/storyResultPage.module.css'
 
 // 이야기 결과

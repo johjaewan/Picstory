@@ -56,12 +56,11 @@ export default function Modal() {
 		await axios({
 			method: "POST",
 			url: `https://j8d103.p.ssafy.io/api/story/save/`,
-			// url: `http://192.168.100.166:8000/api/story/save/`,
 			
 			headers: {
-				"Content-Type": "multipart/form-data", // Content-Type을 반드시 이렇게 하여야 한다.
+				"Content-Type": "multipart/form-data", 
 			},
-			data: formData, // data 전송시에 반드시 생성되어 있는 formData 객체만 전송 하여야 한다.
+			data: formData, 
 		})
 			.then((result) => {
 				setTitle("");

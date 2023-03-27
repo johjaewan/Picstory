@@ -1,20 +1,33 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styles from '../../assets/css/main.module.css'
-import { Helmet } from 'react-helmet'
-import { useRecoilState } from 'recoil'
+import { useRecoilState} from 'recoil'
 import { colorAtom } from '../../atoms'
-import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function Main() {
-  const idx = Math.floor(Math.random() * 6)
-  const [color, setColor] = useRecoilState(colorAtom)
-  const colorList = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
-  setColor(colorList[idx])
+  const navigation = useNavigate()
+
+  const idx:number = Math.floor(Math.random() * 6)
+  const [color,setColor] = useRecoilState(colorAtom)
+  const colorList: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+
+  const user: string|null = localStorage.getItem("access_token")
+
+  // 로그인하면 이야기 생성페이지 / 로그인 안하면 로그인 페이지
+  const handleTry = ()=>{
+    if (user) {
+      navigation('/storyCreatePage')
+    }else{
+      navigation('/LoginForm')
+    }
+  }
+
+  useEffect(()=>{
+    setColor(colorList[idx])
+  })
+
   return (
     <div className={`${styles['container']} ${styles[color]}`}>
-      <Helmet>
-        <title>Picstory</title>
-      </Helmet>
       <div className={styles.picstory}>
         <h1>
           <span>p</span>
@@ -28,9 +41,11 @@ export default function Main() {
         </h1>
       </div>
       <div className={styles.clear}></div>
-      <Link to="/storyCreatePage">
+      {/* <Link to="/storyCreatePage">
         <button className={styles.btn1}>TRY</button>
-      </Link>
+      </Link> */}
+
+        <button onClick={handleTry} className={styles.btn1}>TRY</button>
     </div>
   )
 }
