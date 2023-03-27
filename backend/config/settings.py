@@ -123,7 +123,8 @@ MIDDLEWARE = [
 
 # 모든 호스트 허용
 CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOWED_ORIGINS = ["*"]
+
+# TODO: 기능 완성 후 적용
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
 #     'http://127.0.0.1:3000',
@@ -146,19 +147,6 @@ CORS_ALLOW_METHODS  =  [
 CORS_ALLOW_HEADERS  =  list(default_headers) + [
     'refresh-token',
 ]
-
-# CORS_ALLOW_HEADERS  =  [ 
-#     'accept' , 
-#     'accept-encoding' , 
-#     'authorization' , 
-#     'refresh-Token' ,
-#     'content-type' , 
-#     'dnt' , 
-#     'origin' , 
-#     'user-agent' , 
-#     'x-csrftoken' , 
-#     'x-requested-with' , 
-# ]
 
 
 ROOT_URLCONF = 'config.urls'
