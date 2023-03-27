@@ -26,9 +26,11 @@ export default function LibraryPage() {
 
 			const item = response.data;
 
-			setNewListItems((prevItems) => [...prevItems, ...item]);
-		} catch (error) {
-			console.log(error);
+			setNewListItems((prevItems) => [...item]);
+		} catch (error:any) {
+			if (error.response.status===404){
+				return
+			}
 			navigate("/404");
 		}
 	}, [navigate]);

@@ -3,6 +3,7 @@ import { colorAtom, menuState } from '../../atoms'
 import styles from '../../assets/css/menu.module.css'
 import closeIcon from '../../assets/close.png'
 import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 const Menu = () => {
   const [menu, setMenu] = useRecoilState(menuState)
@@ -10,11 +11,29 @@ const Menu = () => {
   const navigation = useNavigate()
 
   // 로그아웃
-  const logout =()=>{
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  setMenu(false)
-  navigation('/')
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: '로그아웃 성공'
+    })
+
+    setMenu(false)
+    navigation('/')
   }
 
   return (

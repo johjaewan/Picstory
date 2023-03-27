@@ -3,17 +3,36 @@ import { colorAtom, menuState } from '../../atoms'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import menuIcon from '../../assets/menu.png'
+import Swal from 'sweetalert2'
 
 const TheHeader = () => {
   const navigation = useNavigate()
   const color = useRecoilValue(colorAtom)
   const setMenu = useSetRecoilState(menuState)
-  
+
   // 로그아웃
-  const logout =()=>{
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-  navigation('/')
+  const logout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+
+    Toast.fire({
+      icon: 'success',
+      title: '로그아웃 성공'
+    })
+
+    navigation('/')
   }
 
   return (
@@ -24,7 +43,7 @@ const TheHeader = () => {
           onClick={() => {
             navigation('/')
           }}
-          >
+        >
           picstory
         </div>
 
@@ -33,10 +52,10 @@ const TheHeader = () => {
             <li
               className={styles.list}
               onClick={logout}
-              >
+            >
               Logout
             </li>
-            <li className={styles.list} onClick={() => {}}>
+            <li className={styles.list} onClick={() => { }}>
               MyInfo
             </li>
             <li

@@ -48,9 +48,6 @@ export default function Main() {
         </h1>
       </div>
       <div className={styles.clear}></div>
-      {/* <Link to="/storyCreatePage">
-        <button className={styles.btn1}>TRY</button>
-      </Link> */}
 
       <button onClick={handleTry} className={styles.btn1}>
         TRY

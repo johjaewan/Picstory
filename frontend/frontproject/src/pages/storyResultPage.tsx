@@ -76,7 +76,7 @@ export default function StoryResultPage() {
             </button>
             {/* 저장 모달 */}
             <button
-              disabled={storyResultKo && voice ? false : true} // 이게 진짜
+              // disabled={storyResultKo && voice ? false : true} // 이게 진짜
               className={styles.story_result_button}
               onClick={handleRegister}
             >
@@ -85,8 +85,6 @@ export default function StoryResultPage() {
             <Modal />
           </div>
         </div>
-
-
 
         <button className={styles.bottom_redo_button}>
           <Link to="/storyCreatePage">다시만들기</Link>
