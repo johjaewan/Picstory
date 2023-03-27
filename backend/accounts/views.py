@@ -235,7 +235,6 @@ def kakao_callback(request):
     # 회원가입
     return JsonResponse({'message': email },status=200)
 
-
 @csrf_exempt
 @api_view(['POST'])
 def test(request):

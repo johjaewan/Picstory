@@ -349,7 +349,3 @@ def search_word(request):
 
 
 
-from django.http import JsonResponse
-@api_view(['POST'])
-def test(request):
-    return JsonResponse({'message':'success'})
