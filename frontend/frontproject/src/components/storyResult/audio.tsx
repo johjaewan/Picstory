@@ -46,8 +46,14 @@ function AudioPlayer() {
 
   return (
     <>
-      <audio ref={myRef} src={voice} loop></audio>
-      {play ? (
+      <audio
+        className={styles.audio}
+        ref={myRef}
+        src={voice}
+        controls
+        loop
+      ></audio>
+      {/* {play ? (
         // 일시정지 버튼
         <button
           disabled={voice ? false : true}
@@ -65,7 +71,7 @@ function AudioPlayer() {
         >
           <TbPlayerPlayFilled className={styles.sound_icon} />
         </button>
-      )}
+      )} */}
     </>
   )
 }

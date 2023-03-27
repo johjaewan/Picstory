@@ -9,6 +9,8 @@ import {
   storyKo,
   voiceAtom,
   colorAtom,
+  translateIsFinished,
+  voiceIsFinished,
 } from '../atoms'
 import styles from '../assets/css/storyResultPage.module.css'
 import TypeIt from 'typeit-react'
@@ -33,6 +35,10 @@ export default function StoryResultPage() {
   const [lang, setLang] = useRecoilState(language)
   const storyResultEn = useRecoilValue(storyEn)
   const storyResultKo = useRecoilValue(storyKo)
+
+  const [transIsFin, setTransIsFin] = useRecoilState(translateIsFinished)
+  const [voiceIsFin, setVoiceIsFin] = useRecoilState(voiceIsFinished)
+
   // 처음에만(cnt==0) typeIt 적용
   const [cnt, setCnt] = useState(0)
 
@@ -61,19 +67,19 @@ export default function StoryResultPage() {
           {/* 이미지 */}
           <ResultImg />
           {/* 설정 버튼 */}
-          <div className={styles.story_result_btns}>
+          <div className={styles.topBox}>
             {/* 배경음악 */}
             <BGMPlayer />
-            {/* 음성파일 */}
-            <AudioPlayer />
             {/* 언어설정 */}
-            <button
-              disabled={storyResultKo ? false : true}
-              className={styles.story_result_button}
-              onClick={transLang}
-            >
-              {lang ? 'Korean' : '영어'}
-            </button>
+            {transIsFin ? (
+              <button
+                disabled={storyResultKo ? false : true}
+                className={styles.story_result_button}
+                onClick={transLang}
+              >
+                {lang ? 'Korean' : '영어'}
+              </button>
+            ) : null}
             {/* 저장 모달 */}
             <button
               disabled={storyResultKo && voice ? false : true} // 이게 진짜
@@ -83,6 +89,10 @@ export default function StoryResultPage() {
               저장
             </button>
             <Modal />
+          </div>
+          <div className={styles.bottomBox}>
+            {/* 음성파일 */}
+            {voiceIsFin ? <AudioPlayer /> : null}
           </div>
         </div>
 

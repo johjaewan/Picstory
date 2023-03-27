@@ -43,12 +43,24 @@ function BGMPlayer() {
   // 장르별 배경음악 파일
   const funBgm: string[] = [fun1, fun2, fun3, fun4, fun5]
   const sadBgm: string[] = [sad1, sad2, sad3, sad4, sad5]
-  const romanceBgm: string[] = [romance1, romance2, romance3, romance4, romance5]
-  const thrillerBgm: string[] = [thriller1, thriller2, thriller3, thriller4, thriller5]
-  
+  const romanceBgm: string[] = [
+    romance1,
+    romance2,
+    romance3,
+    romance4,
+    romance5,
+  ]
+  const thrillerBgm: string[] = [
+    thriller1,
+    thriller2,
+    thriller3,
+    thriller4,
+    thriller5,
+  ]
+
   const [bgm, setBgm] = useState<string>('')
 
-    const changeBgm = (idx: number) => {
+  const changeBgm = (idx: number) => {
     if (genre === '재미') setBgm(funBgm[idx])
     else if (genre === '슬픔') setBgm(sadBgm[idx])
     else if (genre === '로맨스') setBgm(romanceBgm[idx])
