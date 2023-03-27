@@ -1,28 +1,35 @@
 import { useNavigate } from 'react-router-dom'
 import styles from '../../assets/css/main.module.css'
-import { useRecoilState} from 'recoil'
+import { useRecoilState } from 'recoil'
 import { colorAtom } from '../../atoms'
 import { useEffect } from 'react'
 
 export default function Main() {
   const navigation = useNavigate()
 
-  const idx:number = Math.floor(Math.random() * 6)
-  const [color,setColor] = useRecoilState(colorAtom)
-  const colorList: string[] = ['red', 'orange', 'yellow', 'green', 'blue', 'purple']
+  const idx: number = Math.floor(Math.random() * 6)
+  const [color, setColor] = useRecoilState(colorAtom)
+  const colorList: string[] = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'purple',
+  ]
 
-  const user: string|null = localStorage.getItem("access_token")
+  const user: string | null = localStorage.getItem('access_token')
 
   // 로그인하면 이야기 생성페이지 / 로그인 안하면 로그인 페이지
-  const handleTry = ()=>{
+  const handleTry = () => {
     if (user) {
       navigation('/storyCreatePage')
-    }else{
-      navigation('/LoginForm')
+    } else {
+      navigation('/login')
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     setColor(colorList[idx])
   })
 
@@ -45,7 +52,9 @@ export default function Main() {
         <button className={styles.btn1}>TRY</button>
       </Link> */}
 
-        <button onClick={handleTry} className={styles.btn1}>TRY</button>
+      <button onClick={handleTry} className={styles.btn1}>
+        TRY
+      </button>
     </div>
   )
 }
