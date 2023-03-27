@@ -208,7 +208,9 @@ def save_story(request):
     payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
     member_id = payload.get('user_id')
 
-    member = get_object_or_404(Member, pk=member_id)
+    member = Member.objects.get(pk=member_id)
+    if not member:
+        return Response({'error': '해당하는 유저가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     image_file = request.FILES.get('image', False)
     if not image_file:
