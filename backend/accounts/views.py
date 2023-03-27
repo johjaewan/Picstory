@@ -162,12 +162,10 @@ def login(request):
         # request body에서 email, password 추출
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
-        print(email)
         password = data.get('password')
         
         # 해당 email의 user가져오기
         member = Member.objects.filter(email=email).first()
-        print(member)
 
         # user가 있는지, 비밀번호가 맞는지 확인
         if member is None:
@@ -191,20 +189,22 @@ def token_refresh(request):
         소셜로그인 구현 이후 docs작성
     """
     if request.method == 'POST':
-         # request headers에서 refresh_token 가져오기
-    refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
+
+        # request headers에서 refresh_token 가져오기
+        refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
+
         # 해당 refresh_token이 유효하다면 새로운 access_token발급
-    try:
-        jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=['HS256'])
-        refresh = RefreshToken(refresh_token)
-        access_token = str(refresh.access_token)
-        response = JsonResponse({'access_token':access_token})
-        return response
-    except jwt.ExpiredSignatureError:
-        return JsonResponse({'error':'Your refresh token has expired. Please log in again to obtain a new one'},status=401)
-    except (TokenError,jwt.exceptions.PyJWTError):
-        return JsonResponse({'error':'Invalid refresh token'},status=401)
-    return JsonResponse({'error': 'Only POST requests are allowed' },status=405) 
+        try:
+            jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=['HS256'])
+            refresh = RefreshToken(refresh_token)
+            access_token = str(refresh.access_token)
+            response = JsonResponse({'access_token':access_token})
+            return response
+        except jwt.ExpiredSignatureError:
+            return JsonResponse({'error':'Your refresh token has expired. Please log in again to obtain a new one'},status=401)
+        except (TokenError,jwt.exceptions.PyJWTError):
+            return JsonResponse({'error':'Invalid refresh token'},status=401)
+    return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
     
 def kakao_login(request):
     code = request.GET.get('code')
