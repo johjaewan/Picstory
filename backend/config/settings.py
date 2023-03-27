@@ -91,6 +91,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 # }
 
 
+REDIS_KEY = config('REDIS_KEY')
+
 # redis 설정
 CACHES = {
     "default": {
@@ -255,8 +257,9 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 from datetime import timedelta
+# TODO: ACCESS_TOKEN 유효기간 수정
 SIMPLE_JWT = {
-  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=600),
+  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=6000),
   'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
   # It will work instead of the default serializer(TokenObtainPairSerializer).
   "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
