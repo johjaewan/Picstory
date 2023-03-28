@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { ImageBit, ImageFile, loadingAtom  } from '../../atoms'
+import { ImageBit, ImageFile, loadingAtom } from '../../atoms'
 
 import styles from '../../assets/css/ImageUpload.module.css'
+import Swal from 'sweetalert2'
 
 export default function ImageUpload() {
   const [bitImage, setBitImage] = useRecoilState(ImageBit) // 이미지 파일 base64
@@ -24,7 +25,10 @@ export default function ImageUpload() {
       file.type !== 'image/PNG' &&
       file.type !== 'image/JPEG'
     ) {
-      alert('이미지 파일을 업로드 해주세요')
+      Swal.fire({
+        icon: 'warning',
+        text: '이미지 파일을 업로드 해주세요!',
+      })
       return new Promise(() => { })
     }
 

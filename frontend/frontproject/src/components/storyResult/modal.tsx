@@ -1,8 +1,7 @@
 import { Fragment, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, atom } from "recoil";
+import { useRecoilState, atom } from "recoil";
 import {
-	userId,
 	storyEn,
 	storyKo,
 	voiceAtom,
@@ -12,11 +11,10 @@ import {
 } from "../../atoms";
 import { Dialog, Transition } from "@headlessui/react";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default function Modal() {
 	const navigate = useNavigate();
-	// 유저 아이디
-	const userPk = useRecoilValue(userId);
 
 	//저장할 이야기 제목
 	const titleAtom = atom({
@@ -53,14 +51,21 @@ export default function Modal() {
 		formData.append("content_ko", storyResultKo);
 		formData.append("voice", voice);
 
+		let access_token = localStorage.getItem("access_token");
+		if (access_token) {
+			access_token = JSON.parse(access_token);
+		}
+
 		await axios({
 			method: "POST",
 			url: `https://j8d103.p.ssafy.io/api/story/save/`,
-			
+			// url: `http://192.168.100.166:8000/api/story/save/`,
+
 			headers: {
-				"Content-Type": "multipart/form-data", 
+				"Content-Type": "multipart/form-data",
+				Authorization: `Bearer ${access_token}`,
 			},
-			data: formData, 
+			data: formData,
 		})
 			.then((result) => {
 				setTitle("");
@@ -70,10 +75,21 @@ export default function Modal() {
 				setstoryResultEn("");
 				setstoryResultKo("");
 				setModalOpen(false);
+				Swal.fire({
+					position: 'top-end',
+					icon: 'success',
+					title: 'Your work has been saved',
+					showConfirmButton: false,
+					timer: 1500
+				})
 				navigate("/library");
 			})
 			.catch((error) => {
-				alert("이야기를 저장 할 수 없습니다.");
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: '이야기를 저장 할 수 없습니다.',
+				})
 				setModalOpen(false);
 			});
 	};

@@ -7,6 +7,7 @@ import saveIcon from '../../assets/save-icon.png'
 
 import styles from '../../assets/css/wordSearch.module.css'
 import { colorAtom } from '../../atoms'
+import Swal from 'sweetalert2'
 
 export default function WordSearch() {
   const [dragText, setDragText] = useState('')
@@ -37,7 +38,24 @@ export default function WordSearch() {
 
   const save = async (word: string, mean: string) => {
     const response = await saveWord(word, mean)
-    if (response.status === 200) alert('저장이 완료되었습니다')
+    if (response.status === 200) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      Toast.fire({
+        icon: 'success',
+        title: '저장이 완료되었습니다'
+      })
+    }
   }
 
   const search = async (word: string) => {
@@ -45,7 +63,10 @@ export default function WordSearch() {
     // const text = `${dragText}의 뜻은 무엇인가요?`
 
     if (word === '' || word.indexOf(' ') !== -1) {
-      alert('단어를 입력해주세요')
+      Swal.fire({
+        icon: 'warning',
+        text: '단어를 입력해주세요',
+      })
       return
     }
 

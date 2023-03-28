@@ -1,72 +1,75 @@
 @media (max-width: 600px) {
-  .container {
-    margin: 0 auto;
+	.container {
+		margin: 0 auto;
+		width: 400px;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+	}
 
-    width: 380px;
-    text-align: center;
-  }
+	.image {
+		border-radius: 15px;
+		height: 80px;
+		width: 120px;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		margin: 0 auto;
+	}
+	.title {
+		margin-top: 10px;
+	}
 
-  .image {
-    border-radius: 15px;
-    height: 80px;
-    width: 120px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  }
-  .title {
-    margin-top: 10px;
-  }
+	.item_box {
+		cursor: pointer;
+		margin: 50px 10px;
+		float: left;
+	}
 
-  .item_box {
-    cursor: pointer;
-    margin-top: 50px;
-    float: left;
-  }
+	.item_box_second {
+		cursor: pointer;
+		margin: 50px 10px 0 10px;
+		float: left;
+		box-sizing: border-box;
+	}
 
-  .item_box_second {
-    cursor: pointer;
-    margin: 50px 10px 0 10px;
-    float: left;
-    box-sizing: border-box;
-  }
-
-  .clear_line {
-    clear: both;
-  }
+	.clear_line {
+		clear: both;
+	}
 }
 /* ------------------------------------------------------------------- */
 
 @media (min-width: 600px) {
-  .container {
-    margin: 20px auto;
-    width: 1002px;
-    text-align: center;
-    /* border: 1px solid red; */
-  }
+	.container {
+		margin: 20px auto;
+		width: 70vw;
+		text-align: center;
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		/* border: 1px solid red; */
+	}
 
-  .image {
-    border-radius: 30px;
-    height: 200px;
-    width: 300px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  }
+	.image {
+		border-radius: 30px;
+		height: 200px;
+		width: 300px;
+		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	}
 
-  .title {
-    margin-top: 10px;
-  }
+	.title {
+		margin-top: 10px;
+	}
 
-  .item_box {
-    cursor: pointer;
-    margin-top: 50px;
-    float: left;
-  }
-  .item_box_second {
-    cursor: pointer;
-    margin: 50px 50px 0 50px;
-    float: left;
-    box-sizing: border-box;
-  }
+	.item_box {
+		cursor: pointer;
+		margin: 50px 10px;
+		float: left;
+	}
+	.item_box_second {
+		cursor: pointer;
+		margin: 50px 50px 0 50px;
+		float: left;
+		box-sizing: border-box;
+	}
 
-  .clear_line {
-    clear: both;
-  }
+	.clear_line {
+		clear: both;
+	}
 }

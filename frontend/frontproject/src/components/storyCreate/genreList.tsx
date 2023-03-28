@@ -1,5 +1,4 @@
 import { ChangeEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil'
 import {
   ImageBit,
@@ -16,6 +15,8 @@ import {
 import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router'
 
 export default function ImageUpload() {
   const color = useRecoilValue(colorAtom)
@@ -43,11 +44,17 @@ export default function ImageUpload() {
   // 이미지 캡셔닝 제출
   const ImageCaptioning = async () => {
     if (!Image) {
-      alert('사진을 선택해 주세요')
+      Swal.fire({
+        icon: 'warning',
+        text: '사진을 선택해 주세요!',
+      })
       return
     }
     if (!genre) {
-      alert('장르를 선택해 주세요')
+      Swal.fire({
+        icon: 'warning',
+        text: '장르를 선택해주세요!',
+      })
       return
     }
     runClip()
@@ -147,6 +154,7 @@ export default function ImageUpload() {
               )
             })}
           </div>
+
           <button className={styles.createBtn} onClick={ImageCaptioning}>
             이야기 만들기
           </button>
