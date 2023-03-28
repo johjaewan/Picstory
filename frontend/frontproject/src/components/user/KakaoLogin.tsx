@@ -14,12 +14,7 @@ function KakaoLogin() {
 	console.log("code: ", code);
 	console.log("code: ", typeof code);
 
-	//카카오 코드 보내기
-	// const onCodeSend = async (code: string) => {
-	// 	await kakao(code);
-	// };
-
-	const onCodeSend2 = async (code: string) => {
+	const onCodeSend = async (code: string) => {
 		try {
 			const res = await kakao(code);
 			console.log("res 카카오로그인", res);
@@ -62,7 +57,7 @@ function KakaoLogin() {
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "카카오 로그인 실패!",
+				text: "카카오 로그인 실패! ",
 			});
 			navigate("/kakaologin");
 			console.log(error);
@@ -71,7 +66,7 @@ function KakaoLogin() {
 
 	useEffect(() => {
 		console.log("useEffect code: ", code);
-		onCodeSend2(code);
+		onCodeSend(code);
 	}, []);
 
 	return (
