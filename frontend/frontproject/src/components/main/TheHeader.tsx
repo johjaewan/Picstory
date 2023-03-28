@@ -12,8 +12,8 @@ const TheHeader = () => {
 
   // 로그아웃
   const logout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
 
     const Toast = Swal.mixin({
       toast: true,
@@ -24,19 +24,19 @@ const TheHeader = () => {
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
+      },
     })
 
     Toast.fire({
       icon: 'success',
-      title: '로그아웃 성공'
+      title: '로그아웃 성공',
     })
 
     navigation('/')
   }
 
   return (
-    <header className={`${styles['header']} ${styles[color]}`}>
+    <header className={`${styles['header']} `}>
       <div className={styles.contents}>
         <div
           className={styles.logo}
@@ -49,31 +49,29 @@ const TheHeader = () => {
 
         <nav className={styles.navigation}>
           <ul>
-            <li
-              className={styles.list}
-              onClick={logout}
-            >
+            <button className={styles.list} onClick={logout}>
               Logout
-            </li>
-            <li className={styles.list} onClick={() => { }}>
+            </button>
+            <button className={styles.list} onClick={() => {}}>
               MyInfo
-            </li>
-            <li
+            </button>
+            <button
               className={styles.list}
               onClick={() => {
                 navigation('/library')
               }}
             >
               이야기들
-            </li>
-            <li
+            </button>
+            <button
               className={styles.list}
               onClick={() => {
                 navigation('/vocabulary')
               }}
             >
               단어장
-            </li>
+            </button>
+            <div className={styles.listShadow}></div>
             <li
               onClick={() => {
                 setMenu(true)
