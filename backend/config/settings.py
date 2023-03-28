@@ -83,6 +83,9 @@ AWS_S3_OBJECT_PARAMETERS = {
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 
+# CloudFront
+CLOUD_FRONT_DOMAIN = config('CLOUD_FRONT_DOMAIN')
+
 # 주석처리
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (

@@ -26,9 +26,10 @@ class S3Bucket:
     def __init__(self):
         self.bucket_name = settings.AWS_STORAGE_BUCKET_NAME
         self.location = settings.AWS_REGION
+        self.cloud_front_domain = settings.CLOUD_FRONT_DOMAIN
 
     def get_url(self, url):
-        return f'https://{self.bucket_name}.s3.{self.location}.amazonaws.com/{url}'
+        return f'https://{self.cloud_front_domain}/{url}'
 
     def get_file_path(self, url):
         return '/'.join(url.split('/')[-2:])
@@ -78,8 +79,7 @@ class S3Bucket:
         elif file_type[0] == 'audio':
             file_extension = 'wav'
         else:
-            # custom exception 구현해야 함
-            raise TypeError
+            return Response({"error": "잘못된 파일입니다."}, status=status.HTTP_400_BAD_REQUEST)
         
         url = f'{uuid.uuid4().hex}.{file_extension}'
 
