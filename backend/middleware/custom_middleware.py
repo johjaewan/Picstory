@@ -21,8 +21,8 @@ class JWTAuthenticationMiddleware:
                                       'api/accounts/kakao/login/','api/accounts/kakao/callback/',
                                       'api/story/<int:story_pk>/','api/story/create/',
                                       'api/story/delete/<int:story_pk>/',
-                                      'api/story/save/','api/story/translate/','api/story/voice/',
-                                      'api/story/list/<int:user_pk>/',
+                                      'api/story/translate/','api/story/voice/',
+                                      'api/story/save/', 'api/story/list/',
                                       'api/story/word/','api/story/test/',
                                       'api/vocabulary/save/', 'api/vocabulary/', 'api/vocabulary/all/',
                                       'api/accounts/check/duplicate/email/','api/accounts/check/duplicate/nickname/'
@@ -36,7 +36,7 @@ class JWTAuthenticationMiddleware:
             return response
         response = self.get_response(request)
         access_token = request.headers.get('Authorization').split(' ')[1]
-        print(access_token)
+        print(f'access_token: {access_token}')
         if not access_token:
             return JsonResponse({'error': 'access 토큰이 필요합니다.'}, status=401)
         try:

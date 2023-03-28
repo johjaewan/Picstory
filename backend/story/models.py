@@ -3,7 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 class Story(models.Model):
-    # member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="story")
+    member = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="story")
     created_at = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=55)
     image = models.CharField(max_length=55)

@@ -27,7 +27,6 @@ from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import redirect
 import requests
 
-
 from django.shortcuts import redirect
 
 redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = settings.REDIS_KEY)

@@ -91,6 +91,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 # }
 
 
+REDIS_KEY = config('REDIS_KEY')
+
 # redis 설정
 CACHES = {
     "default": {
@@ -121,7 +123,8 @@ MIDDLEWARE = [
 
 # 모든 호스트 허용
 CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOWED_ORIGINS = ["*"]
+
+# TODO: 기능 완성 후 적용
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
 #     'http://127.0.0.1:3000',
@@ -144,19 +147,6 @@ CORS_ALLOW_METHODS  =  [
 CORS_ALLOW_HEADERS  =  list(default_headers) + [
     'refresh-token',
 ]
-
-# CORS_ALLOW_HEADERS  =  [ 
-#     'accept' , 
-#     'accept-encoding' , 
-#     'authorization' , 
-#     'refresh-Token' ,
-#     'content-type' , 
-#     'dnt' , 
-#     'origin' , 
-#     'user-agent' , 
-#     'x-csrftoken' , 
-#     'x-requested-with' , 
-# ]
 
 
 ROOT_URLCONF = 'config.urls'
@@ -255,8 +245,9 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 from datetime import timedelta
+# TODO: ACCESS_TOKEN 유효기간 수정
 SIMPLE_JWT = {
-  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=600),
+  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=6000),
   'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
   # It will work instead of the default serializer(TokenObtainPairSerializer).
   "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
