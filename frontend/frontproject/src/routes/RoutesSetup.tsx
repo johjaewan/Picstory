@@ -12,6 +12,7 @@ import Menu from "../components/main/menu";
 import UserPage from "../pages/userPage";
 import SignUp from "../components/user/SignUp";
 import LoginForm from "../components/user/Login";
+import KakaoLogin from "../components/user/KakaoLogin";
 
 export default function RoutesSetup() {
 	return (
@@ -20,6 +21,7 @@ export default function RoutesSetup() {
 			<Route element={<Layout />}>
 				<Route path="/user" element={<UserPage />} />
 				<Route path="/login" element={<LoginForm />} />
+				<Route path="/kakaoLogin" element={<KakaoLogin />} />
 				<Route path="/signUp" element={<SignUp />} />
 				<Route path="/storyCreatePage" element={<StoryCreatePage />} />
 				<Route path="/storyResult" element={<StoryResultPage />} />

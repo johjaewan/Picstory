@@ -16,15 +16,15 @@ function SignUp() {
 
 	const Toast = Swal.mixin({
 		toast: true,
-		position: 'top',
+		position: "top",
 		showConfirmButton: false,
 		timer: 3000,
 		timerProgressBar: true,
 		didOpen: (toast) => {
-			toast.addEventListener('mouseenter', Swal.stopTimer)
-			toast.addEventListener('mouseleave', Swal.resumeTimer)
-		}
-	})
+			toast.addEventListener("mouseenter", Swal.stopTimer);
+			toast.addEventListener("mouseleave", Swal.resumeTimer);
+		},
+	});
 
 	const {
 		register,
@@ -65,16 +65,16 @@ function SignUp() {
 
 			if (res.status === 200) {
 				Toast.fire({
-					icon: 'success',
-					title: '사용 가능한 메일입니다.😊'
-				})
+					icon: "success",
+					title: "사용 가능한 메일입니다.😊",
+				});
 				// alert("사용 가능한 메일입니다.😊");
 			}
 		} catch (error) {
 			Toast.fire({
-				icon: 'error',
-				title: '이미 등록된 메일입니다. 다시 입력해주세요.'
-			})
+				icon: "error",
+				title: "이미 등록된 메일입니다. 다시 입력해주세요.",
+			});
 			// alert("이미 등록된 메일입니다. 다시 입력해주세요.");
 			console.log(error);
 		}
@@ -90,22 +90,22 @@ function SignUp() {
 
 			if (res.status === 200) {
 				Toast.fire({
-					icon: 'success',
-					title: '해당 이메일에서 인증 코드를 확인해주세요'
-				})
+					icon: "success",
+					title: "해당 이메일에서 인증 코드를 확인해주세요",
+				});
 				// alert("해당 이메일에서 인증 코드를 확인해주세요");
 			}
 		} catch (error) {
 			Toast.fire({
-				icon: 'error',
-				title: '인증코드 전송이 실패되었습니다.'
-			})
+				icon: "error",
+				title: "인증코드 전송이 실패되었습니다.",
+			});
 			// alert("인증코드 전송이 실패되었습니다.");
 			console.log(error);
 		}
 	};
 
-	//이메일 인증 코드 보내기
+	//이메일 인증 코드 맞는지 체크하기
 	const onEmailCodeCheck = async () => {
 		try {
 			const email = getValues("email");
@@ -117,16 +117,16 @@ function SignUp() {
 
 			if (res.status === 200) {
 				Toast.fire({
-					icon: 'success',
-					title: '인증 되었습니다.'
-				})
+					icon: "success",
+					title: "인증 되었습니다.",
+				});
 				// alert("인증 되었습니다.");
 			}
 		} catch (error) {
 			Toast.fire({
-				icon: 'warning',
-				title: '올바른 인증코드를 작성해주세요.'
-			})
+				icon: "warning",
+				title: "올바른 인증코드를 작성해주세요.",
+			});
 			// alert("올바른 인증코드를 작성해주세요 ");
 			console.log(error);
 		}
@@ -156,20 +156,19 @@ function SignUp() {
 			// 회원가입 요청 성공 시 메인 페이지 이동
 			const result = res.data;
 			if (res.status === 200) {
-
 				Toast.fire({
-					icon: 'success',
-					title: '회원가입 완료!'
-				})
+					icon: "success",
+					title: "회원가입 완료!",
+				});
 				// alert("회원가입 완료!");
 				navigate("/");
 			}
 		} catch (error) {
 			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
-				text: '회원가입 실패',
-			})
+				icon: "error",
+				title: "Oops...",
+				text: "회원가입 실패",
+			});
 			// alert("회원가입 실패");
 			console.log(error);
 		}

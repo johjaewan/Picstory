@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { login } from "../../api/userAPI";
 import styles from "../../assets/css/Login.module.css";
+import KakaoLogin from "./KakaoLogin";
 
 function LoginForm() {
 	type FormData = {
@@ -34,31 +35,37 @@ function LoginForm() {
 				//mainPage로 이동하기
 				const Toast = Swal.mixin({
 					toast: true,
-					position: 'top-end',
+					position: "top-end",
 					showConfirmButton: false,
 					timer: 3000,
 					timerProgressBar: true,
 					didOpen: (toast) => {
-						toast.addEventListener('mouseenter', Swal.stopTimer)
-						toast.addEventListener('mouseleave', Swal.resumeTimer)
-					}
-				})
+						toast.addEventListener("mouseenter", Swal.stopTimer);
+						toast.addEventListener("mouseleave", Swal.resumeTimer);
+					},
+				});
 
 				Toast.fire({
-					icon: 'success',
-					title: `${result.nickname}님 안녕하세요!`
-				})
+					icon: "success",
+					title: `${result.nickname}님 안녕하세요!`,
+				});
 
 				navigate("/");
 			}
 		} catch (error: any) {
 			Swal.fire({
-				icon: 'error',
-				title: 'Oops...',
+				icon: "error",
+				title: "Oops...",
 				text: error.response.data.error,
-			})
+			});
 			console.log(error);
 		}
+	};
+
+	//카카오 로그인 페이지로 이동
+	const handleClick = () => {
+		window.location.href =
+			"http://192.168.100.140:8000/api/accounts/kakao/login/";
 	};
 
 	const {
@@ -122,6 +129,16 @@ function LoginForm() {
 					</div>
 				</div>
 				<div className={styles.buttonBox}>
+					<button
+						className={styles.btn}
+						onClick={handleClick}
+						style={{
+							backgroundColor: "yellow",
+							color: "Maroon",
+						}}
+					>
+						KAKAO
+					</button>
 					<button className={styles.btn} type="submit" disabled={isSubmitting}>
 						로그인
 					</button>
