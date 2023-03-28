@@ -88,8 +88,8 @@ export async function emailCheck(email: string) {
 }
 
 // 유저 삭제
-export async function deleteUser(id: number) {
-	const response: AxiosResponse = await customAxios.delete(`/user/${id}/`);
+export async function deleteUser() {
+	const response: AxiosResponse = await customAxios.delete(`/user/`);
 	return response;
 }
 
