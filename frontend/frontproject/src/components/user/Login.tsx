@@ -15,7 +15,6 @@ function LoginForm() {
 	const onSubmit = async (data: FormData) => {
 		try {
 			const res = await login(data.email, data.password);
-			console.log("res 로그인", res);
 			// 로그인 요청 성공 시 토큰과 유저정보 저장 후 페이지 이동
 			const result = res.data;
 			if (res.status === 200) {

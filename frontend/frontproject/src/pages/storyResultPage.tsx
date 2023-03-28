@@ -82,7 +82,7 @@ export default function StoryResultPage() {
             ) : null}
             {/* 저장 모달 */}
             <button
-              // disabled={storyResultKo && voice ? false : true} // 이게 진짜
+              disabled={storyResultKo && voice ? false : true}
               className={styles.story_result_button}
               onClick={handleRegister}
             >
