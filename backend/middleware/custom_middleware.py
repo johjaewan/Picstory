@@ -18,6 +18,7 @@ class JWTAuthenticationMiddleware:
         self.get_response = get_response
         self.excluded_url_patterns = ['api/accounts/signup/', 'api/accounts/login/','api/accounts/verify/email/',
                                       'api/accounts/api/token/','api/accounts/send/code/','api/accounts/token/refresh/',
+                                      'api/accounts/kakao/login/','api/accounts/kakao/callback/',
                                       'api/story/<int:story_pk>/',
                                       'api/story/delete/<int:story_pk>/',
                                       'api/story/translate/','api/story/voice/',

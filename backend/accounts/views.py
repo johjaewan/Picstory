@@ -177,9 +177,9 @@ def login(request):
 
         # user가 있는지, 비밀번호가 맞는지 확인
         if member is None:
-            return JsonResponse({'error': 'Email does not exist'}, status=404)
+            return JsonResponse({'error': '이메일을 입력해주세요'}, status=404)
         if not check_password(password, member.password): # 비밀번호에서 틀린 경우
-            return JsonResponse({'error': 'Incorrect password'}, status=403)
+            return JsonResponse({'error': '비밀번호가 잘못되었습니다.'}, status=403)
         
         # 유효성검증 이후 jwt생성
         token = MyTokenObtainPairSerializer.get_token(member)
@@ -216,8 +216,6 @@ def token_refresh(request):
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
     
 def kakao_login(request):
-    code = request.GET.get('code')
-    print(code)
     client_id = settings.CLIENT_ID
     redirect_uri = "https://j8d103.p.ssafy.io/"
     return redirect(
