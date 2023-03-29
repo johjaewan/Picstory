@@ -5,11 +5,11 @@ body {
 	height: 100vh;
 	-webkit-font-smoothing: antialiased;
 	text-align: center;
-	background: #f9da5b;
 }
+
 .txt {
 	text-align: center;
-	margin: auto;
+	margin-top: 450px;
 }
 
 h3 span {
