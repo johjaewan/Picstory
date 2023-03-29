@@ -4,7 +4,7 @@ import styles from '../../assets/css/menu.module.css'
 import closeIcon from '../../assets/close.png'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
-import { myInfo } from './TheHeader'
+import { MyInfo } from './TheHeader'
 
 const Menu = () => {
   const [menu, setMenu] = useRecoilState(menuState)
@@ -13,12 +13,12 @@ const Menu = () => {
 
   const myInfoMenu = () => {
     setMenu(false)
-    myInfo()
+    MyInfo()
   }
   // 로그아웃
   const logout = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
 
     const Toast = Swal.mixin({
       toast: true,
@@ -29,12 +29,12 @@ const Menu = () => {
       didOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
-      }
+      },
     })
 
     Toast.fire({
       icon: 'success',
-      title: '로그아웃 성공'
+      title: '로그아웃 성공',
     })
 
     setMenu(false)
@@ -78,16 +78,10 @@ const Menu = () => {
             >
               단어장
             </div>
-            <div
-              className={styles.item}
-              onClick={myInfoMenu}
-            >
+            <div className={styles.item} onClick={myInfoMenu}>
               My Info
             </div>
-            <div
-              className={styles.item}
-              onClick={logout}
-            >
+            <div className={styles.item} onClick={logout}>
               Logout
             </div>
           </div>
