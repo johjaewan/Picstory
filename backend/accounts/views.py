@@ -237,6 +237,7 @@ def kakao_callback(request):
             )
             token_json = token_request.json()
             error = token_json.get("error",None)
+            print("error",error)
             if error is not None :
                 return JsonResponse({"message": "INVALID_CODE"}, status = 400)
             access_token = token_json.get("access_token")
