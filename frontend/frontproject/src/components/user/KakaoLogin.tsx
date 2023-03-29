@@ -84,6 +84,7 @@ function KakaoLogin() {
 	return (
 		<>
 			<div
+				className={`${styles["container"]}`}
 				style={{
 					backgroundColor: "#FAF4C0",
 				}}
@@ -98,7 +99,7 @@ function KakaoLogin() {
 						<span>인</span>
 						<span>완</span>
 						<span>료</span>
-						{/* <span>😎</span> */}
+						<span>😎</span>
 					</h3>
 				</div>
 			</div>
