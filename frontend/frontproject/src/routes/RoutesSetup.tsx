@@ -34,7 +34,7 @@ export default function RoutesSetup() {
 					}
 				/>
 				<Route
-					path="/storyCreatePage"
+					path="/storyResult"
 					element={
 						<PrivateRoute
 							component={<StoryResultPage />}
@@ -43,13 +43,13 @@ export default function RoutesSetup() {
 					}
 				/>
 				<Route
-					path="/storyCreatePage"
+					path="/library"
 					element={
 						<PrivateRoute component={<LibraryPage />} authenticated={token} />
 					}
 				/>
 				<Route
-					path="/storyCreatePage"
+					path="/storyDetail/:id"
 					element={
 						<PrivateRoute
 							component={<StoryDetailPage />}
@@ -58,13 +58,13 @@ export default function RoutesSetup() {
 					}
 				/>
 				<Route
-					path="/storyCreatePage"
+					path="/vocabulary"
 					element={
 						<PrivateRoute component={<Vocabulary />} authenticated={token} />
 					}
 				/>
 				<Route
-					path="/storyCreatePage"
+					path="/menu"
 					element={<PrivateRoute component={<Menu />} authenticated={token} />}
 				/>
 				{/* <Route path="/storyResult" element={<StoryResultPage />} /> */}
