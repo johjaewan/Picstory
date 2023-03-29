@@ -4,11 +4,14 @@ import styles from "../../assets/css/KakaoLogin.module.css";
 import { kakao } from "../../api/userAPI";
 import Swal from "sweetalert2";
 import { useCallback, useEffect } from "react";
+import { tokenAtom } from "../../atoms";
+import { useRecoilState } from "recoil";
 
 function KakaoLogin() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const queryParams = queryString.parse(location.search);
+	const [token, SetToken] = useRecoilState(tokenAtom);
 
 	let code: any = queryParams.code;
 	console.log(code);
@@ -34,6 +37,7 @@ function KakaoLogin() {
 						"refresh_token",
 						JSON.stringify(result.refresh_token)
 					);
+					SetToken(JSON.stringify(result.access_token));
 					//mainPage로 이동하기
 					const Toast = Swal.mixin({
 						toast: true,
