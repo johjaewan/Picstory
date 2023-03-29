@@ -83,10 +83,7 @@ function KakaoLogin() {
 
 	return (
 		<>
-			<div
-				className={`${styles["container"]}`}
-				style={{ backgroundColor: "#f9da5b" }}
-			>
+			<div>
 				<div className={`${styles["txt"]}`}>
 					<h3>
 						<span>카</span>
