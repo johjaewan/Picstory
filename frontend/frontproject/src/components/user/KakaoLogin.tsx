@@ -54,14 +54,28 @@ function KakaoLogin() {
 				// navigate("/");
 			}
 		} catch (error: any) {
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "카카오 로그인 실패! ",
-			});
-			navigate("/kakaologin");
+			navigate("/login");
+			// Swal.fire({
+			// 	icon: "error",
+			// 	title: "Oops...",
+			// 	text: "카카오 로그인 실패! ",
+			// 	confirmButtonText: "RETRY",
+			// 	allowOutsideClick: false, //모달 밖에서는 클릭 안됨
+			// }).then((result) => {
+			// 	if (result.isConfirmed) {
+			// 		//실패했을 때, 다시 카카오로그인 페이지로 이동함
+			// 		handleClick();
+			// 	} else {
+			// 	}
+			// });
 			console.log(error);
 		}
+	};
+	//카카오 로그인 페이지로 이동
+	const handleClick = () => {
+		navigate("/login");
+		// window.location.href =
+		// 	"http://192.168.100.140:8000/api/accounts/kakao/login/";
 	};
 
 	useEffect(() => {
@@ -83,9 +97,8 @@ function KakaoLogin() {
 						<span>원</span>
 						<span>가</span>
 						<span>입</span>
-						<span>완</span>
-						<span>료</span>
-						<span>!</span>
+						<span>중</span>
+						<span>~</span>
 						<span>😎</span>
 					</h1>
 				</div>
