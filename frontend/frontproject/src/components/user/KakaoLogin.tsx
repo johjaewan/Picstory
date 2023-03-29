@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import styles from "../../assets/css/main.module.css";
+import styles from "../../assets/css/KakaoLogin.module.css";
 import { kakao } from "../../api/userAPI";
 import Swal from "sweetalert2";
 import { useCallback, useEffect } from "react";
