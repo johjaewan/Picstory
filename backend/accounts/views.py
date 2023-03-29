@@ -251,7 +251,7 @@ def kakao_callback(request):
             if member is None:
                 nickname = kakao_account.get("profile", None).get("nickname")
                 member = Member(email=email, nickname=nickname)
-                member.set_password(settings.SOCIAL_LOGIN_ID)
+                member.set_password(settings.SOCIAL_LOGIN_PASSWORD)
                 member.save()
                 token = MyTokenObtainPairSerializer.get_token(member)
                 refresh_token = str(token)
