@@ -26,7 +26,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
 from django.shortcuts import redirect
 import requests
-
+import logging
 from django.shortcuts import redirect
 
 redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = settings.REDIS_KEY)
@@ -226,50 +226,52 @@ def kakao_login(request):
 
 def kakao_callback(request):
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-            code = data.get("code")
-            client_id = settings.CLIENT_ID
-            # redirect_uri = "http://localhost:3000/kakaologin/"
-            redirect_uri = "https://j8d103.p.ssafy.io/kakaologin/"
-            token_request = requests.get(
-                f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
-            )
-            token_json = token_request.json()
-            error = token_json.get("error",None)
-            if error is not None :
-                return JsonResponse({"message": "INVALID_CODE"}, status = 400)
-            access_token = token_json.get("access_token")
-            profile_request = requests.get(
-                "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
-            )
-            profile_json = profile_request.json()
-            kakao_account = profile_json.get("kakao_account")
-            email = kakao_account.get("email", None)
-            member = Member.objects.filter(email=email).first()
-            ### 회원가입
-            if member is None:
-                nickname = kakao_account.get("profile", None).get("nickname")
-                member = Member(email=email, nickname=nickname)
-                member.set_password(settings.SOCIAL_LOGIN_PASSWORD)
-                member.save()
-                token = MyTokenObtainPairSerializer.get_token(member)
-                refresh_token = str(token)
-                access_token = str(token.access_token)
-                response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
-                return response
-            
-            ### 로그인
-            else:
-                token = MyTokenObtainPairSerializer.get_token(member)
-                refresh_token = str(token)
-                access_token = str(token.access_token)
-                # response body에 사용자 정보와 jwt 저장
-                response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
-                return response
-                # return JsonResponse({'error': '임시에러' },status=400)
-        except:
-            return redirect("https://j8d103.p.ssafy.io/kakaologin/")
+        data = json.loads(request.body.decode('utf-8'))
+        code = data.get("code")
+        client_id = settings.CLIENT_ID
+        # redirect_uri = "http://localhost:3000/kakaologin/"
+        redirect_uri = "https://j8d103.p.ssafy.io/kakaologin/"
+        token_request = requests.get(
+            f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
+        )
+        token_json = token_request.json()
+        error = token_json.get("error",None)
+        logging.error('error1 : ')
+        print("error",error)
+        if error is not None :
+            return JsonResponse({"message": "INVALID_CODE"}, status = 400)
+        access_token = token_json.get("access_token")
+        profile_request = requests.get(
+            "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+        )
+        logging.error('error2 : ')
+
+        profile_json = profile_request.json()
+        kakao_account = profile_json.get("kakao_account")
+        email = kakao_account.get("email", None)
+        member = Member.objects.filter(email=email).first()
+        ### 회원가입
+        if member is None:
+            nickname = kakao_account.get("profile", None).get("nickname")
+            member = Member(email=email, nickname=nickname)
+            member.set_password(settings.SOCIAL_LOGIN_PASSWORD)
+            member.save()
+            token = MyTokenObtainPairSerializer.get_token(member)
+            refresh_token = str(token)
+            access_token = str(token.access_token)
+            response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
+            return response
+        
+        ### 로그인
+        else:
+            token = MyTokenObtainPairSerializer.get_token(member)
+            refresh_token = str(token)
+            access_token = str(token.access_token)
+            # response body에 사용자 정보와 jwt 저장
+            response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
+            return response
+            # return JsonResponse({'error': '임시에러' },status=400)
+            # return redirect("https://j8d103.p.ssafy.io/kakaologin/")
 
             # return redirect("http://localhost:3000/login/")
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
