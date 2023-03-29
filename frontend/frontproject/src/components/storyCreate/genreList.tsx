@@ -9,11 +9,14 @@ import {
   voiceAtom,
   colorAtom,
   isFinished,
+  translateIsFinished,
+  voiceIsFinished,
 } from '../../atoms'
 import { createStory, createVoice, translateStory } from '../../api/storyApi'
 import Loading from './loading'
 import styles from '../../assets/css/genreList.module.css'
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router'
 
 export default function ImageUpload() {
   const color = useRecoilValue(colorAtom)
@@ -23,6 +26,9 @@ export default function ImageUpload() {
   const setStoryEnglish = useSetRecoilState(storyEn)
   const setVoice = useSetRecoilState(voiceAtom)
   const [finished, setFinished] = useRecoilState(isFinished)
+  const navigate = useNavigate()
+  const [transIsFin, setTransIsFin] = useRecoilState(translateIsFinished)
+  const [voiceIsFin, setVoiceIsFin] = useRecoilState(voiceIsFinished)
 
   // 장르
   const clickGenre = (e: ChangeEvent<HTMLInputElement>) => {
@@ -106,11 +112,13 @@ export default function ImageUpload() {
   const makeVoice = async (storyEng: string, genre: string) => {
     const response = await createVoice(storyEng, genre)
     setVoice(response.data.voice)
+    if (response.status === 200) setVoiceIsFin(true)
   }
   // 번역 요청
   const translate = async (storyEng: string) => {
     const response = await translateStory(storyEng)
     setStoryKorean(response.data.content)
+    if (response.status === 200) setTransIsFin(true)
   }
 
   return (

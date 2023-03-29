@@ -1,76 +1,100 @@
 .title {
-  font-size: 40px;
-  margin-top: 100px;
-  font-size: 45px;
-  font-weight: 1000;
-  text-shadow: 0 1px 0 #b1b1b1, 0 2px 0 #ccc, 0 3px 0 #c4c4c4, 0 3px 0 #ccc,
-    0 3px 0 #7c7c7c, 0 3px 0 transparent, 0 5px 0 transparent,
-    0 18px 0 transparent, 0 12px 0 transparent,
-    0 5px 5px rgba(255, 255, 255, 0.4);
+	font-size: 40px;
+	margin-top: 100px;
+	font-size: 45px;
+	font-weight: 1000;
+	text-shadow: 0 1px 0 #b1b1b1, 0 2px 0 #ccc, 0 3px 0 #c4c4c4, 0 3px 0 #ccc,
+		0 3px 0 #7c7c7c, 0 3px 0 transparent, 0 5px 0 transparent,
+		0 18px 0 transparent, 0 12px 0 transparent,
+		0 5px 5px rgba(255, 255, 255, 0.4);
 }
 .container {
-  width: 550px;
-  height: 340px;
-  margin: 50px auto 0 auto;
-  padding: 70px 0;
-  text-align: center;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-  animation: show 1s ease;
+	width: 550px;
+	height: 340px;
+	margin: 50px auto 0 auto;
+	padding: 70px 0;
+	text-align: center;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	animation: show 1s ease;
+}
+.formcontainer {
+	min-width: 700px;
+	width: 40vw;
+	height: 500px;
+	margin: 50px auto 0 auto;
+	padding: 40px 0;
+	text-align: center;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	animation: show 1s ease;
 }
 .emailBox {
-  margin: 0 auto;
-  text-align: center;
+	margin: 0 auto;
+	text-align: center;
 }
-.emailAlert {
-  margin-left: 30px;
-  height: 20px;
-  color: rgb(255, 0, 0);
+.inputBox {
+	margin: 5px auto;
+	text-align: center;
 }
 .pwdBox {
-  text-align: center;
-  margin-top: 30px;
+	text-align: center;
+	margin-top: 30px;
+}
+.emailAlert {
+	margin-left: 30px;
+	height: 20px;
+	color: rgb(255, 0, 0);
 }
 .pwdAlert {
-  margin-left: 30px;
-  height: 20px;
-  color: rgb(255, 0, 0);
+	margin-left: 30px;
+	height: 20px;
+	color: rgb(255, 0, 0);
+}
+.alert {
+	margin-left: 30px;
+	height: 20px;
+	color: rgb(255, 0, 0);
 }
 #inputEmail {
-  border-radius: 30px;
-  box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-  text-align: center;
-  padding: 7px 12px;
-  margin: 0 30px 0 45px;
+	border-radius: 30px;
+	box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+	text-align: center;
+	padding: 7px 12px;
+	margin: 0 30px 0 45px;
+}
+.inputItem {
+	border-radius: 30px;
+	box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+	text-align: center;
+	padding: 7px 12px;
+	margin: 0 30px 0 45px;
+	width: 300px;
 }
 #inputPwd {
-  border-radius: 30px;
-  box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-  text-align: center;
-  padding: 7px 10px;
-  margin: 0 30px;
+	border-radius: 30px;
+	box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+	text-align: center;
+	padding: 7px 10px;
+	margin: 0 30px;
 }
-
 .buttonBox {
-  margin: 40px;
+	margin: 40px;
 }
 .btn {
-  color: rgb(0, 0, 0);
-  margin: 0 10px;
-  padding: 10px 20px;
-  border-radius: 25px;
-  box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+	color: rgb(0, 0, 0);
+	margin: 0 10px;
+	padding: 10px 20px;
+	border-radius: 25px;
+	box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
 }
-
 .btn:focus {
-  color: #000000;
-  box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+	color: #000000;
+	box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
 }
-
 @keyframes show {
-  from {
-    transform: translateY(-10%);
-  }
-  to {
-    transform: translateY(0);
-  }
+	from {
+		transform: translateY(-10%);
+	}
+	to {
+		transform: translateY(0);
+	}
 }

@@ -4,12 +4,17 @@ import styles from '../../assets/css/menu.module.css'
 import closeIcon from '../../assets/close.png'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import { myInfo } from './TheHeader'
 
 const Menu = () => {
   const [menu, setMenu] = useRecoilState(menuState)
   const color = useRecoilValue(colorAtom)
   const navigation = useNavigate()
 
+  const myInfoMenu = () => {
+    setMenu(false)
+    myInfo()
+  }
   // 로그아웃
   const logout = () => {
     localStorage.removeItem("access_token");
@@ -75,10 +80,7 @@ const Menu = () => {
             </div>
             <div
               className={styles.item}
-              onClick={() => {
-                navigation('/vocabulary')
-                setMenu(false)
-              }}
+              onClick={myInfoMenu}
             >
               My Info
             </div>

@@ -75,11 +75,17 @@ export async function emailCheck(email: string) {
 	return response;
 }
 
-//유저 삭제
-export async function deleteUser(id: number) {
-	const response: AxiosResponse = await customAxios.delete(`/user/${id}/`);
+// 유저 삭제
+export async function deleteUser() {
+	const response: AxiosResponse = await customAxios.delete(
+		`/accounts/withdrawal/`
+	);
 	return response;
 }
+// export async function deleteUser() {
+// 	const response: AxiosResponse = await customAxios.delete(`/user/`);
+// 	return response;
+// }
 
 //카카오로그인 요청 후 인가코드 전송
 export async function kakao(code: string) {
