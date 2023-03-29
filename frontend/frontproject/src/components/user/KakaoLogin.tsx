@@ -11,6 +11,7 @@ function KakaoLogin() {
 	const queryParams = queryString.parse(location.search);
 
 	let code: any = queryParams.code;
+	console.log(code);
 
 	const onCodeSend = useCallback(
 		async (code: string) => {
@@ -50,8 +51,25 @@ function KakaoLogin() {
 						icon: "success",
 						title: `${result.nickname}님 안녕하세요!`,
 					});
+					navigate("/");
 				}
 			} catch (error: any) {
+				const Toast = Swal.mixin({
+					toast: true,
+					position: "top-end",
+					showConfirmButton: false,
+					timer: 3000,
+					timerProgressBar: true,
+					didOpen: (toast) => {
+						toast.addEventListener("mouseenter", Swal.stopTimer);
+						toast.addEventListener("mouseleave", Swal.resumeTimer);
+					},
+				});
+
+				Toast.fire({
+					icon: "success",
+					title: `카카오로그인 실패! 다시 로그인해주세요`,
+				});
 				navigate("/login");
 				console.log(error);
 			}
@@ -86,14 +104,14 @@ function KakaoLogin() {
 				</div>
 				<div className={styles.clear}></div>
 
-				<button
+				{/* <button
 					onClick={() => {
 						navigate("/");
 					}}
 					className={styles.btn1}
 				>
 					HOME
-				</button>
+				</button> */}
 			</div>
 		</>
 	);

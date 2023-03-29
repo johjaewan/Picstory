@@ -62,8 +62,7 @@ function LoginForm() {
 
 	//카카오 로그인 페이지로 이동
 	const handleClick = () => {
-		window.location.href =
-			"http://j8d103.p.ssafy.io/api/accounts/kakao/login/";
+		window.location.href = "http://j8d103.p.ssafy.io/api/accounts/kakao/login/";
 	};
 
 	const {
