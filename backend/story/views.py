@@ -170,6 +170,7 @@ def create_story(request):
 
     :return str: 영어 이야기
     """
+    print("이야기 생성======================")
     genre = request.data.get('genre', False)
     if not genre:
         logging.error('genre가 없습니다.')
@@ -193,7 +194,6 @@ def create_story(request):
     )
 
     content = response.choices[0].text
-    content = content.replace("\n", "").replace("\\", "")
 
     return Response({'content': content}, status=status.HTTP_200_OK)
 
