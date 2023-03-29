@@ -7,7 +7,7 @@ import styles from "../../assets/css/Login.module.css";
 
 function SignUp() {
 	const navigate = useNavigate();
-
+	//테스트중테스트중
 	const {
 		register,
 		handleSubmit,
