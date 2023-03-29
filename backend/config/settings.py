@@ -55,12 +55,6 @@ INSTALLED_APPS = [
     'django_filters',
     'django_extensions',
 
-    # ...
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    # ...
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -108,6 +102,9 @@ CACHES = {
 }
 
 MIDDLEWARE = [
+    # custom middleware 클래스 추가
+    'middleware.custom_middleware.JWTAuthenticationMiddleware',
+    
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
 
@@ -120,8 +117,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    # custom middleware 클래스 추가
-    'middleware.custom_middleware.JWTAuthenticationMiddleware',
 ]
 
 # 모든 호스트 허용

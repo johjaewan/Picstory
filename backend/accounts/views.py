@@ -177,7 +177,7 @@ def login(request):
 
         # user가 있는지, 비밀번호가 맞는지 확인
         if member is None:
-            return JsonResponse({'error': '이메일을 입력해주세요'}, status=404)
+            return JsonResponse({'error': '해당유저가 없습니다.'}, status=404)
         if not check_password(password, member.password): # 비밀번호에서 틀린 경우
             return JsonResponse({'error': '비밀번호가 잘못되었습니다.'}, status=403)
         
@@ -217,46 +217,89 @@ def token_refresh(request):
     
 def kakao_login(request):
     client_id = settings.CLIENT_ID
-    redirect_uri = "https://j8d103.p.ssafy.io/"
+    # redirect_uri = "http://localhost:3000/kakaologin/"
+    redirect_uri = "https://j8d103.p.ssafy.io/kakaologin/"
+    print("redirect_uri : ",redirect_uri)
     return redirect(
         f"https://kauth.kakao.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&response_type=code"
     )
 
 def kakao_callback(request):
-    print(request)
-    code = request.GET.get("code")
-    client_id = settings.CLIENT_ID
-    redirect_uri = "https://j8d103.p.ssafy.io/"
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            code = data.get("code")
+            client_id = settings.CLIENT_ID
+            # redirect_uri = "http://localhost:3000/kakaologin/"
+            redirect_uri = "https://j8d103.p.ssafy.io/kakaologin/"
+            token_request = requests.get(
+                f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
+            )
+            token_json = token_request.json()
+            error = token_json.get("error",None)
+            if error is not None :
+                return JsonResponse({"message": "INVALID_CODE"}, status = 400)
+            access_token = token_json.get("access_token")
+            profile_request = requests.get(
+                "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
+            )
+            profile_json = profile_request.json()
+            kakao_account = profile_json.get("kakao_account")
+            email = kakao_account.get("email", None)
+            member = Member.objects.filter(email=email).first()
+            ### 회원가입
+            if member is None:
+                nickname = kakao_account.get("profile", None).get("nickname")
+                member = Member(email=email, nickname=nickname)
+                member.set_password(settings.SOCIAL_LOGIN_PASSWORD)
+                member.save()
+                token = MyTokenObtainPairSerializer.get_token(member)
+                refresh_token = str(token)
+                access_token = str(token.access_token)
+                response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
+                return response
+            
+            ### 로그인
+            else:
+                token = MyTokenObtainPairSerializer.get_token(member)
+                refresh_token = str(token)
+                access_token = str(token.access_token)
+                # response body에 사용자 정보와 jwt 저장
+                response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
+                return response
+                # return JsonResponse({'error': '임시에러' },status=400)
+        except:
+            return redirect("https://j8d103.p.ssafy.io/kakaologin/")
 
-    token_request = requests.get(
-        f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
-    )
-    token_json = token_request.json()
-    error = token_json.get("error",None)
-    if error is not None :
-        return JsonResponse({"message": "INVALID_CODE"}, status = 400)
-    access_token = token_json.get("access_token")
-    print("token_json : ",token_json)
-    print("access_token : ",access_token)
-    profile_request = requests.get(
-        "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
-    )
-    profile_json = profile_request.json()
-    print("profile_json : ",profile_json)
-    kakao_account = profile_json.get("kakao_account")
-    print(profile_json)
-    email = kakao_account.get("email", None)
-    print(email)
+            # return redirect("http://localhost:3000/login/")
+    return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
 
 
-    # 회원가입
-    return JsonResponse({'message': email },status=200)
-
-@csrf_exempt
-@api_view(['POST'])
 def test(request):
+    print('테스트')
+
     access_token = request.headers.get('Authorization').split(' ')[1]
     # refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
     print(access_token)
     # print(refresh_token)
-    return JsonResponse({'message':'테스트 성공'},status = 200)
+    # payload = request.response
+    # print(payload)
+    return redirect("https://www.naver.com/")
+    # return JsonResponse({'message':'테스트 성공'},status = 200)
+
+
+def withdrawal(request):
+    if request.method == "DELETE":
+        access_token = request.headers.get('Authorization').split(' ')[1]
+        print(access_token)
+        payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+        user_id = payload['user_id']
+        member = Member.objects.filter(id=user_id).first()
+        print(member)
+        member.delete()
+        return JsonResponse({'message': '회원 탈퇴가 완료되었습니다.'}, status=200)
+    return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
+
+# def profile(request):
+#     if request.method == "GET":
+

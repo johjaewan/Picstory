@@ -20,9 +20,9 @@ urlpatterns = [
 
 
     path('kakao/login/',views.kakao_login, name='kakao_login'),
-    path('kakao/callback/',views.kakao_callback, name='kakao_login'),
+    path('kakao/callback/',views.kakao_callback, name='kakao_callback'),
 
-
+    path('withdrawal/', views.withdrawal, name='withdrawal'),
 
     path('test/',views.test)
 ]

@@ -40,11 +40,15 @@ class JWTAuthenticationMiddleware:
         if not access_token:
             return JsonResponse({'error': 'access 토큰이 필요합니다.'}, status=401)
         try:
-            jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+            payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         # access_token이 만료되었을때
         except jwt.ExpiredSignatureError:
             return JsonResponse({'error':'access_token이 만료되었습니다.'},status=401)
         # 모든에러처리
         except jwt.exceptions.PyJWTError:
             return JsonResponse({'error': '유효하지 않은 access 토큰입니다.'}, status=401)
+        payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
+        print(payload['user_id'])
+        response.payload = payload
+        print(response.payload)
         return response
