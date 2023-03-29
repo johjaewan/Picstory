@@ -61,7 +61,7 @@ const TheHeader = () => {
                 navigation('/library')
               }}
             >
-              이야기들
+              STORIES
             </button>
             <button
               className={styles.list}
@@ -69,7 +69,7 @@ const TheHeader = () => {
                 navigation('/vocabulary')
               }}
             >
-              단어장
+              VOCA
             </button>
             <div className={styles.listShadow}></div>
             <li
