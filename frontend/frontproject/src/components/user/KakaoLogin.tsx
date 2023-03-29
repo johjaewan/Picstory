@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import styles from "../../assets/css/main.module.css";
+import styles from "../../assets/css/KakaoLogin.module.css";
 import { kakao } from "../../api/userAPI";
 import Swal from "sweetalert2";
 import { useCallback, useEffect } from "react";
@@ -83,14 +83,9 @@ function KakaoLogin() {
 
 	return (
 		<>
-			<div
-				className={`${styles["container"]}`}
-				style={{
-					backgroundColor: "pink",
-				}}
-			>
-				<div className={styles.picstory}>
-					<h1>
+			<div className={`${styles["container"]}`}>
+				<div className={`${styles["txt"]}`}>
+					<h3>
 						<span>카</span>
 						<span>카</span>
 						<span>오</span>
@@ -99,19 +94,8 @@ function KakaoLogin() {
 						<span>인</span>
 						<span>완</span>
 						<span>료</span>
-						<span>😎</span>
-					</h1>
+					</h3>
 				</div>
-				<div className={styles.clear}></div>
-
-				{/* <button
-					onClick={() => {
-						navigate("/");
-					}}
-					className={styles.btn1}
-				>
-					HOME
-				</button> */}
 			</div>
 		</>
 	);
