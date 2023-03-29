@@ -170,7 +170,6 @@ def login(request):
         # request body에서 email, password 추출
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
-        print(email)
         password = data.get('password')
         
         # 해당 email의 user가져오기
@@ -252,7 +251,7 @@ def kakao_callback(request):
             if member is None:
                 nickname = kakao_account.get("profile", None).get("nickname")
                 member = Member(email=email, nickname=nickname)
-                member.set_password("dlatlqlqjs!1")
+                member.set_password(settings.SOCIAL_LOGIN_ID)
                 member.save()
                 token = MyTokenObtainPairSerializer.get_token(member)
                 refresh_token = str(token)
