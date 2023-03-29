@@ -84,13 +84,12 @@ function KakaoLogin() {
 	return (
 		<>
 			<div
-				className={`${styles["container"]}`}
 				style={{
-					backgroundColor: "pink",
+					backgroundColor: "#FAF4C0",
 				}}
 			>
-				<div className={styles.picstory}>
-					<h1>
+				<div>
+					<h3>
 						<span>카</span>
 						<span>카</span>
 						<span>오</span>
@@ -99,19 +98,9 @@ function KakaoLogin() {
 						<span>인</span>
 						<span>완</span>
 						<span>료</span>
-						<span>😎</span>
-					</h1>
+						{/* <span>😎</span> */}
+					</h3>
 				</div>
-				<div className={styles.clear}></div>
-
-				{/* <button
-					onClick={() => {
-						navigate("/");
-					}}
-					className={styles.btn1}
-				>
-					HOME
-				</button> */}
 			</div>
 		</>
 	);
