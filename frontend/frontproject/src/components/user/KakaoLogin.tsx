@@ -89,8 +89,12 @@ function KakaoLogin() {
 					backgroundColor: "#FAF4C0",
 				}}
 			>
-				<div>
-					<h3>
+				<div
+					style={{
+						margin: "auto",
+					}}
+				>
+					<h2>
 						<span>카</span>
 						<span>카</span>
 						<span>오</span>
@@ -99,8 +103,7 @@ function KakaoLogin() {
 						<span>인</span>
 						<span>완</span>
 						<span>료</span>
-						<span>😎</span>
-					</h3>
+					</h2>
 				</div>
 			</div>
 		</>
