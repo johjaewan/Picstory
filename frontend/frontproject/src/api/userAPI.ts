@@ -82,10 +82,6 @@ export async function deleteUser() {
 	);
 	return response;
 }
-// export async function deleteUser() {
-// 	const response: AxiosResponse = await customAxios.delete(`/user/`);
-// 	return response;
-// }
 
 //카카오로그인 요청 후 인가코드 전송
 export async function kakao(code: string) {
