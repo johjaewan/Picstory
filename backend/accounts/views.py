@@ -170,7 +170,6 @@ def login(request):
         # request body에서 email, password 추출
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
-        print(email)
         password = data.get('password')
         
         # 해당 email의 user가져오기
