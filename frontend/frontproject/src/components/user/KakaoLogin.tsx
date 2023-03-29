@@ -1,14 +1,16 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import queryString from "query-string";
-import styles from "../../assets/css/KakaoLogin.module.css";
 import { kakao } from "../../api/userAPI";
 import Swal from "sweetalert2";
 import { useCallback, useEffect } from "react";
+import { tokenAtom } from "../../atoms";
+import { useRecoilState } from "recoil";
 
 function KakaoLogin() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const queryParams = queryString.parse(location.search);
+	const [token, SetToken] = useRecoilState(tokenAtom);
 
 	let code: any = queryParams.code;
 	console.log(code);
@@ -34,6 +36,7 @@ function KakaoLogin() {
 						"refresh_token",
 						JSON.stringify(result.refresh_token)
 					);
+					SetToken(JSON.stringify(result.access_token));
 					//mainPage로 이동하기
 					const Toast = Swal.mixin({
 						toast: true,
@@ -83,21 +86,11 @@ function KakaoLogin() {
 
 	return (
 		<>
-			<div
-				className={`${styles["container"]}`}
-				style={{ backgroundColor: "#f9da5b" }}
-			>
-				<div className={`${styles["txt"]}`}>
-					<h3>
-						<span>카</span>
-						<span>카</span>
-						<span>오</span>
-						<span>로</span>
-						<span>그</span>
-						<span>인</span>
-						<span>완</span>
-						<span>료</span>
-					</h3>
+			<div>
+				<div style={{ textAlign: "center", marginTop: "40vh" }}>
+					<h2 style={{ fontSize: "120px", fontWeight: "700" }}>
+						카카오 로그인 성공
+					</h2>
 				</div>
 			</div>
 		</>
