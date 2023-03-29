@@ -80,6 +80,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
 # CloudFront
 CLOUD_FRONT_DOMAIN = config('CLOUD_FRONT_DOMAIN')
 
+SOCIAL_LOGIN_PASSWORD = config('SOCIAL_LOGIN_PASSWORD')
 # 주석처리
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
