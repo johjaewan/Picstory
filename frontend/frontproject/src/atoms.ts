@@ -85,3 +85,8 @@ export const voiceIsFinished = atom({
   key: 'voiceIsFinished',
   default: false,
 })
+
+export const tokenAtom = atom({
+  key: 'tokenAtom',
+  default: localStorage.getItem('access_token'),
+})
