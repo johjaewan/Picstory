@@ -83,18 +83,9 @@ function KakaoLogin() {
 
 	return (
 		<>
-			<div
-				className={`${styles["container"]}`}
-				style={{
-					backgroundColor: "#FAF4C0",
-				}}
-			>
-				<div
-					style={{
-						margin: "auto",
-					}}
-				>
-					<h2>
+			<div className={`${styles["container"]}`}>
+				<div className={`${styles["txt"]}`}>
+					<h3>
 						<span>카</span>
 						<span>카</span>
 						<span>오</span>
@@ -103,7 +94,7 @@ function KakaoLogin() {
 						<span>인</span>
 						<span>완</span>
 						<span>료</span>
-					</h2>
+					</h3>
 				</div>
 			</div>
 		</>

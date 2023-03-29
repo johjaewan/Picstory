@@ -5,10 +5,13 @@ body {
 	height: 100vh;
 	-webkit-font-smoothing: antialiased;
 	text-align: center;
-}
-.yellow {
 	background: #f9da5b;
 }
+.txt {
+	text-align: center;
+	margin: auto;
+}
+
 h3 span {
 	position: relative;
 	top: 20px;
