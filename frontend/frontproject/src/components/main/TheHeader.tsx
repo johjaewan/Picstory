@@ -108,11 +108,20 @@ const TheHeader = () => {
         >
           picstory
         </div>
-        <button className={styles.btn} onClick={logout}>
-          Logout
+        <button className={`${styles['iconBox']}`} onClick={logout}>
+          <img
+            className={`${styles['icon']}`}
+            src="https://cdn-icons-png.flaticon.com/512/3889/3889524.png"
+            alt=""
+          />
         </button>
-        <button className={styles.btn} onClick={MyInfo}>
-          MyInfo
+
+        <button className={`${styles['iconBox']}`} onClick={MyInfo}>
+          <img
+            className={`${styles['icon']}`}
+            src="https://cdn-icons-png.flaticon.com/512/151/151776.png"
+            alt=""
+          />
         </button>
       </div>
       <button
