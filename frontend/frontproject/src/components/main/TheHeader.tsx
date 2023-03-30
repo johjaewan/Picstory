@@ -82,8 +82,24 @@ const TheHeader = () => {
   }
 
   return (
-    <header className={`${styles['header']} ${styles[color]}`}>
+    <header className={`${styles['header']} `}>
       <div className={styles.contents}>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            navigation('/library')
+          }}
+        >
+          ARTICLE
+        </button>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            navigation('/vocabulary')
+          }}
+        >
+          WORD
+        </button>
         <div
           className={styles.logo}
           onClick={() => {
@@ -92,46 +108,21 @@ const TheHeader = () => {
         >
           picstory
         </div>
-
-        <nav className={styles.navigation}>
-          <ul>
-            <li className={styles.list} onClick={logout}>
-              Logout
-            </li>
-            <li className={styles.list} onClick={MyInfo}>
-              MyInfo
-            </li>
-            <li
-              className={styles.list}
-              onClick={() => {
-                navigation('/library')
-              }}
-            >
-              이야기들
-            </li>
-            <li
-              className={styles.list}
-              onClick={() => {
-                navigation('/vocabulary')
-              }}
-            >
-              단어장
-            </li>
-            <li
-              onClick={() => {
-                setMenu(true)
-              }}
-            >
-              <img
-                src={menuIcon}
-                className={styles.menuIcon}
-                width={30}
-                alt=""
-              />
-            </li>
-          </ul>
-        </nav>
+        <button className={styles.btn} onClick={logout}>
+          Logout
+        </button>
+        <button className={styles.btn} onClick={MyInfo}>
+          MyInfo
+        </button>
       </div>
+      <button
+        className={styles.menuIcon}
+        onClick={() => {
+          setMenu(true)
+        }}
+      >
+        <img src={menuIcon} width={30} alt="" />
+      </button>
     </header>
   )
 }
