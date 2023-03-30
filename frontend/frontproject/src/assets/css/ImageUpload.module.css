@@ -1,16 +1,14 @@
 @media (max-width: 600px) {
 	.image_box {
-		margin: 5vh auto;
+		margin: 7vh auto 5vh auto;
 		width: 250px;
 		height: 200px;
 		border: solid;
-		margin-top: 7vh;
 	}
 	#upload_icon {
-		margin: auto;
+		margin: 70px auto;
 		width: 40px;
 		height: 40px;
-		margin-top: 80px;
 	}
 	#image_label {
 		cursor: pointer;
@@ -43,7 +41,6 @@
 		vertical-align: middle;
 		background-color: #ffffff;
 		cursor: pointer;
-		/* height: 33px; */
 		margin-left: 10px;
 	}
 	#bottom_label :hover {
