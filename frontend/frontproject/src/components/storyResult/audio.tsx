@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { useRecoilState, useRecoilValue, atom } from 'recoil'
+import { useEffect, useRef } from 'react'
+import { useRecoilState, atom, useRecoilValue } from 'recoil'
 import { voiceAtom } from '../../atoms'
 import styles from '../../assets/css/storyResultPage.module.css'
 
@@ -15,7 +15,7 @@ export const audioState = atom<boolean>({
 
 function AudioPlayer() {
   // 재생 상태
-  const [voice, setVoice] = useRecoilState(voiceAtom)
+  const voice = useRecoilValue(voiceAtom)
   let myRef = useRef<HTMLAudioElement | null>(null)
   const [play, setPlay] = useRecoilState(audioState)
 
@@ -46,8 +46,14 @@ function AudioPlayer() {
 
   return (
     <>
-      <audio ref={myRef} src={voice} loop></audio>
-      {play ? (
+      <audio
+        className={styles.audio}
+        ref={myRef}
+        src={voice}
+        controls
+        loop
+      ></audio>
+      {/* {play ? (
         // 일시정지 버튼
         <button
           disabled={voice ? false : true}
@@ -65,7 +71,7 @@ function AudioPlayer() {
         >
           <TbPlayerPlayFilled className={styles.sound_icon} />
         </button>
-      )}
+      )} */}
     </>
   )
 }

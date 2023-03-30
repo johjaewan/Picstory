@@ -1,7 +1,8 @@
 @media (max-width: 600px) {
   .container {
     text-align: center;
-    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
   }
 
   #genreBtn-1,
@@ -9,7 +10,7 @@
   #genreBtn-3,
   #genreBtn-4 {
     opacity: 0;
-    margin-top: 50px;
+    margin: 50px 0;
   }
 
   .genre_label {
@@ -47,6 +48,8 @@
 @media (min-width: 600px) {
   .container {
     text-align: center;
+    display: flex;
+    justify-content: center;
   }
 
   #genreBtn-1,
@@ -71,7 +74,6 @@
     padding: 10px 20px;
     margin: 0 3vw;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    background-color: rgb(25, 30, 139);
     color: #ffffff;
   }
   .createBtn {

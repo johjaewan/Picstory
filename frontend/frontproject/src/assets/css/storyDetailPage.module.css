@@ -25,6 +25,7 @@
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     word-wrap: break-word;
     word-break: keep-all;
+    text-align: justify;
   }
   .btnBox {
     margin: 20px 60px;
@@ -51,7 +52,7 @@
   .container {
     text-align: center;
     display: block;
-    margin: 20vh auto 0 auto;
+    margin: 2vh auto 0 auto;
     width: 90vw;
   }
   .left_container {
@@ -64,6 +65,8 @@
   }
   .title {
     margin-bottom: 20px;
+    font-weight: 600;
+    font-size:xx-large;
   }
   .image {
     margin: 0 auto;
@@ -77,6 +80,7 @@
     padding: 20px;
     border-radius: 30px;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    text-align: justify;
   }
   .btnBox {
     display: flex;

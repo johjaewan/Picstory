@@ -1,17 +1,15 @@
-import { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { ImageBit } from '../../atoms'
-import { ImageFile } from '../../atoms'
-import { loadingAtom } from '../../atoms'
-import Loading from './loading'
+import { useState } from 'react'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import { ImageBit, ImageFile, loadingAtom } from '../../atoms'
 
 import styles from '../../assets/css/ImageUpload.module.css'
+import Swal from 'sweetalert2'
 
 export default function ImageUpload() {
   const [bitImage, setBitImage] = useRecoilState(ImageBit) // 이미지 파일 base64
   const [imageName, setImageName] = useState('') // 이미지 파일 base64
-  const [imageFile, setImageFile] = useRecoilState(ImageFile) // 이미지 파일 base64
-  const [loading, setLoading] = useRecoilState(loadingAtom)
+  const setImageFile = useSetRecoilState(ImageFile) // 이미지 파일 base64
+  const loading = useRecoilValue(loadingAtom)
 
   const setImageFromFile = (e: any): Promise<void> => {
     let file = e.target.files[0]
@@ -20,15 +18,18 @@ export default function ImageUpload() {
     reader.readAsDataURL(file)
 
     if (
-      file.type != 'image/jpg' &&
-      file.type != 'image/png' &&
-      file.type != 'image/jpeg' &&
-      file.type != 'image/JPG' &&
-      file.type != 'image/PNG' &&
-      file.type != 'image/JPEG'
+      file.type !== 'image/jpg' &&
+      file.type !== 'image/png' &&
+      file.type !== 'image/jpeg' &&
+      file.type !== 'image/JPG' &&
+      file.type !== 'image/PNG' &&
+      file.type !== 'image/JPEG'
     ) {
-      alert('이미지 파일을 업로드 해주세요')
-      return new Promise(() => {})
+      Swal.fire({
+        icon: 'warning',
+        text: '이미지 파일을 업로드 해주세요!',
+      })
+      return new Promise(() => { })
     }
 
     return new Promise((resolve) => {
@@ -43,14 +44,13 @@ export default function ImageUpload() {
   }
 
   return (
-    // 이미지 태그에는 alt가 있어야한다는 경고 문구가 떠서 수정 확인 요청
     <>
       {loading ? null : (
         <div className={styles.filebox}>
           <div className={styles.container}>
-            {bitImage != '' ? (
+            {bitImage !== '' ? (
               <div className={styles.image_box}>
-                <img id={styles.image} src={bitImage} />
+                <img id={styles.image} src={bitImage} alt="createImg" />
               </div>
             ) : (
               <div className={styles.image_box}>
@@ -58,6 +58,7 @@ export default function ImageUpload() {
                   <img
                     id={styles.upload_icon}
                     src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
+                    alt="createImg"
                   ></img>
                 </label>
               </div>
