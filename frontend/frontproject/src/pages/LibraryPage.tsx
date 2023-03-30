@@ -46,18 +46,12 @@ export default function LibraryPage() {
 				<section className={styles.container}>
 					{newlistItems.map((item, idx) => {
 						return (
-							<div
+							<Card
 								key={idx}
-								onClick={() => {
-									window.location.href = `storyDetail/${item.id}`;
-								}}
-							>
-								<Card
-									imageSrc={item.image}
-									title={item.title}
-									id={item.id}
-								></Card>
-							</div>
+								imageSrc={item.image}
+								title={item.title}
+								id={item.id}
+							></Card>
 						);
 					})}
 				</section>
