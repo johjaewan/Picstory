@@ -83,7 +83,7 @@ const TheHeader = () => {
   }
 
   return (
-    <header className={`${styles['header']} `}>
+    <header className={styles.header}>
       <div className={styles.contents}>
         {user === null ? null : (
           <>
@@ -132,15 +132,15 @@ const TheHeader = () => {
             </button>
           </>
         )}
+        <button
+          className={styles.menuIcon}
+          onClick={() => {
+            setMenu(true)
+          }}
+        >
+          <img src={menuIcon} width={30} alt="" />
+        </button>
       </div>
-      <button
-        className={styles.menuIcon}
-        onClick={() => {
-          setMenu(true)
-        }}
-      >
-        <img src={menuIcon} width={30} alt="" />
-      </button>
     </header>
   )
 }
