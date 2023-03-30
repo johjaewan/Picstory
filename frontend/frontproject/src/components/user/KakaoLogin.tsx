@@ -4,22 +4,22 @@ import { kakao } from "../../api/userAPI";
 import Swal from "sweetalert2";
 import { useCallback, useEffect } from "react";
 import { tokenAtom } from "../../atoms";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 function KakaoLogin() {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const queryParams = queryString.parse(location.search);
-	const [token, SetToken] = useRecoilState(tokenAtom);
+	const SetToken = useSetRecoilState(tokenAtom);
 
 	let code: any = queryParams.code;
-	console.log(code);
+	// console.log(code);
 
 	const onCodeSend = useCallback(
 		async (code: string) => {
 			try {
 				const res = await kakao(code);
-				console.log("res 카카오로그인", res);
+				// console.log("res 카카오로그인", res);
 
 				// 로그인 요청 성공 시 토큰과 유저정보 저장 후 페이지 이동
 				const result = res.data;
@@ -42,7 +42,7 @@ function KakaoLogin() {
 						toast: true,
 						position: "top-end",
 						showConfirmButton: false,
-						timer: 3000,
+						timer: 1500,
 						timerProgressBar: true,
 						didOpen: (toast) => {
 							toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -61,7 +61,7 @@ function KakaoLogin() {
 					toast: true,
 					position: "top-end",
 					showConfirmButton: false,
-					timer: 3000,
+					timer: 1500,
 					timerProgressBar: true,
 					didOpen: (toast) => {
 						toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -77,7 +77,7 @@ function KakaoLogin() {
 				console.log(error);
 			}
 		},
-		[navigate]
+		[navigate, SetToken]
 	);
 
 	useEffect(() => {

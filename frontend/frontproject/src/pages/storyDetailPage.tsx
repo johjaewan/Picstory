@@ -50,7 +50,7 @@ export default function StoryDetailPage() {
 		} catch (err) {
 			navigate("/404");
 		}
-	}, [id, navigate, setGenre, setVoice])
+	}, [id, navigate, setGenre, setVoice]);
 
 	useEffect(() => {
 		getStoryItem();
@@ -63,36 +63,31 @@ export default function StoryDetailPage() {
 	// 이야기 삭제
 	const clickDelete = () => {
 		Swal.fire({
-			title: 'Are you sure?',
+			title: "Are you sure?",
 			text: "You won't be able to revert this!",
-			icon: 'warning',
+			icon: "warning",
 			showCancelButton: true,
-			confirmButtonColor: '#3085d6',
-			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, delete it!'
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!",
 		}).then(async (result) => {
-			console.log(result);
 			if (result.isConfirmed) {
 				try {
 					const response = await deleteStory(id);
 					if (response.status === 200) {
-						Swal.fire(
-							'Deleted!',
-							'Your file has been deleted.',
-							'success'
-						)
+						Swal.fire("Deleted!", "Your file has been deleted.", "success");
 						navigate("/library");
 					}
 				} catch (error) {
-					console.log(error)
+					console.log(error);
 					Swal.fire({
-						icon: 'error',
-						title: 'Oops...',
-						text: '이야기 삭제를 실패했습니다',
-					})
+						icon: "error",
+						title: "Oops...",
+						text: "이야기 삭제를 실패했습니다",
+					});
 				}
 			}
-		})
+		});
 	};
 
 	return (
