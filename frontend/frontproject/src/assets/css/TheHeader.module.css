@@ -1,30 +1,36 @@
 .header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   height: 80px;
-  width: 100%;
+  width: 95%;
   color: white;
   background: #feee7d;
+  border-bottom: 1.7px solid black;
+  margin: auto;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
   .contents {
-    border-bottom: 1.7px solid black;
-    height: 100%;
-    width: 95%;
     margin: auto;
+    padding: auto;
+    flex: 1 1 30%;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+  }
+  .icons {
+    margin: auto;
+    flex: 1 1 30%;
+    display: flex;
+    justify-content: end;
   }
   .logo {
+    flex: 1 1 30%;
     -webkit-text-stroke: 0.1px rgb(0, 0, 0);
-    /* width: 300px; */
     cursor: pointer;
-    /* margin: 0 25vw; */
+    margin: 0 auto;
     font-size: 50px;
     font-weight: 1000;
-    /* text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 3px 0 #ccc,
-      0 2px 0 #ccc, 0 2px 0 transparent, 0 5px 0 transparent,
-      0 8px 0 transparent, 0 2px 0 transparent, 0 5px 5px rgba(0, 0, 0, 0.4); */
   }
   .logo:hover {
     scale: 1.05;
@@ -38,9 +44,9 @@
   }
 
   .iconBox {
-    margin: 0 20px;
+    margin: 0 5px;
     border: 1px solid black;
-    border-radius: 30px;
+    border-radius: 999px;
     padding: 10px;
   }
 
@@ -51,30 +57,33 @@
     border: 1px solid black;
     border-radius: 30px;
     padding: 5px 15px;
-    margin: 0 20px;
+    margin: 0 5px;
     cursor: pointer;
     color: black;
   }
 }
-/* 
-@media (max-width: 600px) {
+
+@media (max-width: 700px) {
   .logo {
+    flex: 1 1 70%;
     -webkit-text-stroke: 0.1px rgb(0, 0, 0);
-    margin-top: 5px;
     cursor: pointer;
-    float: left;
-    margin-left: 5vw;
-    padding-bottom: 51px;
     font-size: 35px;
     font-weight: 1000;
+    display: flex;
+    justify-content: start;
+    padding-left: 10px;
   }
   .menuIcon {
-    float: right;
-    margin-right: 20px;
-    margin-top: 20px;
+    flex: 1 1 30%;
+    display: flex;
+    justify-content: end;
+    padding-right: 10px;
   }
   .btn,
+  .icons,
+  .contents,
   .iconBox {
     display: none;
   }
-} */
+}

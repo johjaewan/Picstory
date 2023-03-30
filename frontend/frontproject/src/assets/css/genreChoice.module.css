@@ -16,8 +16,6 @@
   margin: 0;
   padding: 0;
   overflow-x: none;
-  /* height: 100vh; */
-  height: calc(100vh - 80px);
   width: 100vw;
 }
 p {
@@ -37,9 +35,8 @@ p {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  max-width: 900px;
+  max-width: 870px;
   padding: 2.5vh 0;
-  height: calc(100vh - 80px);
 }
 .section-row {
   display: -ms-flexbox;
@@ -138,14 +135,8 @@ p {
   z-index: 1000;
   transition: all 250ms linear;
 }
-.logo img {
-  height: 26px;
-  width: auto;
-  display: block;
-  transition: filter 250ms 700ms linear;
-}
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
   .section-col {
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;

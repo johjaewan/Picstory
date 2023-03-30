@@ -84,63 +84,66 @@ const TheHeader = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.contents}>
-        {user === null ? null : (
-          <>
-            <button
-              className={styles.btn}
-              onClick={() => {
-                navigation('/library')
-              }}
-            >
-              ARTICLE
-            </button>
-            <button
-              className={styles.btn}
-              onClick={() => {
-                navigation('/vocabulary')
-              }}
-            >
-              WORD
-            </button>
-          </>
-        )}
-
-        <div
-          className={styles.logo}
-          onClick={() => {
-            navigation('/')
-          }}
-        >
-          picstory
+      {/* 서재, 단어장 버튼 */}
+      {user === null ? null : (
+        <div className={styles.contents}>
+          <button
+            className={styles.btn}
+            onClick={() => {
+              navigation('/library')
+            }}
+          >
+            ARTICLE
+          </button>
+          <button
+            className={styles.btn}
+            onClick={() => {
+              navigation('/vocabulary')
+            }}
+          >
+            WORD
+          </button>
         </div>
-        {user === null ? null : (
-          <>
-            <button className={`${styles['iconBox']}`} onClick={logout}>
-              <img
-                className={`${styles['icon']}`}
-                src="https://cdn-icons-png.flaticon.com/512/3889/3889524.png"
-                alt=""
-              />
-            </button>
-            <button className={`${styles['iconBox']}`} onClick={MyInfo}>
-              <img
-                className={`${styles['icon']}`}
-                src="https://cdn-icons-png.flaticon.com/512/151/151776.png"
-                alt=""
-              />
-            </button>
-          </>
-        )}
-        <button
-          className={styles.menuIcon}
-          onClick={() => {
-            setMenu(true)
-          }}
-        >
-          <img src={menuIcon} width={30} alt="" />
-        </button>
+      )}
+      {/* 로고 */}
+      <div
+        className={styles.logo}
+        onClick={() => {
+          navigation('/')
+        }}
+      >
+        picstory
       </div>
+      {/* 
+        회원정보, 로그아웃 */}
+
+      {user === null ? null : (
+        <div className={styles.icons}>
+          <button className={`${styles['iconBox']}`} onClick={logout}>
+            <img
+              className={`${styles['icon']}`}
+              src="https://cdn-icons-png.flaticon.com/512/3889/3889524.png"
+              alt=""
+            />
+          </button>
+          <button className={`${styles['iconBox']}`} onClick={MyInfo}>
+            <img
+              className={`${styles['icon']}`}
+              src="https://cdn-icons-png.flaticon.com/512/151/151776.png"
+              alt=""
+            />
+          </button>
+        </div>
+      )}
+
+      <button
+        className={styles.menuIcon}
+        onClick={() => {
+          setMenu(true)
+        }}
+      >
+        <img src={menuIcon} width={30} alt="" />
+      </button>
     </header>
   )
 }
