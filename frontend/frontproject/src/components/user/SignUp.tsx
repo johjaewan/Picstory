@@ -161,7 +161,7 @@ function SignUp() {
 				data.code
 			);
 			// 회원가입 요청 성공 시 메인 페이지 이동
-			if (res.status === 200) {
+			if (res.status === 201) {
 				Toast.fire({
 					icon: "success",
 					title: "회원가입 완료!",
