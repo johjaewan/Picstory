@@ -24,7 +24,7 @@ function SignUp() {
 		toast: true,
 		position: "top",
 		showConfirmButton: false,
-		timer: 3000,
+		timer: 1500,
 		timerProgressBar: true,
 		didOpen: (toast) => {
 			toast.addEventListener("mouseenter", Swal.stopTimer);
