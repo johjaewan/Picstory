@@ -1,6 +1,6 @@
 import styles from '../../assets/css/TheHeader.module.css'
 import { colorAtom, menuState, tokenAtom } from '../../atoms'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 import { useNavigate } from 'react-router-dom'
 import menuIcon from '../../assets/menu.png'
 import Swal from 'sweetalert2'
@@ -11,6 +11,7 @@ const TheHeader = () => {
   const color = useRecoilValue(colorAtom)
   const setMenu = useSetRecoilState(menuState)
   const SetToken = useSetRecoilState(tokenAtom)
+  const [user, setUser] = useRecoilState(tokenAtom)
 
   // 회원정보
   const MyInfo = () => {
@@ -84,22 +85,27 @@ const TheHeader = () => {
   return (
     <header className={`${styles['header']} `}>
       <div className={styles.contents}>
-        <button
-          className={styles.btn}
-          onClick={() => {
-            navigation('/library')
-          }}
-        >
-          ARTICLE
-        </button>
-        <button
-          className={styles.btn}
-          onClick={() => {
-            navigation('/vocabulary')
-          }}
-        >
-          WORD
-        </button>
+        {user === null ? null : (
+          <>
+            <button
+              className={styles.btn}
+              onClick={() => {
+                navigation('/library')
+              }}
+            >
+              ARTICLE
+            </button>
+            <button
+              className={styles.btn}
+              onClick={() => {
+                navigation('/vocabulary')
+              }}
+            >
+              WORD
+            </button>
+          </>
+        )}
+
         <div
           className={styles.logo}
           onClick={() => {
@@ -108,21 +114,24 @@ const TheHeader = () => {
         >
           picstory
         </div>
-        <button className={`${styles['iconBox']}`} onClick={logout}>
-          <img
-            className={`${styles['icon']}`}
-            src="https://cdn-icons-png.flaticon.com/512/3889/3889524.png"
-            alt=""
-          />
-        </button>
-
-        <button className={`${styles['iconBox']}`} onClick={MyInfo}>
-          <img
-            className={`${styles['icon']}`}
-            src="https://cdn-icons-png.flaticon.com/512/151/151776.png"
-            alt=""
-          />
-        </button>
+        {user === null ? null : (
+          <>
+            <button className={`${styles['iconBox']}`} onClick={logout}>
+              <img
+                className={`${styles['icon']}`}
+                src="https://cdn-icons-png.flaticon.com/512/3889/3889524.png"
+                alt=""
+              />
+            </button>
+            <button className={`${styles['iconBox']}`} onClick={MyInfo}>
+              <img
+                className={`${styles['icon']}`}
+                src="https://cdn-icons-png.flaticon.com/512/151/151776.png"
+                alt=""
+              />
+            </button>
+          </>
+        )}
       </div>
       <button
         className={styles.menuIcon}
