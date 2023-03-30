@@ -35,10 +35,11 @@ class JWTAuthenticationMiddleware:
             response = self.get_response(request)
             return response
         response = self.get_response(request)
-        access_token = request.headers.get('Authorization').split(' ')[1]
-        print(f'access_token: {access_token}')
-        if not access_token:
+        access_token = request.headers.get('Authorization')
+        if access_token is None:
             return JsonResponse({'error': 'access 토큰이 필요합니다.'}, status=401)
+        access_token = access_token.split(' ')[1]
+        print(f'access_token: {access_token}')
         try:
             jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         # access_token이 만료되었을때
