@@ -50,18 +50,6 @@ export async function checkCode(email: string, code: string) {
 	return response;
 }
 
-// 계정 활성화 요청
-// export async function userVerify(email: string, code: string) {
-// 	const response: AxiosResponse = await customAxios.post(
-// 		`/accounts/verify/email/`,
-// 		{
-// 			email: email,
-// 			code: code,
-// 		}
-// 	);
-// 	return response;
-// }
-
 // 새로고침 토큰 요청
 //cookie는 npm install해야함
 //https://jrepository.tistory.com/m/65 참고하셈
@@ -88,8 +76,19 @@ export async function emailCheck(email: string) {
 }
 
 // 유저 삭제
-export async function deleteUser(id: number) {
-	const response: AxiosResponse = await customAxios.delete(`/user/${id}/`);
+export async function deleteUser() {
+	const response: AxiosResponse = await customAxios.delete(
+		`/accounts/withdrawal/`
+	);
+	return response;
+}
+
+//카카오로그인 요청 후 인가코드 전송
+export async function kakao(code: string) {
+	const response: AxiosResponse = await customAxios.post(
+		`/accounts/kakao/callback/`,
+		{ code: code }
+	);
 	return response;
 }
 

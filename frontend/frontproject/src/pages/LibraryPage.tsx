@@ -21,15 +21,14 @@ export default function LibraryPage() {
 	const handleLoad = useCallback(async () => {
 		try {
 			const response = await getStoryList();
-			console.log(response);
 			if (!response) return;
 
 			const item = response.data;
 
 			setNewListItems((prevItems) => [...item]);
-		} catch (error:any) {
-			if (error.response.status===404){
-				return
+		} catch (error: any) {
+			if (error.response.status === 404) {
+				return;
 			}
 			navigate("/404");
 		}
