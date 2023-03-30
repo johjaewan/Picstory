@@ -7,6 +7,7 @@ from decouple import config
 from gtts import gTTS
 from config import settings
 from .voice_conversion import VC
+from .tts_test import VC2
 from accounts.models import Member
 
 from .models import Story
@@ -285,13 +286,15 @@ def create_voice(request):
         return Response({'error': 'genre가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
     url = uuid.uuid4().hex
-    tts_en = gTTS(text=content, lang='en')
+    tts_en = VC2(text=content, genre=genre, url=url)
+    # tts_en = gTTS(text=content, lang='en')
+    
     # tts_en.save(f'audio/{url}.wav')
-    tts_en.save(f'media/audio/{url}.wav')
+    # tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
     # url 파일 Voice Conversion 적용
-    VC(url, genre)
+    # VC(url, genre)
 
     # VC 적용된 url 파일
     # f = open(f'audio/{url}.wav', 'rb')
