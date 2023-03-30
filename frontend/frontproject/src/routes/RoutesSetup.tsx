@@ -23,12 +23,7 @@ export default function RoutesSetup() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route
-        path="/login"
-        element={
-          <AuthenticatedRoute component={<LoginForm />} authenticated={token} />
-        }
-      />
+
       <Route
         path="/kakaoLogin"
         element={
@@ -38,14 +33,23 @@ export default function RoutesSetup() {
           />
         }
       />
-      <Route
-        path="/signUp"
-        element={
-          <AuthenticatedRoute component={<SignUp />} authenticated={token} />
-        }
-      />
 
       <Route element={<Layout />}>
+        <Route
+          path="/login"
+          element={
+            <AuthenticatedRoute
+              component={<LoginForm />}
+              authenticated={token}
+            />
+          }
+        />
+        <Route
+          path="/signUp"
+          element={
+            <AuthenticatedRoute component={<SignUp />} authenticated={token} />
+          }
+        />
         <Route
           path="/storyCreatePage"
           element={
