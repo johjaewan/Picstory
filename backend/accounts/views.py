@@ -1,32 +1,13 @@
-import json
+import json, random, string, redis, jwt, requests
 from django.http import JsonResponse
 from .models import Member
 from django.core.mail import send_mail
 from django.conf import settings
-import random
-import string
-import redis
-import jwt
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework.exceptions import AuthenticationFailed
-from .serializers import MyTokenObtainPairSerializer, MyTokenObtainPairView
+from .serializers import MyTokenObtainPairSerializer
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.permissions import AllowAny
-from django.views.decorators.csrf import csrf_exempt
-from django.middleware.csrf import get_token
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
-from django.shortcuts import redirect
-import requests
-import logging
 from django.shortcuts import redirect
 
 redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = settings.REDIS_KEY)
@@ -49,8 +30,6 @@ def signup(request):
         if email and password and nickname and code:
             if Member.objects.filter(email=email).exists():
                 return JsonResponse({'error': 'Email is already registered'}, status=409)
-            if Member.objects.filter(nickname=nickname).exists():
-                return JsonResponse({'error': 'Nickname is already taken'}, status=409)
 
             # 레디스에 저장된 code와 일치하는지 확인
             if redis_client.exists(email):
