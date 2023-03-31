@@ -38,7 +38,7 @@ class Member(AbstractBaseUser):
     :param String password: 패스워드
     """
     email = models.EmailField(unique=True)
-    nickname = models.CharField(max_length=55)
+    nickname = models.CharField(max_length=55,unique=False)
     is_active = models.BooleanField(default=True)
     objects = MemberManager()
     USERNAME_FIELD = 'email'

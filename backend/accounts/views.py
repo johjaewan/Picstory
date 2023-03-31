@@ -1,34 +1,15 @@
-import json
+import json, random, string, redis, jwt, requests
 from django.http import JsonResponse
 from .models import Member
 from story.models import Story
 from story.views import S3Bucket
 from django.core.mail import send_mail
 from django.conf import settings
-import random
-import string
-import redis
-import jwt
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
-from rest_framework_simplejwt.serializers import TokenRefreshSerializer
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework.exceptions import AuthenticationFailed
-from .serializers import MyTokenObtainPairSerializer, MyTokenObtainPairView
+from .serializers import MyTokenObtainPairSerializer
 from django.conf import settings
 from django.contrib.auth.hashers import check_password
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.permissions import AllowAny
-from django.views.decorators.csrf import csrf_exempt
-from django.middleware.csrf import get_token
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
-from django.shortcuts import redirect
-import requests
-import logging
 from django.shortcuts import redirect
 
 redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = settings.REDIS_KEY)
@@ -36,11 +17,10 @@ redis_client = redis.Redis(host='54.180.148.188', port=6379, db=0,password = set
 
 def signup(request):
     """회원가입
-    #TODO:
-        소셜로그인 구현 이후 docs작성
+    :param str email, str password, str nickname, str code,
+    :return str message
     """
     if request.method == 'POST':
-
         # request body의 email,password,nickname,code 받기
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
@@ -52,8 +32,6 @@ def signup(request):
         if email and password and nickname and code:
             if Member.objects.filter(email=email).exists():
                 return JsonResponse({'error': 'Email is already registered'}, status=409)
-            if Member.objects.filter(nickname=nickname).exists():
-                return JsonResponse({'error': 'Nickname is already taken'}, status=409)
 
             # 레디스에 저장된 code와 일치하는지 확인
             if redis_client.exists(email):
@@ -77,13 +55,11 @@ def signup(request):
             elif not code:
                 return JsonResponse({'error': 'Code field is required'}, status=400)
     return JsonResponse({'error': 'Only POST requests are allowed'}, status=405)
-    
-
 
 def check_duplicate_email(request):
     """이메일 중복검사
-    :param str: email
-    :return boolean: 0,1
+    :param str email
+    :return boolean 0,1
     """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -96,8 +72,8 @@ def check_duplicate_email(request):
        
 def check_duplicate_nickname(request):
     """닉네임 중복검사
-    :param str: nickname
-    :return boolean: 0,1
+    :param str nickname
+    :return boolean 0,1
     """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -108,13 +84,10 @@ def check_duplicate_nickname(request):
             return JsonResponse({'result': False})
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-
-
-
 def send_email_verify_code(request):
     """이메일 인증코드 전송
-    #TODO:
-        소셜로그인 구현 이후 docs작성
+    :param str email
+    :return str message
     """
     if request.method == 'POST':
         # request body에서 email 받기
@@ -137,11 +110,10 @@ def send_email_verify_code(request):
         return JsonResponse({'message': 'Please verify your email address'},status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-
 def verify_email(request):
     """이메일 인증 확인
-    #TODO:
-        소셜로그인 구현 이후 docs작성
+    :param str email, str code
+    :return str result
     """
     if request.method == 'POST':
         # request body에서 email, code받기
@@ -158,15 +130,10 @@ def verify_email(request):
         return JsonResponse({'result': False },status=200)
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)
 
-
 def login(request):
     """로그인
-    #TODO:
-        소셜로그인 구현 이후 docs작성
-        # 쿠키가 아닌 header에 넣을 시 변경할 코드
-        # response['Refresh-Token'] = f'Bearer {str(refresh_token)}'
-        # response['Authorization'] = f'Bearer {str(access_token)}'
-        response['X-CSRFToken'] = get_token(request)
+    :param str email, str password
+    :return str email, str nickname, str access_token, str refresh_token
     """
     if request.method == 'POST':
         # request body에서 email, password 추출
@@ -196,14 +163,12 @@ def login(request):
 
 def token_refresh(request):
     """새로고침시 새로운 access_token 발송
-    #TODO:
-        소셜로그인 구현 이후 docs작성
+    :param str refresh_token
+    :return str access_token
     """
     if request.method == 'POST':
-
         # request headers에서 refresh_token 가져오기
         refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
-
         # 해당 refresh_token이 유효하다면 새로운 access_token발급
         try:
             jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=['HS256'])
@@ -218,6 +183,10 @@ def token_refresh(request):
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
     
 def kakao_login(request):
+    """새로고침시 새로운 access_token 발송
+    :param 
+    :return str email, str nickname, str access_token, str refresh_token
+    """
     client_id = settings.CLIENT_ID
     # redirect_uri = "http://localhost:3000/kakaologin/"
     redirect_uri = "https://j8d103.p.ssafy.io/kakaologin/"
@@ -227,27 +196,26 @@ def kakao_login(request):
     )
 
 def kakao_callback(request):
+    """새로고침시 새로운 access_token 발송
+    :param str code
+    :return 카카오로그인페이지
+    """
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         code = data.get("code")
         client_id = settings.CLIENT_ID
-        # redirect_uri = "http://localhost:3000/kakaologin/"
         redirect_uri = "https://j8d103.p.ssafy.io/kakaologin/"
         token_request = requests.get(
             f"https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id={client_id}&redirect_uri={redirect_uri}&code={code}"
         )
         token_json = token_request.json()
         error = token_json.get("error",None)
-        logging.error('error1 : ')
-        print("error",error)
         if error is not None :
             return JsonResponse({"message": "INVALID_CODE"}, status = 400)
         access_token = token_json.get("access_token")
         profile_request = requests.get(
             "https://kapi.kakao.com/v2/user/me", headers={"Authorization" : f"Bearer {access_token}"},
         )
-        logging.error('error2 : ')
-
         profile_json = profile_request.json()
         kakao_account = profile_json.get("kakao_account")
         email = kakao_account.get("email", None)
@@ -263,28 +231,23 @@ def kakao_callback(request):
             access_token = str(token.access_token)
             response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
             return response
-        
         ### 로그인
         else:
             token = MyTokenObtainPairSerializer.get_token(member)
             refresh_token = str(token)
             access_token = str(token.access_token)
-            # response body에 사용자 정보와 jwt 저장
             response = JsonResponse({'email':member.email,'nickname':member.nickname,'access_token':access_token,'refresh_token':refresh_token}, status=200)
             return response
-            # return JsonResponse({'error': '임시에러' },status=400)
-            # return redirect("https://j8d103.p.ssafy.io/kakaologin/")
-
-            # return redirect("http://localhost:3000/login/")
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
 
 
 def test(request):
-    print('테스트')
-
+    """새로고침시 새로운 access_token 발송
+    :param 
+    :return str message
+    """
     access_token = request.headers.get('Authorization').split(' ')[1]
     # refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
-    print(access_token)
     # print(refresh_token)
     # payload = request.response
     # print(payload)
@@ -293,9 +256,12 @@ def test(request):
 
 
 def withdrawal(request):
+    """회원탈퇴
+    :param 
+    :return str message
+    """
     if request.method == "DELETE":
         access_token = request.headers.get('Authorization').split(' ')[1]
-        print(access_token)
         payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         user_id = payload['user_id']
         member = Member.objects.filter(id=user_id).first()
