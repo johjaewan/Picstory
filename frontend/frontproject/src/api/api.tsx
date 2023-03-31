@@ -3,7 +3,6 @@ import axios from "axios";
 const BASE_URL = "https://j8d103.p.ssafy.io/api";
 // const BASE_URL = "http://192.168.100.140:8000/api";
 // const BASE_URL = "http://192.168.100.166:8000/api";
-// const BASE_URL = "http://172.30.1.31:8000/api";
 //
 const customAxios = axios.create({
 	baseURL: `${BASE_URL}`,

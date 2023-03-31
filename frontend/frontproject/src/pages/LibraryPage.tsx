@@ -21,15 +21,14 @@ export default function LibraryPage() {
 	const handleLoad = useCallback(async () => {
 		try {
 			const response = await getStoryList();
-			console.log(response);
 			if (!response) return;
 
 			const item = response.data;
 
 			setNewListItems((prevItems) => [...item]);
-		} catch (error:any) {
-			if (error.response.status===404){
-				return
+		} catch (error: any) {
+			if (error.response.status === 404) {
+				return;
 			}
 			navigate("/404");
 		}
@@ -47,18 +46,12 @@ export default function LibraryPage() {
 				<section className={styles.container}>
 					{newlistItems.map((item, idx) => {
 						return (
-							<div
+							<Card
 								key={idx}
-								onClick={() => {
-									window.location.href = `storyDetail/${item.id}`;
-								}}
-							>
-								<Card
-									imageSrc={item.image}
-									title={item.title}
-									id={item.id}
-								></Card>
-							</div>
+								imageSrc={item.image}
+								title={item.title}
+								id={item.id}
+							></Card>
 						);
 					})}
 				</section>

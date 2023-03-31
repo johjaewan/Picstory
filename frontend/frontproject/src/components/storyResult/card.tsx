@@ -9,7 +9,12 @@ export interface CardProps {
 const Card = (props: CardProps) => {
 	return (
 		// 카드
-		<article className={styles.item_box}>
+		<article
+			className={styles.item_box}
+			onClick={() => {
+				window.location.href = `storyDetail/${props.id}`;
+			}}
+		>
 			{/* 이미지 */}
 			<img className={styles.image} src={props.imageSrc} alt="storyImg" />
 			{/* 제목 */}

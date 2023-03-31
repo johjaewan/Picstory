@@ -1,5 +1,4 @@
 .title {
-  text-align: center;
   font-size: 40px;
   margin-top: 100px;
   font-size: 45px;
@@ -18,20 +17,39 @@
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   animation: show 1s ease;
 }
+.formcontainer {
+  min-width: 700px;
+  width: 40vw;
+  height: 500px;
+  margin: 50px auto 0 auto;
+  padding: 40px 0;
+  text-align: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  animation: show 1s ease;
+}
 .emailBox {
   margin: 0 auto;
   text-align: center;
+}
+.inputBox {
+  margin: 5px auto;
+  text-align: center;
+}
+.pwdBox {
+  text-align: center;
+  margin-top: 30px;
 }
 .emailAlert {
   margin-left: 30px;
   height: 20px;
   color: rgb(255, 0, 0);
 }
-.pwdBox {
-  text-align: center;
-  margin-top: 30px;
-}
 .pwdAlert {
+  margin-left: 30px;
+  height: 20px;
+  color: rgb(255, 0, 0);
+}
+.alert {
   margin-left: 30px;
   height: 20px;
   color: rgb(255, 0, 0);
@@ -43,6 +61,14 @@
   padding: 7px 12px;
   margin: 0 30px 0 45px;
 }
+.inputItem {
+  border-radius: 30px;
+  box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+  text-align: center;
+  padding: 7px 12px;
+  margin: 0 30px 0 45px;
+  width: 300px;
+}
 #inputPwd {
   border-radius: 30px;
   box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
@@ -50,23 +76,23 @@
   padding: 7px 10px;
   margin: 0 30px;
 }
-
 .buttonBox {
   margin: 40px;
 }
 .btn {
+  cursor: pointer;
+  display: inline-block;
+  width: 100px;
   color: rgb(0, 0, 0);
   margin: 0 10px;
   padding: 10px 20px;
   border-radius: 25px;
   box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
 }
-
 .btn:focus {
   color: #000000;
   box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
 }
-
 @keyframes show {
   from {
     transform: translateY(-10%);

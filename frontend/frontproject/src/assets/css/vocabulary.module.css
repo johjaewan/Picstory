@@ -1,34 +1,80 @@
 .container {
+  margin-top: 30px;
   text-align: center;
-  margin: 50px auto;
-  width: 400px;
+}
+.container2 {
+  margin: 30px auto;
+  width: 800px;
+}
+.title {
+  font-size: 40px;
+  font-weight: 1000;
+}
+.box {
+  margin: 0 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 500px;
 }
 
 .sortBtn {
-  margin: 20px 0;
-  float: right;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: rgb(255, 255, 255);
   /* border: 1px solid rgb(255, 26, 137); */
-  background-color: rgb(255, 26, 137);
+  background-color: rgb(0, 0, 0);
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 5px 20px;
 }
-
-.sortBtn:hover {
-  margin: 20px 0;
-  float: right;
-  color: rgb(255, 26, 137);
-  /* border: 1px solid rgb(255, 26, 137); */
-  background-color: rgb(255, 255, 255);
-  border-radius: 30px;
-  padding: 10px 20px;
+@media (max-width: 650px) {
+  .sortBtn {
+    font-size: 13px;
+  }
 }
-
+table {
+  background-color: white;
+  /* border: 1px solid black; */
+  text-align: center;
+  margin: auto;
+}
+td {
+  width: 200px;
+}
+.col {
+  border-right: 1px solid black;
+}
+.list {
+  /* border-bottom: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+}
+tr {
+  text-align: center;
+  vertical-align: middle;
+  padding: 25px auto;
+  display: flex;
+  text-align: center;
+  border: 1px solid blue;
+}
 .word_table {
+  border: 1px solid black;
   margin: 0 auto;
+  width: 700px;
+  height: 350px;
 }
 
 .table_row {
+  border: 1px solid black;
   /* margin: 50px; */
 }
 
@@ -37,25 +83,6 @@
   font-size: 20px;
   padding: 30px;
 }
-
-.clear {
-  clear: both;
-}
-.red {
-  background: #fb4e88;
-}
-.orange {
-  background: #ff9634;
-}
-.yellow {
-  background: #f9da5b;
-}
-.green {
-  background: #37d51f;
-}
-.blue {
-  background: #2279dc;
-}
-.purple {
-  background: #cb39ec;
+.btn {
+  cursor: pointer;
 }

@@ -23,7 +23,7 @@ export default function Main() {
   // 로그인하면 이야기 생성페이지 / 로그인 안하면 로그인 페이지
   const handleTry = () => {
     if (user) {
-      navigation('/storyCreatePage')
+      navigation('/genreChoice')
     } else {
       navigation('/login')
     }
