@@ -18,6 +18,10 @@
     display: flex;
     justify-content: start;
   }
+  .logoIcon {
+    margin: 0 auto;
+    width: 150px;
+  }
   .icons {
     margin: auto;
     flex: 1 1 30%;
@@ -25,6 +29,7 @@
     justify-content: end;
   }
   .logo {
+    scale: 1.3;
     flex: 1 1 30%;
     -webkit-text-stroke: 0.1px rgb(0, 0, 0);
     cursor: pointer;
@@ -33,30 +38,30 @@
     font-weight: 1000;
   }
   .logo:hover {
-    scale: 1.05;
+    scale: 1.4;
   }
   .menuIcon {
     display: none;
   }
 
   .icon {
-    width: 35px;
+    width: 20px;
   }
 
   .iconBox {
-    margin: 0 5px;
-    border: 1px solid black;
+    margin: 0 8px;
+    border: 2px solid black;
     border-radius: 999px;
-    padding: 10px;
+    padding: 5px;
   }
 
   .btn {
     font-weight: 1000;
     width: auto;
-    font-size: 25px;
-    border: 1px solid black;
+    font-size: 20px;
+    border: 2px solid black;
     border-radius: 30px;
-    padding: 5px 15px;
+    padding: 0 20px;
     margin: 0 5px;
     cursor: pointer;
     color: black;
