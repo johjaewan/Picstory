@@ -4,9 +4,11 @@ const LayerButton = () => {
 	return (
 		<>
 			<button className={style.layerbutton}>
-				<span aria-hidden="true">Create Story</span>
-				<span></span>
-				<span>Create Story</span>
+				<span className={style.color_span} aria-hidden="true">
+					Create Story
+				</span>
+				<span className={style.color_span}></span>
+				<span className={style.color_span}>Create Story</span>
 			</button>
 		</>
 	);

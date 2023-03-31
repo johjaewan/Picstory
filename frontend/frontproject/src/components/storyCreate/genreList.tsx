@@ -168,9 +168,11 @@ export default function ImageUpload() {
 			) : (
 				<div>
 					<button className={styles.layerbutton} onClick={ImageCaptioning}>
-						<span aria-hidden="true">Create Story</span>
-						<span></span>
-						<span>Create Story</span>
+						<span className={styles.color_span} aria-hidden="true">
+							Create Story
+						</span>
+						<span className={styles.color_span}></span>
+						<span className={styles.color_span}>Create Story</span>
 					</button>
 				</div>
 			)}
