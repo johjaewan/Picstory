@@ -14,20 +14,21 @@
 	}
 	.container {
 		background-color: white;
-		display: flex;
-		flex-direction: columns;
-		justify-content: center;
-		align-items: center;
+		margin: auto;
 	}
 	.box {
+		padding: 10px;
+		width: 80vw;
+		min-width: 300px;
 		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 		aspect-ratio: 11 / 10;
-		margin: 20px;
-		padding: 20px;
+		margin: auto;
+		align-items: center;
 	}
 
 	.word {
-		font-size: 4rem;
+		margin: 30px 0;
+		font-size: 3em;
 		font-weight: 800;
 	}
 
@@ -45,7 +46,7 @@
 		display: block;
 		border: 1px solid black;
 		border-radius: 30px;
-		margin: 20px auto;
+		margin: 30px auto;
 		padding: 10px 0;
 		width: 30%;
 		min-width: 100px;
@@ -65,7 +66,7 @@
 
 	.notice {
 		min-width: 200px;
-		margin: 5px;
+		margin: 20px;
 		animation: move 0.5s linear infinite alternate;
 	}
 
