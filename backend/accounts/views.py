@@ -1,6 +1,8 @@
 import json, random, string, redis, jwt, requests
 from django.http import JsonResponse
 from .models import Member
+from story.models import Story
+from story.views import S3Bucket
 from django.core.mail import send_mail
 from django.conf import settings
 from .serializers import MyTokenObtainPairSerializer
@@ -263,6 +265,12 @@ def withdrawal(request):
         payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         user_id = payload['user_id']
         member = Member.objects.filter(id=user_id).first()
+        print(member)
+        # S3에서 유저의 이야기 파일 삭제
+        stories = Story.objects.filter(member_id=member.id)
+        for story in stories:
+            S3Bucket().delete(story.image)
+            S3Bucket().delete(story.voice)
         member.delete()
         return JsonResponse({'message': '회원 탈퇴가 완료되었습니다.'}, status=200)
     return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
