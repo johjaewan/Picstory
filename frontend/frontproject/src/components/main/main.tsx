@@ -1,22 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import styles from '../../assets/css/main.module.css'
-import { useRecoilState } from 'recoil'
-import { colorAtom } from '../../atoms'
 import { useEffect, useRef, useState } from 'react'
 
 export default function Main() {
   const navigation = useNavigate()
-
-  const idx: number = Math.floor(Math.random() * 6)
-  const [color, setColor] = useRecoilState(colorAtom)
-  const colorList: string[] = [
-    'red',
-    'orange',
-    'yellow',
-    'green',
-    'blue',
-    'purple',
-  ]
 
   const user: string | null = localStorage.getItem('access_token')
 
@@ -127,14 +114,23 @@ export default function Main() {
           </div>
           <div className={styles.clear}></div>
 
-          <button onClick={handleTry} className={styles.btn1}>
-            TRY
+          <button className={styles.layerbutton} onClick={handleTry}>
+            <span className={styles.color_span} aria-hidden="true">
+              Create Story
+            </span>
+            <span className={styles.color_span}></span>
+            <span className={styles.color_span}>TRY</span>
           </button>
         </div>
       </div>
       <div className={styles.divider1}></div>
       <div className={styles.inner}>
-        <div className={styles.section2}></div>
+        <div className={styles.section2}>
+          <div className={styles.content}>
+            사진을 업로드하고 원하는 장르를 선택하면 어울리는 이야기를
+            생성해줍니다.
+          </div>
+        </div>
       </div>
       <div className={styles.divider2}></div>
       <div className={styles.inner}>
