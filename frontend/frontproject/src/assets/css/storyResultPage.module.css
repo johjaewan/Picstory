@@ -21,6 +21,16 @@
 		border-radius: 30px;
 		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 	}
+	/* 오디오, 버튼 */
+	.story_result_btns {
+		border: 5px solid purple;
+		display: flex;
+		margin: 20px 0;
+	}
+	/* 단어 검색결과 */
+	.searchItem {
+		border: 5px solid yellow;
+	}
 
 	/* 이야기 결과 */
 	.textItem {
@@ -42,13 +52,6 @@
 
 	.saveBtn {
 		display: block;
-	}
-
-	/* 단어 검색결과 */
-	.container3 {
-		border: 5px solid yellow;
-		/* width: 20vw; */
-		/* margin: 0 auto; */
 	}
 
 	.top_redo_button {
@@ -76,13 +79,6 @@
 		/* margin: auto;
     display: flex;
     flex-direction: column; */
-	}
-
-	.story_result_btns {
-		border: 5px solid purple;
-
-		display: flex;
-		margin: 20px 0;
 	}
 
 	.sound_icon {
@@ -117,18 +113,18 @@
 /* ------------------------------------------------------------------- */
 
 @media (min-width: 600px) {
+	/* 전체 */
 	.container {
 		border: 5px solid black;
-
 		display: flex;
 		justify-content: center;
 		margin-top: 12vh;
 	}
-
+	/* 사진+버튼 */
 	.leftItemBox {
 		border: 5px solid red;
 	}
-
+	/* 사진 */
 	.story_result_image {
 		border: 5px solid gray;
 		border-radius: 30px;
@@ -136,7 +132,21 @@
 		height: 300px;
 		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 	}
+	/* 오디오, 버튼 */
+	.topBox {
+		border: 5px solid purple;
+		padding: 10px;
+		display: flex;
+		justify-content: space-between;
+		margin: 20px 0;
+	}
+	/* 단어 검색결과 */
+	.searchItem {
+		border: 5px solid yellow;
+		width: 20vw;
+	}
 
+	/* 이야기 결과 */
 	.textItem {
 		border: 5px solid blue;
 
@@ -152,13 +162,6 @@
 		margin: 0 30px;
 		padding: 20px 30px;
 		border-radius: 15px;
-	}
-	.container3 {
-		border: 5px solid yellow;
-
-		width: 20vw;
-		/* float: left;
-    width: calc(20vw); */
 	}
 
 	.top_redo_button {
@@ -220,15 +223,7 @@
 		padding: 10px;
 	}
 }
-.topBox {
-	border: 5px solid purple;
 
-	padding: 10px;
-	display: flex;
-	justify-content: space-between;
-	margin: 20px 0;
-	/* display: block; */
-}
 .bottomBox {
 	border: 5px solid navy;
 
