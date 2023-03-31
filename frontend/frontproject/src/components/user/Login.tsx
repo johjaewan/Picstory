@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { login } from "../../api/userAPI";
 import styles from "../../assets/css/Login.module.css";
 import { tokenAtom } from "../../atoms";
-
+import kImg from "../../assets/kakao1.png";
 function LoginForm() {
 	type FormData = {
 		email: string;
@@ -153,12 +153,24 @@ function LoginForm() {
 							className={styles.btn}
 							onClick={handleClick}
 							style={{
-								backgroundColor: "yellow",
-								color: "Maroon",
+								backgroundColor: "#FEE500",
+								color: "#000000",
 							}}
 						>
 							KAKAO
 						</div>
+
+						<a id="kakao-login-btn">
+							<img
+								src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+								width="200"
+								height="80"
+								alt="카카오 로그인 버튼"
+							/>
+						</a>
+						<button type="button">
+							<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" />
+						</button>
 					</div>
 				</form>
 			</div>
