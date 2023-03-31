@@ -23,23 +23,21 @@ export default function RoutesSetup() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-
-      <Route
-        path="/kakaoLogin"
-        element={
-          <AuthenticatedRoute
-            component={<KakaoLogin />}
-            authenticated={token}
-          />
-        }
-      />
-
       <Route element={<Layout />}>
         <Route
           path="/login"
           element={
             <AuthenticatedRoute
               component={<LoginForm />}
+              authenticated={token}
+            />
+          }
+        />
+        <Route
+          path="/kakaoLogin"
+          element={
+            <AuthenticatedRoute
+              component={<KakaoLogin />}
               authenticated={token}
             />
           }
@@ -99,12 +97,7 @@ export default function RoutesSetup() {
           path="/menu"
           element={<PrivateRoute component={<Menu />} authenticated={token} />}
         />
-        {/* <Route path="/storyResult" element={<StoryResultPage />} /> */}
-        {/* <Route path="/library" element={<LibraryPage />} /> */}
-        {/* <Route path="/storyDetail/:id" element={<StoryDetailPage />} /> */}
         <Route path="/Loading" element={<Loading />} />
-        {/* <Route path="/vocabulary" element={<Vocabulary />} /> */}
-        {/* <Route path="/menu" element={<Menu />} /> */}
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

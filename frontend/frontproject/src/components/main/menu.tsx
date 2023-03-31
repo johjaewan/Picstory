@@ -38,14 +38,8 @@ const Menu = () => {
 					if (result.isConfirmed) {
 						try {
 							const response = await deleteUser();
-							if (response.data.status === 200) {
-								Swal.fire(
-									"탈퇴성공!",
-									"Your file has been deleted.",
-									"success"
-								);
-								navigation("/");
-							}
+							Swal.fire("탈퇴성공!", "Your file has been deleted.", "success");
+							navigation("/");
 						} catch (error) {
 							Swal.fire({
 								icon: "error",
