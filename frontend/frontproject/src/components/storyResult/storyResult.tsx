@@ -9,7 +9,8 @@ function StoryResult() {
 
   const lang = useRecoilValue(language)
 
-  return <>{lang ? storyResultEn : storyResultKo}</>
+  // return <>{lang ? storyResultEn : storyResultKo}</>
+  return <>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex esse velit eligendi commodi fugiat possimus, alias, iure, assumenda aperiam et voluptates. Esse, veniam quia soluta harum odio debitis. Atque, necessitatibus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex esse velit eligendi commodi fugiat possimus, alias, iure, assumenda aperiam et voluptates. Esse, veniam quia soluta harum odio debitis. Atque, necessitatibus.Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex esse velit eligendi commodi fugiat possimus, alias, iure, assumenda aperiam et voluptates. Esse, veniam quia soluta harum odio debitis. Atque, </>
 }
 
 export default StoryResult

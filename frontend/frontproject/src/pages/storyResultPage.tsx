@@ -11,11 +11,11 @@ import {
 	colorAtom,
 	translateIsFinished,
 	voiceIsFinished,
+	ImageBit,
 } from "../atoms";
 import styles from "../assets/css/storyResultPage.module.css";
 import TypeIt from "typeit-react";
 import StoryResult from "../components/storyResult/storyResult";
-import ResultImg from "../components/storyResult/storyImg";
 import Modal from "../components/storyResult/modal";
 import BGMPlayer from "../components/storyResult/bgm";
 import AudioPlayer from "../components/storyResult/audio";
@@ -57,69 +57,65 @@ export default function StoryResultPage() {
 	else if (genre === "로맨스") setColor("pink");
 	else if (genre === "공포") setColor("black");
 
+	// 이미지
+	const bitImage = useRecoilValue(ImageBit)
+
 	return (
 		<div className={styles.container}>
-			<button className={styles.top_redo_button}>
-				<Link to='/storyCreatePage'>다시만들기</Link>
-			</button>
-			<div className={styles.container1}>
-				<div className={styles.story_img_container}>
-					{/* 이미지 */}
-					<ResultImg />
-					{/* 설정 버튼 */}
-					<div className={styles.topBox}>
-						{/* 배경음악 */}
-						<BGMPlayer />
-						{/* 언어설정 */}
-						{transIsFin ? (
-							<button
-								disabled={storyResultKo ? false : true}
-								className={styles.story_result_button}
-								onClick={transLang}
-							>
-								{lang ? "Korean" : "영어"}
-							</button>
-						) : null}
-						{/* 저장 모달 */}
-						<button
-							disabled={storyResultKo && voice ? false : true}
-							className={styles.story_result_button}
-							onClick={handleRegister}
-						>
-							저장
-						</button>
-						<Modal />
-					</div>
-					<div className={styles.bottomBox}>
-						{/* 음성파일 */}
-						<AudioPlayer />
-						{/* {voiceIsFin ? <AudioPlayer /> : null} */}
-					</div>
-				</div>
+			{/* 이미지 */}
+			<img src={bitImage} className={styles.story_result_image} alt="testimg" />
 
-				<button className={styles.bottom_redo_button}>
-					<Link to='/storyCreatePage'>다시만들기</Link>
+			{/* 설정 버튼 */}
+			<div className={styles.story_result_btns}>
+				{/* 배경음악 */}
+				<AudioPlayer />
+				<BGMPlayer />
+				{/* 언어설정 */}
+				<button
+					disabled={transIsFin ? false : true}
+					className={styles.story_result_button}
+					onClick={transLang}
+				>
+					{lang ? "Korean" : "영어"}
 				</button>
+				{/* 저장 모달 */}
+				<button
+					disabled={transIsFin && voice ? false : true}
+					className={`${styles.story_result_button} ${styles.inSaveBtn}`}
+					onClick={handleRegister}
+				>
+					저장
+				</button>
+				<Modal />
 			</div>
-			<div className={`${styles.container2}  ${styles[color]}`}>
-				{/* 이야기 결과 */}
-				<div className={styles.content}>
-					{cnt === 0 ? (
-						<TypeIt
-							options={{
-								speed: 30,
-								waitUntilVisible: true,
-							}}
-						>
-							{storyResultEn}
-						</TypeIt>
-					) : (
-						<StoryResult />
-					)}
-				</div>
+
+			{/* 이야기 결과 */}
+			<div className={styles.content}>
+				{/* {cnt === 0 ? (
+					<TypeIt
+						options={{
+							speed: 30,
+							waitUntilVisible: true,
+						}}
+					>
+						{storyResultEn}
+					</TypeIt>
+				) : (
+					<StoryResult />
+				)} */}
+				<StoryResult />
 			</div>
-			<div className={styles.container3}>
+			<div className={styles.wordsearch}>
 				<WordSearch></WordSearch>
+			</div>
+			<div className={styles.saveBtn}>
+				<button
+					disabled={storyResultKo && voiceIsFin ? false : true}
+					className={styles.story_result_button}
+					onClick={handleRegister}
+				>
+					저장
+				</button>
 			</div>
 		</div>
 	);

@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 import { translateWord } from "../../api/storyApi";
 import { saveWord } from "../../api/vocabularyApi";
 import searchIcon from "../../assets/search-icon.png";
-import saveIcon from "../../assets/save-icon.png";
 
 import styles from "../../assets/css/wordSearch.module.css";
 import { colorAtom } from "../../atoms";
@@ -59,8 +58,6 @@ export default function WordSearch() {
 	};
 
 	const search = async (word: string) => {
-		// const me = true
-		// const text = `${dragText}의 뜻은 무엇인가요?`
 
 		if (word === "" || word.indexOf(" ") !== -1) {
 			Swal.fire({
@@ -83,8 +80,7 @@ export default function WordSearch() {
 			result = result.substring(0, result.length - 1);
 		}
 		setMean(result);
-		// const me2 = false
-		// const text2 = `${dragText}의 뜻은 ${word}입니다.`
+
 		const tmp2 = {
 			me: false,
 			word: word,

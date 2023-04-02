@@ -1,248 +1,154 @@
-@media (max-width: 600px) {
-	.clear {
-		clear: both;
-	}
+@media (max-width: 700px) {
 	/* 전체 */
 	.container {
-		border: 5px solid black;
-		justify-content: center;
-		margin: 20px 30px 0 30px;
-	}
-	/* 사진+버튼 */
-	.leftItemBox {
-		border: 5px solid red;
+		min-width: 300px;
+		margin: 10vw;
+		display: grid;
+		grid-row-gap: 5vw;
+		grid-template-areas:
+			"image"
+			"btns"
+			"resultText"
+			"search";
 	}
 	/* 사진 */
 	.story_result_image {
-		border: 5px solid gray;
-		margin: 2vh auto 2vh auto;
-		width: 300px;
-		height: 200px;
-		border-radius: 30px;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		grid-area: image;
+		border: 2px solid black;
+		min-height: 30vh;
 	}
-	/* 오디오, 버튼 */
-	.story_result_btns {
-		border: 5px solid purple;
-		display: flex;
-		margin: 20px 0;
-	}
-	/* 단어 검색결과 */
-	.searchItem {
-		border: 5px solid yellow;
-	}
-
-	/* 이야기 결과 */
-	.textItem {
-		border: 5px solid blue;
-		margin: 0 1vw;
-		/* width: 30vw; */
-	}
-
-	.saveItem {
-		background-color: green;
-	}
-	/* 이야기결과 */
-	.rightItemBox {
-		border: 5px solid green;
-		margin: 0 auto;
-		/* width: 300px; */
-		padding: 10px;
-	}
-
-	.saveBtn {
-		display: block;
-	}
-
-	.top_redo_button {
-		border: 5px solid orange;
-
-		font-size: 12px;
-		float: right;
-		cursor: pointer;
-		border-radius: 30px;
-		height: 30px;
-		width: 80px;
-		margin-bottom: 20px;
-		background-color: rgb(255, 255, 255);
-		border-style: none;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-	}
-
-	.bottom_redo_button {
+	/* 오디오 */
+	.audio {
 		display: none;
 	}
 
-	.story_img_container {
-		border: 5px solid pink;
-
-		/* margin: auto;
-    display: flex;
-    flex-direction: column; */
+	/* 이야기 결과 */
+	.content {
+		grid-area: resultText;
+		text-align: justify;
+		border: 2px solid black;
+		padding: 5vw;
+		background-color: white;
 	}
 
-	.sound_icon {
-		margin: auto;
-		width: 20px;
-		height: 20px;
+	.saveBtn {
+		display: none;
 	}
-
-	.sound_btn {
-		cursor: pointer;
-		border-radius: 999px;
-		height: 40px;
-		width: 40px;
-		background-color: rgb(255, 255, 255);
-		border-style: none;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-		margin: auto;
-	}
-
-	.story_result_button {
-		cursor: pointer;
-		border-radius: 30px;
-		height: 40px;
-		width: 100px;
-		margin: auto;
-		background-color: rgb(255, 255, 255);
-		border-style: none;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	/* 단어 검색결과 */
+	.wordsearch {
+		grid-area: search;
+		padding: 10px;
+		border: 2px solid black;
 	}
 }
 
 /* ------------------------------------------------------------------- */
 
-@media (min-width: 600px) {
-	/* 전체 */
+@media (min-width: 700px) {
 	.container {
-		border: 5px solid black;
-		display: flex;
+		max-width: 1000px;
+		width: 80vw;
+		margin: 5vh auto;
 		justify-content: center;
-		margin-top: 12vh;
-	}
-	/* 사진+버튼 */
-	.leftItemBox {
-		border: 5px solid red;
+		height: calc(90vh - 80px);
+		display: grid;
+		gap: 15px 3vw;
+		grid-template-columns: minmax(270px, 40%) 1fr;
+		grid-template-rows: minmax(170px, auto) 50px 1fr 40px;
+		grid-template-areas:
+			"image resultText"
+			"btns resultText"
+			"search resultText"
+			"save save";
 	}
 	/* 사진 */
 	.story_result_image {
-		border: 5px solid gray;
-		border-radius: 30px;
-		width: 500px;
-		height: 300px;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		grid-area: image;
+		border: 2px solid black;
+		aspect-ratio: 16 / 10;
 	}
-	/* 오디오, 버튼 */
-	.topBox {
-		border: 5px solid purple;
-		padding: 10px;
-		display: flex;
-		justify-content: space-between;
-		margin: 20px 0;
-	}
-	/* 단어 검색결과 */
-	.searchItem {
-		border: 5px solid yellow;
-		width: 20vw;
+	/* 오디오 */
+	.inAudio {
+		display: none;
 	}
 
 	/* 이야기 결과 */
-	.textItem {
-		border: 5px solid blue;
-
-		line-height: 30px;
-		width: 30vw;
-	}
-	.saveItem {
-		background-color: green;
-	}
-	.rightItemBox {
-		border: 5px solid green;
-
-		margin: 0 30px;
-		padding: 20px 30px;
-		border-radius: 15px;
+	.content {
+		/* height: calc(80vh - 80px); */
+		grid-area: resultText;
+		text-align: justify;
+		border: 2px solid black;
+		padding: 3vw;
+		background-color: white;
+		overflow-y: scroll;
 	}
 
-	.top_redo_button {
-		border: 5px solid orange;
-
+	.inSaveBtn {
 		display: none;
 	}
-	.bottom_redo_button {
-		float: left;
-		margin-top: 10vh;
-		cursor: pointer;
-		border-radius: 30px;
-		height: 50px;
-		width: 120px;
-		background-color: rgb(255, 255, 255);
-		border-style: none;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-	}
-
-	.story_img_container {
-		border: 5px solid pink;
-
-		/* margin: auto; */
-		/* display: flex;
-    flex-direction: column; */
-	}
-
-	.sound_icon {
-		margin: auto;
-		width: 30px;
-		height: 30px;
-	}
-
-	.sound_btn {
-		cursor: pointer;
-		border-radius: 999px;
-		height: 60px;
-		width: 60px;
-		background-color: rgb(255, 255, 255);
-		border-style: none;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-		margin: auto;
-	}
-
-	.story_result_button {
-		cursor: pointer;
-		border-radius: 30px;
-		height: 50px;
-		width: 120px;
-		margin: auto;
-		background-color: rgb(255, 255, 255);
-		border-style: none;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-	}
-
-	.story_result_text {
-		width: 500px;
-		margin: auto;
-		padding: 10px;
+	.saveBtn {
+		grid-area: save;
+		text-align: end;
 	}
 }
 
-.bottomBox {
-	border: 5px solid navy;
-
-	display: flex;
-	justify-content: center;
-	margin-bottom: 20px;
-}
 .audio {
-	width: 100%;
+	max-width: 250px;
+	min-width: 150px;
+	height: 40px;
+	border: 2px solid black;
+	border-radius: 999px;
+	margin: 0 5px;
 }
-.pink {
-	border: 1px solid rgb(255, 169, 208);
+/* 단어 검색결과 */
+.wordsearch {
+	grid-area: search;
+	padding: 20px;
+	border: 2px solid black;
+	overflow-y: scroll;
 }
-.gray {
-	border: 1px solid #b1b1b1;
+/* 공통 */
+/* ----------------------------------------------- */
+
+/* 소리 아이콘 */
+.sound_icon {
+	margin: auto;
+	width: 15px;
+	height: 15px;
 }
-.black {
-	border: 1px solid #424242;
+/* 소리 버튼 */
+.sound_btn {
+	border: 2px solid black;
+	cursor: pointer;
+	border-radius: 999px;
+	min-height: 40px;
+	min-width: 40px;
+	background-color: rgb(255, 255, 255);
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	margin: 0 2px;
 }
-.yellow {
-	border: 1px solid #f9da5b;
+.sound_btn:disabled {
+	color: #b1b1b1;
+}
+/* 버튼 */
+.story_result_button {
+	cursor: pointer;
+	border-radius: 30px;
+	height: 40px;
+	width: 100px;
+	margin: 0 2px;
+	padding: 0 2px;
+	background-color: rgb(255, 255, 255);
+	border: 2px solid black;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.story_result_button:disabled {
+	color: #b1b1b1;
+}
+/* 버튼 */
+.story_result_btns {
+	grid-area: btns;
+	display: flex;
+	justify-content: space-around;
+	height: 40px;
 }
