@@ -77,15 +77,15 @@ function LoginForm() {
 
 	return (
 		<>
-			<div className={styles.title}>Sign in</div>
+			<div className={styles.title}>- Sign in -</div>
 			<div className={styles.container}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={styles.emailBox}>
-						<label htmlFor="email">이메일</label>
+						<label htmlFor="email">E-MAIL</label>
 						<input
 							id={styles.inputEmail}
 							type="text"
-							placeholder="이메일을 입력해주세요."
+							placeholder="Please enter your e-mail"
 							aria-invalid={
 								!isDirty ? undefined : errors.email ? "true" : "false"
 							}
@@ -106,11 +106,11 @@ function LoginForm() {
 					</div>
 
 					<div className={styles.pwdBox}>
-						<label htmlFor="password">비밀번호</label>
+						<label htmlFor="password">PW</label>
 						<input
 							id={styles.inputPwd}
 							type="password"
-							placeholder="비밀번호를 입력해주세요."
+							placeholder="Please enter your password"
 							aria-invalid={
 								!isDirty ? undefined : errors.password ? "true" : "false"
 							}
@@ -138,7 +138,7 @@ function LoginForm() {
 							type="submit"
 							disabled={isSubmitting}
 						>
-							로그인
+							LOGIN
 						</button>
 						<button
 							className={styles.btn}
@@ -146,7 +146,7 @@ function LoginForm() {
 								navigate("/signUp");
 							}}
 						>
-							회원가입
+							SIGN UP
 						</button>
 
 						<div
@@ -159,18 +159,6 @@ function LoginForm() {
 						>
 							KAKAO
 						</div>
-
-						<a id="kakao-login-btn">
-							<img
-								src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-								width="200"
-								height="80"
-								alt="카카오 로그인 버튼"
-							/>
-						</a>
-						<button type="button">
-							<img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" />
-						</button>
 					</div>
 				</form>
 			</div>
