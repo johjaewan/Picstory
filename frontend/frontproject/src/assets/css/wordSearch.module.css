@@ -1,158 +1,138 @@
-@media (max-width: 600px) {
-  .notice {
-    display: none;
-  }
-  .container {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+@media (max-width: 700px) {
+	.notice {
+		display: none;
+	}
+	.container {
+		margin-top: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-  .wordSearch {
-    display: flex;
-    margin-bottom: 10px;
-  }
+	.wordSearch {
+		display: flex;
+		margin-bottom: 10px;
+	}
 
-  .wordInput {
-    display: none;
-  }
-  .wordInput2 {
-    width: 200px;
-    border: 1px solid rgb(160, 160, 160);
-    border-radius: 5px;
-    padding: 2px 10px;
-  }
-  .searchResult {
-    text-align: center;
-  }
-  .me {
-    float: right;
-  }
-  .you {
-    float: left;
-  }
-  .searchResult {
-    border-radius: 10px;
-    padding: 7px;
-    margin-top: 20px;
-    border: 0.5px solid rgb(216, 216, 216);
-  }
+	.wordInput {
+		display: none;
+	}
+	.wordInput2 {
+		width: 200px;
+		border: 2px solid black;
+		padding: 2px 10px;
+	}
+	.searchResult {
+		text-align: center;
+	}
+	.me {
+		float: right;
+	}
+	.you {
+		float: left;
+	}
+	.searchResult {
+		border-radius: 10px;
+		padding: 7px;
+		margin-top: 20px;
+		border: 0.5px solid rgb(216, 216, 216);
+	}
 
-  .iconBox {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-    border-radius: 5px;
-    margin-left: 10px;
-  }
+	.iconBox {
+		width: 40px;
+		height: 40px;
+		padding: 10px;
+		border-radius: 5px;
+		margin-left: 10px;
+	}
 
-  .searchIcon {
-    width: 70px;
-  }
-  .saveIcon {
-    width: 70px;
-  }
-  .btn {
-    display: none;
-  }
-  .btns {
-    display: block;
-  }
-  .saveBtn {
-    float: right;
-    margin-left: 10px;
-    width: 75px;
-    border-radius: 5px;
-    color: rgb(129, 129, 129);
-    border: 1px solid rgb(182, 182, 182);
-  }
+	.searchIcon {
+		width: 70px;
+	}
+	.saveIcon {
+		width: 70px;
+	}
+	.btn {
+		display: none;
+	}
+	.btns {
+		display: block;
+	}
+	.saveBtn {
+		float: right;
+		margin-left: 10px;
+		width: 75px;
+		border-radius: 5px;
+		color: rgb(129, 129, 129);
+		border: 1px solid rgb(182, 182, 182);
+	}
 }
 @keyframes move {
-  from {
-    color: rgb(194, 194, 194);
-  }
-  to {
-    color: rgb(89, 89, 89);
-  }
+	from {
+		color: rgb(194, 194, 194);
+	}
+	to {
+		color: rgb(89, 89, 89);
+	}
 }
-@media (min-width: 600px) {
-  .notice {
-    position: relative;
-    bottom: 10px;
-    animation: move 0.5s linear infinite alternate;
-  }
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .resultBox {
-    height: 60vh;
-    overflow-y: scroll;
-  }
-  .resultBox::-webkit-scrollbar {
-    display: none;
-  }
-  .wordSearch {
-    display: flex;
-    margin-bottom: 10px;
-  }
+/* ============================================= */
+/* ============================================= */
+/* ============================================= */
+@media (min-width: 700px) {
+	.notice {
+		position: relative;
+		bottom: 10px;
+		animation: move 0.5s linear infinite alternate;
+	}
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 10px auto;
+	}
+	.resultBox {
+		height: 60%;
+		overflow-y: scroll;
+	}
+	.wordSearch {
+		display: flex;
+	}
 
-  .wordInput2 {
-    display: none;
-  }
-  .wordInput {
-    width: 250px;
-    border: 1px solid rgb(160, 160, 160);
-    border-radius: 5px;
-    padding: 2px 10px;
-  }
-  .me {
-    float: right;
-  }
-  .you {
-    float: left;
-  }
-  .searchResult {
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 20px;
-    border: 0.5px solid rgb(216, 216, 216);
-  }
+	.wordInput2 {
+		display: none;
+	}
+	.wordInput {
+		width: 100%;
+		border: 2px solid black;
+		padding: 2px 10px;
+	}
+	.me {
+		float: right;
+	}
+	.you {
+		float: left;
+	}
+	.searchResult {
+		border-radius: 10px;
+		padding: 10px;
+		margin-top: 20px;
+	}
 
-  .iconBox {
-    display: none;
-  }
-  .btn {
-    margin-left: 10px;
-    width: 75px;
-    border-radius: 5px;
-    color: white;
-  }
-  .saveBtn {
-    float: right;
-    margin-left: 10px;
-    width: 75px;
-    border-radius: 5px;
-    color: rgb(129, 129, 129);
-    border: 1px solid rgb(182, 182, 182);
-  }
-}
-
-.pink {
-  background-color: rgb(255, 169, 208);
-  border: 1px solid rgb(255, 169, 208);
-}
-.gray {
-  background-color: #b1b1b1;
-  border: 1px solid #b1b1b1;
-}
-.black {
-  background-color: #424242;
-  border: 1px solid #424242;
-}
-.yellow {
-  background-color: #f9da5b;
-  border: 1px solid #f9da5b;
+	.iconBox {
+		display: none;
+	}
+	.btn {
+		margin: 5px;
+		width: 75px;
+		border-radius: 5px;
+		color: white;
+	}
+	.saveBtn {
+		float: right;
+		margin-left: 10px;
+		width: 75px;
+		border-radius: 5px;
+		color: rgb(129, 129, 129);
+		border: 1px solid rgb(182, 182, 182);
+	}
 }

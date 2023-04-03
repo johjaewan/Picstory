@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 import { translateWord } from "../../api/storyApi";
 import { saveWord } from "../../api/vocabularyApi";
 import searchIcon from "../../assets/search-icon.png";
-import saveIcon from "../../assets/save-icon.png";
 
 import styles from "../../assets/css/wordSearch.module.css";
 import { colorAtom } from "../../atoms";
@@ -59,9 +58,6 @@ export default function WordSearch() {
 	};
 
 	const search = async (word: string) => {
-		// const me = true
-		// const text = `${dragText}의 뜻은 무엇인가요?`
-
 		if (word === "" || word.indexOf(" ") !== -1) {
 			Swal.fire({
 				icon: "warning",
@@ -83,8 +79,7 @@ export default function WordSearch() {
 			result = result.substring(0, result.length - 1);
 		}
 		setMean(result);
-		// const me2 = false
-		// const text2 = `${dragText}의 뜻은 ${word}입니다.`
+
 		const tmp2 = {
 			me: false,
 			word: word,
@@ -108,12 +103,12 @@ export default function WordSearch() {
 				<div className={styles.wordSearch}>
 					<input
 						className={styles.wordInput}
-						type="text"
+						type='text'
 						value={dragText}
 					></input>
 					<input
 						className={styles.wordInput2}
-						type="text"
+						type='text'
 						onChange={saveInput}
 					></input>
 					<button
@@ -131,7 +126,7 @@ export default function WordSearch() {
 							search(input);
 						}}
 					>
-						<img className={styles.searchIcon} src={searchIcon} alt="" />
+						<img className={styles.searchIcon} src={searchIcon} alt='' />
 					</div>
 				</div>
 			</div>

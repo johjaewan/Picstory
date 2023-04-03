@@ -53,11 +53,11 @@ function AudioPlayer() {
         controls
         loop
       ></audio>
-      {/* {play ? (
+      {play ? (
         // 일시정지 버튼
         <button
           disabled={voice ? false : true}
-          className={styles.sound_btn}
+          className={`${styles.sound_btn} ${styles.inAudio}`}
           onClick={stop}
         >
           <TbPlayerPauseFilled className={styles.sound_icon} />
@@ -66,12 +66,12 @@ function AudioPlayer() {
         // 재생 버튼
         <button
           disabled={voice ? false : true}
-          className={styles.sound_btn}
+          className={`${styles.sound_btn} ${styles.inAudio}`}
           onClick={start}
         >
           <TbPlayerPlayFilled className={styles.sound_icon} />
         </button>
-      )} */}
+      )}
     </>
   )
 }
