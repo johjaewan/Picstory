@@ -54,7 +54,7 @@
 		display: grid;
 		gap: 15px 3vw;
 		grid-template-columns: minmax(270px, 40%) 1fr;
-		grid-template-rows: minmax(170px, auto) 50px 1fr 40px;
+		grid-template-rows: 1fr 50px 1fr 40px;
 		grid-template-areas:
 			"image resultText"
 			"btns resultText"
@@ -65,7 +65,7 @@
 	.story_result_image {
 		grid-area: image;
 		border: 2px solid black;
-		aspect-ratio: 16 / 10;
+		/* aspect-ratio: 16 / 10; */
 	}
 	/* 오디오 */
 	.inAudio {
@@ -90,22 +90,26 @@
 		grid-area: save;
 		text-align: end;
 	}
+	.audio {
+		max-width: 250px;
+		min-width: 150px;
+		height: 40px;
+		border: 2px solid black;
+		border-radius: 999px;
+		margin: 0 5px;
+	}
+	/* 단어 검색결과 */
+	.wordsearch {
+		grid-area: search;
+		padding-top: 20px;
+		border: 2px solid black;
+		overflow-y: scroll;
+	}
+	.wordsearch::-webkit-scrollbar {
+		display: none;
+	}
 }
 
-.audio {
-	max-width: 250px;
-	min-width: 150px;
-	height: 40px;
-	border: 2px solid black;
-	border-radius: 999px;
-	margin: 0 5px;
-}
-/* 단어 검색결과 */
-.wordsearch {
-	grid-area: search;
-	padding: 20px;
-	border: 2px solid black;
-}
 /* 공통 */
 /* ----------------------------------------------- */
 

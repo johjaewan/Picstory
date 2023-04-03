@@ -58,7 +58,6 @@ export default function WordSearch() {
 	};
 
 	const search = async (word: string) => {
-
 		if (word === "" || word.indexOf(" ") !== -1) {
 			Swal.fire({
 				icon: "warning",
@@ -104,12 +103,12 @@ export default function WordSearch() {
 				<div className={styles.wordSearch}>
 					<input
 						className={styles.wordInput}
-						type="text"
+						type='text'
 						value={dragText}
 					></input>
 					<input
 						className={styles.wordInput2}
-						type="text"
+						type='text'
 						onChange={saveInput}
 					></input>
 					<button
@@ -127,7 +126,7 @@ export default function WordSearch() {
 							search(input);
 						}}
 					>
-						<img className={styles.searchIcon} src={searchIcon} alt="" />
+						<img className={styles.searchIcon} src={searchIcon} alt='' />
 					</div>
 				</div>
 			</div>

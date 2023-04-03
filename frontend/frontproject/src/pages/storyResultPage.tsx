@@ -58,12 +58,12 @@ export default function StoryResultPage() {
 	else if (genre === "공포") setColor("black");
 
 	// 이미지
-	const bitImage = useRecoilValue(ImageBit)
+	const bitImage = useRecoilValue(ImageBit);
 
 	return (
 		<div className={styles.container}>
 			{/* 이미지 */}
-			<img src={bitImage} className={styles.story_result_image} alt="testimg" />
+			<img src={bitImage} className={styles.story_result_image} alt='testimg' />
 
 			{/* 설정 버튼 */}
 			<div className={styles.story_result_btns}>
@@ -91,7 +91,7 @@ export default function StoryResultPage() {
 
 			{/* 이야기 결과 */}
 			<div className={styles.content}>
-				{/* {cnt === 0 ? (
+				{cnt === 0 ? (
 					<TypeIt
 						options={{
 							speed: 30,
@@ -102,8 +102,8 @@ export default function StoryResultPage() {
 					</TypeIt>
 				) : (
 					<StoryResult />
-				)} */}
-				<StoryResult />
+				)}
+				{/* <StoryResult /> */}
 			</div>
 			<div className={styles.wordsearch}>
 				<WordSearch></WordSearch>

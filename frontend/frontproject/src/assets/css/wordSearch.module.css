@@ -75,6 +75,9 @@
 		color: rgb(89, 89, 89);
 	}
 }
+/* ============================================= */
+/* ============================================= */
+/* ============================================= */
 @media (min-width: 700px) {
 	.notice {
 		position: relative;
@@ -85,27 +88,22 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		margin: 10px auto;
 	}
 	.resultBox {
 		height: 60%;
 		overflow-y: scroll;
-		border: 1px solid green;
 	}
-	/* .resultBox::-webkit-scrollbar {
-		display: none;
-	} */
 	.wordSearch {
 		display: flex;
-		margin-bottom: 10px;
 	}
 
 	.wordInput2 {
 		display: none;
 	}
 	.wordInput {
-		width: 250px;
-		border: 1px solid rgb(160, 160, 160);
-		border-radius: 5px;
+		width: 100%;
+		border: 2px solid black;
 		padding: 2px 10px;
 	}
 	.me {
@@ -118,14 +116,13 @@
 		border-radius: 10px;
 		padding: 10px;
 		margin-top: 20px;
-		border: 0.5px solid rgb(216, 216, 216);
 	}
 
 	.iconBox {
 		display: none;
 	}
 	.btn {
-		margin-left: 10px;
+		margin: 5px;
 		width: 75px;
 		border-radius: 5px;
 		color: white;
