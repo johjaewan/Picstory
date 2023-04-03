@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { signup, emailCheck, sendCode, checkCode } from "../../api/userAPI";
-import styles from "../../assets/css/Login.module.css";
+import styles from "../../assets/css/SignUp.module.css";
 
 function SignUp() {
 	const navigate = useNavigate();
@@ -182,17 +182,17 @@ function SignUp() {
 
 	return (
 		<>
-			<div className={styles.title}>Sign up</div>
+			<div className={styles.title}>- Sign up -</div>
 			<form className={styles.formcontainer} onSubmit={handleSubmit(onSubmit)}>
 				<div>
 					<div className={styles.inputBox}>
 						{/* 이메일 입력 */}
-						<label htmlFor="email">이메일</label>
+						<label htmlFor="email">E-MAIL</label>
 						<input
 							id="email"
-							className={styles.inputItem}
+							className={styles.inputEmail}
 							type="text"
-							placeholder="이메일을 입력해주세요."
+							placeholder="Please enter your e-mail"
 							aria-invalid={
 								!isDirty ? undefined : errors.email ? "true" : "false"
 							}
@@ -205,24 +205,24 @@ function SignUp() {
 								},
 							})}
 						/>
+						{/* 이메일 중복체크 버튼 */}
+						<button className={styles.btn} type="button" onClick={onEmailCheck}>
+							이메일 중복 체크
+						</button>
 						<div className={styles.emailAlert}>
 							{errors.email && (
 								<small role="alert">{errors.email.message}</small>
 							)}
 						</div>
-						{/* 이메일 중복체크 버튼 */}
-						<button className={styles.btn} type="button" onClick={onEmailCheck}>
-							이메일 중복 체크
-						</button>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 이메일 인증코드 입력 */}
-						<label htmlFor="text">이메일 인증코드</label>
+						<label htmlFor="text">email verification code</label>
 						<input
 							id="code"
-							className={styles.inputItem}
+							className={styles.inputCode}
 							type="text"
-							placeholder="이메일 주소의 인증코드를 확인해주세요."
+							placeholder="email verification code."
 							aria-invalid={
 								!isDirty ? undefined : errors.code ? "true" : "false"
 							}
@@ -230,25 +230,31 @@ function SignUp() {
 								required: "이메일 인증코드는 필수 입력입니다.",
 							})}
 						/>
-						<div className={styles.alert}>
-							{errors.code && <small role="alert">{errors.code.message}</small>}
-						</div>
 						{/* 사용자에게 인증코드 전송하는 버튼 */}
 						<button
-							className={styles.btn}
+							className={styles.btn2}
 							type="button"
 							onClick={onEmailCodeSend}
 						>
-							인증코드 전송
+							<img
+								className={styles.imgBtn}
+								src="https://img.icons8.com/stickers/100/000000/sent.png"
+							></img>
 						</button>
 						{/* 입력된 인증코드가 맞는지 확인하는 버튼 */}
 						<button
-							className={styles.btn}
+							className={styles.btn2}
 							type="button"
 							onClick={onEmailCodeCheck}
 						>
-							인증코드 체크
+							<img
+								className={styles.imgBtn}
+								src="https://img.icons8.com/color/48/null/check-all--v1.png"
+							/>
 						</button>
+						<div className={styles.alert}>
+							{errors.code && <small role="alert">{errors.code.message}</small>}
+						</div>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 닉네임 입력 */}
@@ -337,8 +343,12 @@ function SignUp() {
 					</div>
 
 					{/* 회원가입버튼 */}
-					<button className={styles.btn} type="submit" disabled={isSubmitting}>
-						회원가입
+					<button
+						className={styles.signbtn}
+						type="submit"
+						disabled={isSubmitting}
+					>
+						SIGN UP
 					</button>
 				</div>
 			</form>
