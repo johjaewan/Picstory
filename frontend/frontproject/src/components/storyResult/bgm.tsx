@@ -61,10 +61,10 @@ function BGMPlayer() {
 	const [bgm, setBgm] = useState<string>("");
 
 	const changeBgm = (idx: number) => {
-		if (genre === "재미") setBgm(funBgm[idx]);
-		else if (genre === "슬픔") setBgm(sadBgm[idx]);
-		else if (genre === "로맨스") setBgm(romanceBgm[idx]);
-		else if (genre === "공포") setBgm(thrillerBgm[idx]);
+		if (genre === "cheerful") setBgm(funBgm[idx]);
+		else if (genre === "sad") setBgm(sadBgm[idx]);
+		else if (genre === "hopeful") setBgm(romanceBgm[idx]);
+		else if (genre === "whispering") setBgm(thrillerBgm[idx]);
 	};
 	// 재생
 	const start = () => {

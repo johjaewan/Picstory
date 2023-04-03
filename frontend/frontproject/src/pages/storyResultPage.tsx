@@ -52,10 +52,10 @@ export default function StoryResultPage() {
 
 	const [color, setColor] = useRecoilState(colorAtom);
 
-	if (genre === "재미") setColor("yellow");
-	else if (genre === "슬픔") setColor("gray");
-	else if (genre === "로맨스") setColor("pink");
-	else if (genre === "공포") setColor("black");
+	if (genre === "cheerful") setColor("yellow");
+	else if (genre === "sad") setColor("gray");
+	else if (genre === "hopeful") setColor("pink");
+	else if (genre === "whispering") setColor("black");
 
 	// 이미지
 	const bitImage = useRecoilValue(ImageBit);
