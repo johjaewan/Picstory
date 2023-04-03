@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import styles from '../../assets/css/main.module.css'
 import { useEffect, useRef, useState } from 'react'
-
+import useIntersectionObsever from './useIntersectionObsever'
+import VideoPlayer from '../../videoPlayer'
 export default function Main() {
   const navigation = useNavigate()
 
@@ -21,6 +22,7 @@ export default function Main() {
   const DIVIDER_HEIGHT = 5
 
   useEffect(() => {
+    // handleChange()
     const wheelHandler = (e: any) => {
       e.preventDefault()
       const { deltaY } = e
@@ -90,6 +92,9 @@ export default function Main() {
     }
   }, [])
 
+  const ref = useRef<HTMLDivElement>(null)
+  const isInViewport = useIntersectionObsever(ref)
+
   return (
     <div ref={outerDivRef} className={styles.outer}>
       <div className={styles.inner}>
@@ -107,7 +112,6 @@ export default function Main() {
             </h1>
           </div>
           <div className={styles.clear}></div>
-
           <button className={styles.layerbutton} onClick={handleTry}>
             <span className={styles.color_span} aria-hidden="true">
               Create Story
@@ -120,15 +124,41 @@ export default function Main() {
       <div className={styles.divider1}></div>
       <div className={styles.inner}>
         <div className={styles.section2}>
-          <div className={styles.content}>
-            사진을 업로드하고 원하는 장르를 선택하면 어울리는 이야기를
-            생성해줍니다.
+          <div ref={ref} className={isInViewport ? styles.test : ''}>
+            <img
+              className={styles.imgContent}
+              src="https://cdn.pixabay.com/photo/2017/06/05/11/01/airport-2373727_960_720.jpg"
+              width={500}
+              alt=""
+            />
+          </div>
+          <div className={styles.content}>내가 찍은 사진을 업로드 해보세요</div>
+          <div ref={ref} className={isInViewport ? styles.test2 : ''}>
+            <img
+              className={styles.imgContent}
+              src="https://cdn.pixabay.com/photo/2016/08/05/02/14/girl-1571459_960_720.jpg"
+              width={300}
+              alt=""
+            />
+          </div>
+          <div ref={ref} className={isInViewport ? styles.test3 : ''}>
+            <img
+              className={styles.imgContent}
+              src="https://cdn.pixabay.com/photo/2023/03/25/17/35/girl-7876505_960_720.jpg"
+              width={400}
+              alt=""
+            />
           </div>
         </div>
       </div>
       <div className={styles.divider2}></div>
       <div className={styles.inner}>
-        <div className={styles.section3}></div>
+        <div className={styles.section3}>
+          <div className={styles.content2}>
+            장르를 선택하고 다양한 이야기를 만나보세요
+          </div>
+          <VideoPlayer></VideoPlayer>
+        </div>
       </div>
     </div>
   )
