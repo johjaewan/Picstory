@@ -63,7 +63,9 @@ export default function StoryResultPage() {
 	return (
 		<div className={styles.container}>
 			{/* 이미지 */}
-			<img src={bitImage} className={styles.story_result_image} alt='testimg' />
+			<div className={styles.story_result_image}>
+				<img src={bitImage} alt='testimg' />
+			</div>
 
 			{/* 설정 버튼 */}
 			<div className={styles.story_result_btns}>
@@ -103,7 +105,6 @@ export default function StoryResultPage() {
 				) : (
 					<StoryResult />
 				)}
-				{/* <StoryResult /> */}
 			</div>
 			<div className={styles.wordsearch}>
 				<WordSearch></WordSearch>
