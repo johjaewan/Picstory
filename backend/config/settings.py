@@ -128,12 +128,12 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = True
 
 # TODO: 기능 완성 후 적용
-# CORS_ALLOWED_ORIGINS = [
-#     'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
-#     'http://127.0.0.1:3000',
-#     'https://j8D103.p.ssafy.io',
-#     'http://j8D103.p.ssafy.io',
-# ]
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
+    'http://127.0.0.1:3000',
+    'https://j8D103.p.ssafy.io',
+    'http://j8D103.p.ssafy.io',
+]
 
 # 쿠키가 cross-site HTTP 요청에 포함될 수 있다
 CORS_ALLOW_CREDENTIALS = True
@@ -149,8 +149,14 @@ CORS_ALLOW_METHODS  =  [
 
 CORS_ALLOW_HEADERS  =  list(default_headers) + [
     'refresh-token',
+    'Authorization',
+    'Access-Control-Request-Headers',
 ]
 
+CORS_EXPOSE_HEADERS = [
+    'Authorization',
+    'authorization',
+]
 
 ROOT_URLCONF = 'config.urls'
 

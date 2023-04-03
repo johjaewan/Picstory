@@ -28,20 +28,20 @@ def VC2(text, genre, url):
     speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=None)
 
     
-    if genre == '재미' :
-        style = 'cheerful'
-        pass
-    elif genre == '공포' :
-        style = 'whispering'
-        pass
-    elif genre == '슬픔' :
-        style = 'sad'
-        pass
-    elif genre == '로맨스' :
-        style = 'hopeful'
+    # if genre == 'cheerful' :
+    #     style = 'cheerful'
+    #     pass
+    # elif genre == 'whispering' :
+    #     style = 'whispering'
+    #     pass
+    # elif genre == 'sad' :
+    #     style = 'sad'
+    #     pass
+    # elif genre == 'hopeful' :
+    #     style = 'hopeful'
     
     ssml_string = f"""<speak version="1.0" xmlns="https://www.w3.org/2001/10/synthesis" xml:lang="en-US">
-    <voice name="en-US-JennyNeural" style="{style}" role="SeniorMale">
+    <voice name="en-US-JennyNeural" style="{genre}" role="SeniorMale">
         {text}
     </voice>
     </speak>

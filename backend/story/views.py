@@ -4,9 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from decouple import config
-from gtts import gTTS
 from config import settings
-from .voice_conversion import VC
 from .tts_test import VC2
 from accounts.models import Member
 
@@ -287,17 +285,8 @@ def create_voice(request):
 
     url = uuid.uuid4().hex
     tts_en = VC2(text=content, genre=genre, url=url)
-    # tts_en = gTTS(text=content, lang='en')
-    
-    # tts_en.save(f'audio/{url}.wav')
-    # tts_en.save(f'media/audio/{url}.wav')
     logging.info('음성 저장 완료')
 
-    # url 파일 Voice Conversion 적용
-    # VC(url, genre)
-
-    # VC 적용된 url 파일
-    # f = open(f'audio/{url}.wav', 'rb')
     f = open(f'media/audio/{url}.wav', 'rb')
     file = File(f)
 
