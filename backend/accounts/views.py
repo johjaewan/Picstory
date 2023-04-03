@@ -241,20 +241,6 @@ def kakao_callback(request):
     return JsonResponse({'error': 'Only POST requests are allowed' },status=405)   
 
 
-def test(request):
-    """새로고침시 새로운 access_token 발송
-    :param 
-    :return str message
-    """
-    access_token = request.headers.get('Authorization').split(' ')[1]
-    # refresh_token = request.headers.get('Refresh-Token').split(' ')[1]
-    # print(refresh_token)
-    # payload = request.response
-    # print(payload)
-    return redirect("https://www.naver.com/")
-    # return JsonResponse({'message':'테스트 성공'},status = 200)
-
-
 def withdrawal(request):
     """회원탈퇴
     :param 
@@ -274,7 +260,3 @@ def withdrawal(request):
         member.delete()
         return JsonResponse({'message': '회원 탈퇴가 완료되었습니다.'}, status=200)
     return JsonResponse({'error': 'Only DELETE requests are allowed'}, status=405)
-
-# def profile(request):
-#     if request.method == "GET":
-
