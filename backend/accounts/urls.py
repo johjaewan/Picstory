@@ -15,14 +15,11 @@ urlpatterns = [
     path('check/duplicate/email/', views.check_duplicate_email, name='check_duplicate_email'),
     path('check/duplicate/nickname/', views.check_duplicate_nickname, name='check_duplicate_nickname'),
 
-
     path('token/refresh/', views.token_refresh, name='refresh_token'),
-
 
     path('kakao/login/',views.kakao_login, name='kakao_login'),
     path('kakao/callback/',views.kakao_callback, name='kakao_callback'),
 
     path('withdrawal/', views.withdrawal, name='withdrawal'),
 
-    path('test/',views.test)
 ]
