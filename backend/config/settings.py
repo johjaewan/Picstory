@@ -107,27 +107,23 @@ CACHES = {
 }
 
 MIDDLEWARE = [
-    # custom middleware 클래스 추가
-    'middleware.custom_middleware.JWTAuthenticationMiddleware',
-    
+    # 최상단에 Cors Middleware 추가
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    
+    # custom middleware 클래스 추가
+    'middleware.custom_middleware.JWTAuthenticationMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
 
+    # csrf 해체
     # 'django.middleware.csrf.CsrfViewMiddleware',
-    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
-# 모든 호스트 허용
-CORS_ALLOW_ALL_ORIGINS = True
-
-# TODO: 기능 완성 후 적용
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
     'http://127.0.0.1:3000',
@@ -136,7 +132,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # 쿠키가 cross-site HTTP 요청에 포함될 수 있다
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS  =  [ 
     'DELETE' , 
@@ -149,13 +145,6 @@ CORS_ALLOW_METHODS  =  [
 
 CORS_ALLOW_HEADERS  =  list(default_headers) + [
     'refresh-token',
-    'Authorization',
-    'Access-Control-Request-Headers',
-]
-
-CORS_EXPOSE_HEADERS = [
-    'Authorization',
-    'authorization',
 ]
 
 ROOT_URLCONF = 'config.urls'

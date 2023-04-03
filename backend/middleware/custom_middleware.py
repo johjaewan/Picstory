@@ -19,13 +19,6 @@ class JWTAuthenticationMiddleware:
         self.excluded_url_patterns = ['api/accounts/signup/', 'api/accounts/login/','api/accounts/verify/email/',
                                       'api/accounts/api/token/','api/accounts/send/code/','api/accounts/token/refresh/',
                                       'api/accounts/kakao/login/','api/accounts/kakao/callback/',
-                                      'api/story/<int:story_pk>/',
-                                      'api/story/create/',
-                                      'api/story/delete/<int:story_pk>/',
-                                      'api/story/translate/','api/story/voice/',
-                                      'api/story/save/', 'api/story/list/',
-                                      'api/story/word/','api/story/test/',
-                                      'api/vocabulary/save/', 'api/vocabulary/', 'api/vocabulary/all/',
                                       'api/accounts/check/duplicate/email/','api/accounts/check/duplicate/nickname/'
                                     ]
 
@@ -38,10 +31,8 @@ class JWTAuthenticationMiddleware:
         response = self.get_response(request)
         access_token = request.headers.get('Authorization')
         if access_token is None:
-            print(request.headers)
             return JsonResponse({'error': 'access 토큰이 필요합니다.'}, status=401)
         access_token = access_token.split(' ')[1]
-        print(f'access_token: {access_token}')
         try:
             payload = jwt.decode(access_token, settings.SECRET_KEY, algorithms=['HS256'])
         # access_token이 만료되었을때
