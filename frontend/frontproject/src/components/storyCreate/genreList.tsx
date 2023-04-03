@@ -14,7 +14,7 @@ import {
 } from "../../atoms";
 import { createStory, createVoice, translateStory } from "../../api/storyApi";
 import Loading from "./loading";
-import styles from "../../assets/css/genreList.module.css";
+import styles from "../../assets/css/LayerButton.module.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
@@ -167,36 +167,12 @@ export default function ImageUpload() {
 				<Loading />
 			) : (
 				<div>
-					<div className={styles.container}>
-						{items.map((item, idx) => {
-							let id = "genreBtn-" + (idx + 1);
-							return (
-								<div key={idx}>
-									<input
-										id={styles[`${id}`]}
-										type="radio"
-										name="gerne"
-										value={items[idx]}
-										onChange={clickGenre}
-									></input>
-
-									<label
-										className={
-											items[idx] === genre
-												? `${styles["genre_label_active"]} ${styles[color]}`
-												: `${styles["genre_label"]}`
-										}
-										htmlFor={styles[`${id}`]}
-									>
-										{items[idx]}
-									</label>
-								</div>
-							);
-						})}
-					</div>
-
-					<button className={styles.createBtn} onClick={ImageCaptioning}>
-						이야기 만들기
+					<button className={styles.layerbutton} onClick={ImageCaptioning}>
+						<span className={styles.color_span} aria-hidden="true">
+							Create Story
+						</span>
+						<span className={styles.color_span}></span>
+						<span className={styles.color_span}>Create Story</span>
 					</button>
 				</div>
 			)}
