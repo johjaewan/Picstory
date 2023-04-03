@@ -87,12 +87,13 @@
 		justify-content: center;
 	}
 	.resultBox {
-		height: 60vh;
+		height: 60%;
 		overflow-y: scroll;
+		border: 1px solid green;
 	}
-	.resultBox::-webkit-scrollbar {
+	/* .resultBox::-webkit-scrollbar {
 		display: none;
-	}
+	} */
 	.wordSearch {
 		display: flex;
 		margin-bottom: 10px;
@@ -137,21 +138,4 @@
 		color: rgb(129, 129, 129);
 		border: 1px solid rgb(182, 182, 182);
 	}
-}
-
-.pink {
-	background-color: rgb(255, 169, 208);
-	border: 1px solid rgb(255, 169, 208);
-}
-.gray {
-	background-color: #b1b1b1;
-	border: 1px solid #b1b1b1;
-}
-.black {
-	background-color: #424242;
-	border: 1px solid #424242;
-}
-.yellow {
-	background-color: #f9da5b;
-	border: 1px solid #f9da5b;
 }

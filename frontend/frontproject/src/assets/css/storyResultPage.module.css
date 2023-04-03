@@ -105,7 +105,6 @@
 	grid-area: search;
 	padding: 20px;
 	border: 2px solid black;
-	overflow-y: scroll;
 }
 /* 공통 */
 /* ----------------------------------------------- */
