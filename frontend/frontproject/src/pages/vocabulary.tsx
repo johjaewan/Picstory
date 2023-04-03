@@ -31,11 +31,9 @@ export default function Vocabulary() {
 	const getList = useCallback(
 		async (isSortTime: boolean, page: number) => {
 			try {
-				console.log(isSortTime);
 				const response = await getWordList(isSortTime ? "" : "alpha", page);
 
 				const item = response.data.results;
-				console.log(response);
 				setCount(response.data.count);
 				setPageCount(Math.floor(response.data.count / 10) + 1);
 
@@ -49,18 +47,14 @@ export default function Vocabulary() {
 				}
 				navigation("/404");
 			}
-
-			console.log(wordListTime);
 		},
 		[navigation]
 	);
 
 	const setList = (data: [], check: boolean) => {
 		if (check) {
-			console.log("11");
 			setWordListTime(() => [...data]);
 		} else {
-			console.log("22");
 			setWordListAlpha(() => [...data]);
 		}
 	};

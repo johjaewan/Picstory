@@ -37,7 +37,7 @@ const Menu = () => {
 				}).then(async (result) => {
 					if (result.isConfirmed) {
 						try {
-							const response = await deleteUser();
+							await deleteUser();
 							Swal.fire("탈퇴성공!", "Your file has been deleted.", "success");
 							navigation("/");
 						} catch (error) {
@@ -92,7 +92,7 @@ const Menu = () => {
 				<img
 					className={styles.closeIcon}
 					src={closeIcon}
-					alt=""
+					alt=''
 					onClick={() => {
 						setMenu(false);
 					}}
