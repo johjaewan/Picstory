@@ -97,6 +97,15 @@ body {
   text-align: center;
 }
 
+.section2 {
+  /* background-image: url('../002.jpg');
+  background-size: cover; */
+  /* background-color: #d8ebff; */
+}
+.section3 {
+  /* background-color: #ffc9e1; */
+}
+
 .divider1,
 .divider2,
 .divider3 {
@@ -190,18 +199,21 @@ h1 span:nth-child(13) {
   .test {
     position: relative;
     left: 100px;
-    animation: move 1s ease;
+    transform: rotate(-1deg);
+    animation: move 2s ease, rotate 1s ease infinite alternate 2.2s;
   }
   .test2 {
     position: relative;
     top: -200px;
-    animation: move2 1s ease;
+    transform: rotate(-1deg);
+    animation: move2 1s ease, rotate 1s ease infinite alternate 1.2s;
   }
   .test3 {
     position: relative;
     top: 120px;
     right: 100px;
-    animation: move3 1s ease;
+    transform: rotate(-1deg);
+    animation: move3 2.2s ease, rotate 1s ease infinite alternate 2.5s;
   }
 }
 @media (max-width: 650px) {
@@ -259,12 +271,21 @@ h1 span:nth-child(13) {
     opacity: 1;
   }
 }
+@keyframes rotate {
+  from {
+    transform: rotate(-1deg);
+  }
+  to {
+    transform: rotate(1deg);
+  }
+}
 @keyframes move {
   from {
     transform: translateX(-55%);
   }
   to {
     transform: translateX(0);
+    transform: rotate(-1deg);
   }
 }
 @keyframes move2 {
@@ -273,6 +294,7 @@ h1 span:nth-child(13) {
   }
   to {
     transform: translateY(0);
+    transform: rotate(-1deg);
   }
 }
 @keyframes move3 {
@@ -281,14 +303,7 @@ h1 span:nth-child(13) {
   }
   to {
     transform: translateX(0);
-  }
-}
-@keyframes move4 {
-  from {
-    transform: translateX(20%);
-  }
-  to {
-    transform: translateX(0);
+    transform: rotate(-1deg);
   }
 }
 
@@ -300,5 +315,13 @@ h1 span:nth-child(13) {
   to {
     transform: translateY(2%);
     opacity: 1;
+  }
+}
+@keyframes bounce {
+  100% {
+    top: -1.5vw;
+    text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc,
+      0 5px 0 #ccc, 0 6px 0 #ccc, 0 7px 0 #ccc, 0 8px 0 #ccc, 0 9px 0 #ccc,
+      0 50px 25px rgba(0, 0, 0, 0.2);
   }
 }

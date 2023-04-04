@@ -3,6 +3,7 @@ import styles from '../../assets/css/main.module.css'
 import { useEffect, useRef, useState } from 'react'
 import useIntersectionObsever from './useIntersectionObsever'
 import VideoPlayer from '../../videoPlayer'
+import arrow from '../../assets/arrow.png'
 export default function Main() {
   const navigation = useNavigate()
 
