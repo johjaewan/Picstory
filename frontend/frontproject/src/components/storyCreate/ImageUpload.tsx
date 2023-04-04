@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { ImageBit, ImageFile, loadingAtom } from "../../atoms";
+import { ImageBit, ImageFile, loadingAtom, saveImageFile } from "../../atoms";
 import styles from "../../assets/css/ImageUpload.module.css";
 import Swal from "sweetalert2";
 
@@ -8,11 +8,12 @@ export default function ImageUpload() {
 	const [bitImage, setBitImage] = useRecoilState(ImageBit); // 이미지 파일 base64
 	const [imageName, setImageName] = useState(""); // 이미지 파일 base64
 	const setImageFile = useSetRecoilState(ImageFile); // 이미지 파일 base64
+	const setSaveImageFile = useSetRecoilState(saveImageFile); // 이미지 파일 base64
 	const loading = useRecoilValue(loadingAtom);
 
 	const setImageFromFile = (e: any): Promise<void> => {
 		let file = e.target.files[0];
-		setImageFile(file);
+		setSaveImageFile(file);
 		const reader = new FileReader();
 		reader.readAsDataURL(file);
 
@@ -42,6 +43,7 @@ export default function ImageUpload() {
 			reader.onload = () => {
 				if (typeof reader.result === "string") {
 					setBitImage(reader.result);
+					setImageFile(reader.result);
 					setImageName(e.target.files[0].name);
 					resolve();
 				}
