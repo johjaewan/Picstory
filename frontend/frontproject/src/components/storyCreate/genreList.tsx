@@ -9,6 +9,7 @@ import {
 	isFinished,
 	translateIsFinished,
 	voiceIsFinished,
+	tokenAtom,
 } from "../../atoms";
 import { createStory, createVoice, translateStory } from "../../api/storyApi";
 import Loading from "./loading";
@@ -99,13 +100,23 @@ export default function ImageUpload() {
 				makeVoice(result, genre);
 				translate(result);
 			}
-		} catch (error) {
+		} catch (error: any) {
+			if (error.response.status === 404) {
+				const SetToken = useSetRecoilState(tokenAtom);
+
+				localStorage.removeItem("access_token");
+				localStorage.removeItem("refresh_token");
+				sessionStorage.removeItem("userEmail");
+				sessionStorage.removeItem("userNick");
+				SetToken(null);
+			}
 			console.log(error);
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
 				text: "이야기 생성을 실패했습니다",
 			});
+
 			setLoading(false);
 			setGenre("");
 			setImage("");
