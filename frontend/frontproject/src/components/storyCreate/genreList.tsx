@@ -28,6 +28,7 @@ export default function ImageUpload() {
 	const setFinished = useSetRecoilState(isFinished);
 	const setTransIsFin = useSetRecoilState(translateIsFinished);
 	const setVoiceIsFin = useSetRecoilState(voiceIsFinished);
+	const SetToken = useSetRecoilState(tokenAtom);
 
 	// 이미지
 	const [Image, setImage] = useRecoilState(ImageBit);
@@ -102,8 +103,6 @@ export default function ImageUpload() {
 			}
 		} catch (error: any) {
 			if (error.response.status === 404) {
-				const SetToken = useSetRecoilState(tokenAtom);
-
 				localStorage.removeItem("access_token");
 				localStorage.removeItem("refresh_token");
 				sessionStorage.removeItem("userEmail");
