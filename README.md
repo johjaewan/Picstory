@@ -13,8 +13,8 @@
 # 📄 ​Contents
 
 
-[:one: Introduction](#​one-introduction)<br>
-[:two:​ Tech Stack](#two​-tech-stack)<br>
+[:one: Introduction](#one-introduction)<br>
+[:two:​ Tech Stack](#two-tech-stack)<br>
 [:three:​ System Architecture](#three-system-architecture)<br>
 [:four:​ ERD](#four-erd)<br>
 [:five:​ WIKI](#five-wiki)<br>
