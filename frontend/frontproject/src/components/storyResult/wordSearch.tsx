@@ -64,7 +64,7 @@ export default function WordSearch() {
 			me: true,
 			word: word,
 			mean: "",
-			text: `'${word}'의 뜻은 무엇인가요?`,
+			text: `'${word}'의 뜻은?`,
 		};
 
 		const response = await translateWord(word);

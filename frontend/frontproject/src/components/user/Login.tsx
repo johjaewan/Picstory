@@ -76,7 +76,7 @@ function LoginForm() {
 
 	return (
 		<>
-			<div className={styles.title}>- Sign in -</div>
+			<div className={styles.title}>Sign in</div>
 			<div className={styles.container}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={styles.emailBox}>

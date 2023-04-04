@@ -1,295 +1,302 @@
 @media (min-width: 600px) {
-	.title {
-		margin-top: 30px;
-		font-size: 45px;
-		font-weight: 1000;
-	}
+  .title {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 45px;
+    font-weight: 1000;
+  }
 
-	.formcontainer {
-		border: 2px solid #000;
-		background-color: #fff;
-		min-width: 700px;
-		width: 40vw;
-		height: 500px;
-		margin: 50px auto 0 auto;
-		padding: 40px 0;
-		text-align: center;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-		animation: show 1s ease;
-	}
-	.emailBox {
-		margin: 0 auto;
-		text-align: center;
-	}
-	.inputBox {
-		/* margin: 5px auto; */
-		text-align: center;
-		justify-content: center;
-		/* align-items: center; */
-	}
-	.pwdBox {
-		text-align: center;
-		margin-top: 30px;
-	}
-	.emailAlert {
-		margin-left: 30px;
-		height: 20px;
-		color: rgb(255, 0, 0);
-	}
-	.pwdAlert {
-		margin-left: 30px;
-		height: 20px;
-		color: rgb(255, 0, 0);
-	}
-	.alert {
-		margin-left: 30px;
-		height: 20px;
-		color: rgb(255, 0, 0);
-	}
-	.inputEmail {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 30px 0 45px;
-		border: 2px solid #000;
-		width: 250px;
-	}
+  .formcontainer {
+    border: 2px solid #000;
+    background-color: #fff;
+    min-width: 700px;
+    width: 40vw;
+    height: 500px;
+    margin: 50px auto 0 auto;
+    padding: 40px 0;
+    text-align: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    animation: show 1s ease;
+  }
+  .emailBox {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .inputBox {
+    /* margin: 5px auto; */
+    text-align: left;
+    margin-left: 100px;
+    /* align-items: center; */
+  }
+  .box {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+  }
+  .box2 {
+    display: flex;
+    align-items: center;
+  }
+  .pwdBox {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .label {
+    width: 150px;
+    display: inline-block;
+  }
+  .emailAlert {
+    margin-left: 30px;
+    height: 20px;
+    color: rgb(255, 0, 0);
+  }
+  .pwdAlert {
+    margin-left: 30px;
+    height: 20px;
+    color: rgb(255, 0, 0);
+  }
+  .alert {
+    margin-left: 30px;
+    height: 20px;
+    color: rgb(255, 0, 0);
+  }
+  .inputEmail {
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 7px 12px;
+    border: 2px solid #000;
+    width: 250px;
+  }
 
-	.inputItem {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 30px 0 45px;
-		border: 2px solid #000;
-		width: 250px;
-		border: 2px solid #000;
-	}
+  .inputItem {
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 7px 12px;
+    border: 2px solid #000;
+    width: 280px;
+    border: 2px solid #000;
+  }
 
-	.inputCode {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 30px 0 45px;
-		border: 2px solid #000;
-		width: 200px;
-		border: 2px solid #000;
-	}
+  .inputCode {
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 7px 12px;
+    margin-right: 20px;
+    border: 2px solid #000;
+    width: 200px;
+    border: 2px solid #000;
+  }
 
-	.inputPwd {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 22px 0 60px;
-		border: 2px solid #000;
-		width: 250px;
-	}
-	.buttonBox {
-		margin: 40px;
-	}
-	.btn {
-		cursor: pointer;
-		display: inline-block;
-		width: 150px;
-		color: rgb(0, 0, 0);
-		margin: 0 10px;
-		padding: 10px 20px;
-		margin-left: 10px;
-		border-radius: 25px;
-		border: 2px solid #000;
-		box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
-	.btn:focus {
-		color: #000000;
-		box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
+  .inputPwd {
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 7px 12px;
+    border: 2px solid #000;
+    width: 250px;
+  }
+  .buttonBox {
+    margin: 40px;
+  }
+  .btn {
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    color: rgb(0, 0, 0);
+    margin: 0 10px;
+    padding: 7px 10px;
+    margin-left: 10px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
+  .btn:focus {
+    color: #000000;
+    box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
 
-	.btn2 {
-		cursor: pointer;
-		display: inline-block;
-		width: 40px;
-		margin: 10px;
-	}
+  .btn2 {
+    cursor: pointer;
+    display: inline-block;
+    width: 40px;
+    margin: 10px;
+  }
 
-	.btn2:focus {
-		color: #000000;
-		box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
-	.imgBtn {
-		height: 40px;
-		width: 40px;
-	}
+  .btn2:focus {
+    color: #000000;
+    box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
+  .imgBtn {
+    height: 40px;
+    width: 40px;
+  }
 
-	.signbtn {
-		cursor: pointer;
-		display: inline-block;
-		width: 150px;
-		color: rgb(0, 0, 0);
-		margin: 25px 10px;
-		padding: 10px 20px;
-		margin-left: 10px;
-		border-radius: 25px;
-		border: 2px solid #000;
-		box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
-	.signbtn:focus {
-		color: #000000;
-		box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
+  .signbtn {
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    color: rgb(0, 0, 0);
+    margin: 25px 10px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
+  .signbtn:focus {
+    color: #000000;
+    box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
 }
 
 @media (max-width: 600px) {
-	.title {
-		font-size: 25px;
-		margin-top: 15px;
-		font-weight: 700;
-		margin: auto;
-	}
+  .title {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: 1000;
+  }
 
-	.formcontainer {
-		border: 2px solid #000;
-		background-color: #fff;
-		min-width: 700px;
-		width: 40vw;
-		height: 500px;
-		margin: 50px auto 0 auto;
-		padding: 40px 0;
-		text-align: center;
-		box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-		animation: show 1s ease;
-	}
-	.emailBox {
-		margin: 0 auto;
-		text-align: center;
-	}
-	.inputBox {
-		/* margin: 5px auto; */
-		text-align: center;
-		display: flex;
-		/* align-items: center; */
-	}
-	.pwdBox {
-		text-align: center;
-		margin-top: 30px;
-	}
-	.emailAlert {
-		margin-left: 30px;
-		height: 20px;
-		color: rgb(255, 0, 0);
-	}
-	.pwdAlert {
-		margin-left: 30px;
-		height: 20px;
-		color: rgb(255, 0, 0);
-	}
-	.alert {
-		margin-left: 30px;
-		height: 20px;
-		color: rgb(255, 0, 0);
-	}
-	.inputEmail {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 30px 0 45px;
-		border: 2px solid #000;
-		width: 250px;
-	}
+  .formcontainer {
+    border: 2px solid #000;
+    background-color: #fff;
+    width: 90vw;
+    height: 580px;
+    margin: 10px auto 20px auto;
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    animation: show 1s ease;
+  }
+  .emailBox {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .inputBox {
+    text-align: left;
+    margin-left: 30px;
+  }
+  .box2 {
+    display: flex;
+    align-items: center;
+  }
+  .pwdBox {
+    text-align: center;
+    margin-top: 30px;
+  }
 
-	.inputItem {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 30px 0 45px;
-		border: 2px solid #000;
-		width: 250px;
-		border: 2px solid #000;
-	}
+  .emailAlert {
+    margin-left: 30px;
+    height: 20px;
+    color: rgb(255, 0, 0);
+  }
+  .pwdAlert {
+    /* margin-left: 30px; */
+    height: 10px;
+    color: rgb(255, 0, 0);
+  }
+  .alert {
+    margin-left: 30px;
+    height: 20px;
+    color: rgb(255, 0, 0);
+  }
+  .inputEmail {
+    display: block;
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 5px;
+    border: 2px solid #000;
+    width: 90%;
+  }
 
-	.inputCode {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 30px 0 45px;
-		border: 2px solid #000;
-		width: 200px;
-		border: 2px solid #000;
-	}
+  .inputItem {
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 5px;
+    border: 2px solid #000;
+    width: 250px;
+  }
+  .inputCode {
+    /* display: block; */
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 5px;
+    border: 2px solid #000;
+    width: 200px;
+    border: 2px solid #000;
+  }
 
-	.inputPwd {
-		border-radius: 30px;
-		box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
-		text-align: center;
-		padding: 7px 12px;
-		margin: 0 22px 0 60px;
-		border: 2px solid #000;
-		width: 250px;
-	}
-	.buttonBox {
-		margin: 40px;
-	}
-	.btn {
-		cursor: pointer;
-		display: inline-block;
-		width: 150px;
-		color: rgb(0, 0, 0);
-		margin: 0 10px;
-		padding: 10px 20px;
-		margin-left: 10px;
-		border-radius: 25px;
-		border: 2px solid #000;
-		box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
-	.btn:focus {
-		color: #000000;
-		box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
+  .inputPwd {
+    border-radius: 30px;
+    box-shadow: inset 2px 2px 5px #dfe0e5, inset -5px -5px 10px #ffffff73;
+    text-align: center;
+    padding: 7px 12px;
+    border: 2px solid #000;
+    width: 250px;
+  }
+  .buttonBox {
+    margin: 40px;
+  }
+  .btn {
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    color: rgb(0, 0, 0);
+    margin: 10px 0 0 0;
+    padding: 5px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
+  .btn:focus {
+    color: #000000;
+    box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
 
-	.btn2 {
-		cursor: pointer;
-		display: inline-block;
-		width: 40px;
-		margin: 10px;
-	}
+  .btn2 {
+    cursor: pointer;
+    display: inline-block;
+    width: 30px;
+    margin-left: 10px;
+  }
 
-	.btn2:focus {
-		color: #000000;
-		box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
-	.imgBtn {
-		height: 40px;
-		width: 40px;
-	}
+  .btn2:focus {
+    color: #000000;
+    box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
+  .imgBtn {
+    width: 100px;
+  }
 
-	.signbtn {
-		cursor: pointer;
-		display: inline-block;
-		width: 150px;
-		color: rgb(0, 0, 0);
-		margin: 25px 10px;
-		padding: 10px 20px;
-		margin-left: 10px;
-		border-radius: 25px;
-		border: 2px solid #000;
-		box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
-	.signbtn:focus {
-		color: #000000;
-		box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
-	}
+  .signbtn {
+    cursor: pointer;
+    display: inline-block;
+    width: 150px;
+    color: rgb(0, 0, 0);
+    margin: 25px 10px;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 25px;
+    border: 2px solid #000;
+    box-shadow: 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
+  .signbtn:focus {
+    color: #000000;
+    box-shadow: inset 2px 2px 5px #dfe0e5, -5px -5px 10px #ffffff73;
+  }
 }
 
 @keyframes show {
-	from {
-		transform: translateY(-10%);
-	}
-	to {
-		transform: translateY(0);
-	}
+  from {
+    transform: translateY(-10%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }

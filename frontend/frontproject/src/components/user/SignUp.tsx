@@ -182,12 +182,14 @@ function SignUp() {
 
 	return (
 		<>
-			<div className={styles.title}>- Sign up -</div>
+			<div className={styles.title}>Sign up</div>
 			<form className={styles.formcontainer} onSubmit={handleSubmit(onSubmit)}>
 				<div>
 					<div className={styles.inputBox}>
 						{/* 이메일 입력 */}
-						<label htmlFor='email'>E-MAIL</label>
+						<label className={styles.label} htmlFor='email'>
+							E-MAIL
+						</label>
 						<input
 							id='email'
 							className={styles.inputEmail}
@@ -217,50 +219,59 @@ function SignUp() {
 					</div>
 					<div className={styles.inputBox}>
 						{/* 이메일 인증코드 입력 */}
-						<label htmlFor='text'>email verification code</label>
-						<input
-							id='code'
-							className={styles.inputCode}
-							type='text'
-							placeholder='email verification code.'
-							aria-invalid={
-								!isDirty ? undefined : errors.code ? "true" : "false"
-							}
-							{...register("code", {
-								required: "이메일 인증코드는 필수 입력입니다.",
-							})}
-						/>
-						{/* 사용자에게 인증코드 전송하는 버튼 */}
-						<button
-							className={styles.btn2}
-							type='button'
-							onClick={onEmailCodeSend}
-						>
-							<img
-								className={styles.imgBtn}
-								src='https://img.icons8.com/stickers/100/000000/sent.png'
-								alt='send'
-							></img>
-						</button>
-						{/* 입력된 인증코드가 맞는지 확인하는 버튼 */}
-						<button
-							className={styles.btn2}
-							type='button'
-							onClick={onEmailCodeCheck}
-						>
-							<img
-								className={styles.imgBtn}
-								src='https://img.icons8.com/color/48/null/check-all--v1.png'
-								alt='confirm'
-							/>
-						</button>
+						<div className={styles.box}>
+							<label className={styles.label} htmlFor='text'>
+								E-MAIL 인증코드
+							</label>
+							<div className={styles.box2}>
+								<input
+									id='code'
+									className={styles.inputCode}
+									type='text'
+									placeholder='email verification code.'
+									aria-invalid={
+										!isDirty ? undefined : errors.code ? "true" : "false"
+									}
+									{...register("code", {
+										required: "이메일 인증코드는 필수 입력입니다.",
+									})}
+								/>
+								{/* 사용자에게 인증코드 전송하는 버튼 */}
+								<button
+									className={styles.btn2}
+									type='button'
+									onClick={onEmailCodeSend}
+								>
+									<img
+										className={styles.imgBtn}
+										src='https://img.icons8.com/stickers/100/000000/sent.png'
+										alt=''
+									></img>
+								</button>
+								{/* 입력된 인증코드가 맞는지 확인하는 버튼 */}
+								<button
+									className={styles.btn2}
+									type='button'
+									onClick={onEmailCodeCheck}
+								>
+									<img
+										className={styles.imgBtn}
+										src='https://img.icons8.com/color/48/null/check-all--v1.png'
+										alt=''
+									/>
+								</button>
+							</div>
+						</div>
+
 						<div className={styles.alert}>
 							{errors.code && <small role='alert'>{errors.code.message}</small>}
 						</div>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 닉네임 입력 */}
-						<label htmlFor='nickname'>닉네임</label>
+						<label className={styles.label} htmlFor='nickname'>
+							닉네임 <br />
+						</label>
 						<input
 							id='nickname'
 							className={styles.inputItem}
@@ -285,7 +296,10 @@ function SignUp() {
 					</div>
 					<div className={styles.inputBox}>
 						{/* 비밀번호 입력 */}
-						<label htmlFor='password'>비밀번호</label>
+						<label className={styles.label} htmlFor='password'>
+							비밀번호
+							<br />
+						</label>
 						<input
 							id='password'
 							className={styles.inputItem}
@@ -314,7 +328,9 @@ function SignUp() {
 					</div>
 					<div className={styles.inputBox}>
 						{/* 비밀번호 확인 */}
-						<label htmlFor='configPassword'>비밀번호 확인</label>
+						<label className={styles.label} htmlFor='configPassword'>
+							비밀번호 확인
+						</label>
 						<input
 							id='configPassword'
 							className={styles.inputItem}
