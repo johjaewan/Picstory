@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styles from "../../assets/css/loading.module.css";
 import loadingIcon from "../../assets/loading.gif";
-import { isFinished, loadingAtom } from "../../atoms";
+import { ImageBit, isFinished, loadingAtom } from "../../atoms";
 import { list } from "./wordList";
 
 export default function Loading() {
@@ -11,9 +11,10 @@ export default function Loading() {
 	const [input, setInput] = useState("");
 	const [correct, setCorrect] = useState(false);
 	const [incorrect, setIncorrect] = useState(false);
-	const finished = useRecoilValue(isFinished);
+	const [finished, setFinished] = useRecoilState(isFinished);
 	const setLoading = useSetRecoilState(loadingAtom);
 	const navigation = useNavigate();
+	const setBitImage = useSetRecoilState(ImageBit); // 이미지 파일 base64
 
 	const submit = () => {
 		if (list[idx].mean === input) {
@@ -34,6 +35,8 @@ export default function Loading() {
 		setCorrect(false);
 		setIncorrect(false);
 		setLoading(false);
+		setFinished(false);
+		setBitImage("");
 		navigation("/storyResult");
 	};
 	return (

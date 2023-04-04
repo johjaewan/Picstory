@@ -8,7 +8,7 @@ import {
 	voiceAtom,
 	translateIsFinished,
 	voiceIsFinished,
-	ImageBit,
+	ImageFile,
 } from "../atoms";
 import styles from "../assets/css/storyResultPage.module.css";
 import TypeIt from "typeit-react";
@@ -45,13 +45,13 @@ export default function StoryResultPage() {
 	const voice = useRecoilValue(voiceAtom);
 
 	// 이미지
-	const bitImage = useRecoilValue(ImageBit);
+	const resultmage = useRecoilValue(ImageFile);
 
 	return (
 		<div className={styles.container}>
 			{/* 이미지 */}
 			<div className={styles.story_result_image}>
-				<img src={bitImage} alt='testimg' />
+				<img src={resultmage} alt='testimg' />
 			</div>
 
 			{/* 설정 버튼 */}

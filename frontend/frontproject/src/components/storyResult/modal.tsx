@@ -6,7 +6,7 @@ import {
 	storyKo,
 	voiceAtom,
 	genreAtom,
-	ImageFile,
+	saveImageFile,
 	modalState,
 } from "../../atoms";
 import { Dialog, Transition } from "@headlessui/react";
@@ -35,7 +35,7 @@ export default function Modal() {
 	// 이야기 저장
 	const [storyResultEn, setstoryResultEn] = useRecoilState(storyEn);
 	const [storyResultKo, setstoryResultKo] = useRecoilState(storyKo);
-	const [imageFile, setImageFile] = useRecoilState(ImageFile);
+	const [imageFile, setImageFile] = useRecoilState(saveImageFile);
 	const [voice, setVoice] = useRecoilState(voiceAtom);
 	const [genre, setGenre] = useRecoilState(genreAtom);
 
