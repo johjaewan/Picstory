@@ -1,6 +1,6 @@
 # ​🧡픽스토리(Picstory)🧡
 
-![img]()
+![img](./image/picstory_main.jpg)
 
 
 - SSAFY 8th PJT **Team D103**​ 🌞
