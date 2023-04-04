@@ -79,6 +79,10 @@
     justify-content: start;
     padding-left: 10px;
   }
+  .logoIcon {
+    /* margin: 0 auto; */
+    width: 200px;
+  }
   .menuIcon {
     flex: 1 1 30%;
     display: flex;
