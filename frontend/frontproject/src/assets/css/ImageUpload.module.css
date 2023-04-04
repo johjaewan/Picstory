@@ -3,7 +3,7 @@
     margin: 7vh auto 5vh auto;
     width: 250px;
     height: 200px;
-    border: 1px solid black;
+    border: 2px solid black;
   }
   #upload_icon {
     margin: 70px auto;
@@ -67,7 +67,7 @@
     margin: 5vh auto;
     width: 700px;
     height: 400px;
-    border: 1px solid black;
+    border: 2px solid black;
     margin-top: 10vh;
   }
   #upload_icon {
