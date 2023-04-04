@@ -17,8 +17,8 @@ export default function Vocabulary() {
 	const [wordListTime, setWordListTime] = useState<vocabularyType[]>([]);
 	const [wordListAlpha, setWordListAlpha] = useState<vocabularyType[]>([]);
 	const [count, setCount] = useState(0);
-	const [previous, setPrevious] = useState("");
-	const [next, setNext] = useState("");
+	// const [previous, setPrevious] = useState("");
+	// const [next, setNext] = useState("");
 	const [page, setPage] = useState(1);
 
 	// 정렬
@@ -31,16 +31,15 @@ export default function Vocabulary() {
 	const getList = useCallback(
 		async (isSortTime: boolean, page: number) => {
 			try {
-				console.log(isSortTime);
 				const response = await getWordList(isSortTime ? "" : "alpha", page);
 
 				const item = response.data.results;
-				console.log(response);
+
 				setCount(response.data.count);
 				setPageCount(Math.floor(response.data.count / 10) + 1);
 
-				setPrevious(response.data.previous);
-				setNext(response.data.next);
+				// setPrevious(response.data.previous);
+				// setNext(response.data.next);
 				setList(item, isSortTime);
 				if (!response) return;
 			} catch (error: any) {
@@ -49,18 +48,14 @@ export default function Vocabulary() {
 				}
 				navigation("/404");
 			}
-
-			console.log(wordListTime);
 		},
 		[navigation]
 	);
 
 	const setList = (data: [], check: boolean) => {
 		if (check) {
-			console.log("11");
 			setWordListTime(() => [...data]);
 		} else {
-			console.log("22");
 			setWordListAlpha(() => [...data]);
 		}
 	};
@@ -85,13 +80,14 @@ export default function Vocabulary() {
 		<div className={styles.container}>
 			<div className={styles.title}>WORD</div>
 			<div className={styles.btns}>
-				<div>TOTAL {count}</div>
+				<div className={styles.total}>TOTAL {count}</div>
 				<button className={styles.sortBtn} onClick={click}>
 					<img src={sortIcon} alt='' width={30}></img>
 					{isSortTime ? "ABC" : "TIME"}
 				</button>
 			</div>
 			<div className={styles.box}>
+				{/* 이전페이지 */}
 				<img
 					className={styles.btn}
 					src='https://cdn-icons-png.flaticon.com/512/318/318477.png'
@@ -101,150 +97,67 @@ export default function Vocabulary() {
 				></img>
 
 				<div className={styles.container2}>
+					{/* 시간정렬 */}
 					{isSortTime ? (
-						<table className={styles.word_table}>
-							<td>
-								<div className={styles.list}>
-									{wordListTime[0] ? wordListTime[0].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[1] ? wordListTime[1].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[2] ? wordListTime[2].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[3] ? wordListTime[3].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[4] ? wordListTime[4].word : <br />}
-								</div>
-							</td>
-							<td className={styles.col}>
-								<div className={styles.list}>
-									{wordListTime[0] ? wordListTime[0].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[1] ? wordListTime[1].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[2] ? wordListTime[2].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[3] ? wordListTime[3].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[4] ? wordListTime[4].mean : <br />}
-								</div>
-							</td>
-							<td>
-								<div className={styles.list}>
-									{wordListTime[5] ? wordListTime[5].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[6] ? wordListTime[6].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[7] ? wordListTime[7].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[8] ? wordListTime[8].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[9] ? wordListTime[9].word : <br />}
-								</div>
-							</td>
-							<td>
-								<div className={styles.list}>
-									{wordListTime[5] ? wordListTime[5].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[6] ? wordListTime[6].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[7] ? wordListTime[7].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[8] ? wordListTime[8].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListTime[9] ? wordListTime[9].mean : <br />}
-								</div>
-							</td>
-						</table>
+						<>
+							<table className={styles.firstTable}>
+								<tbody>
+									{wordListTime.slice(0, 5).map((item, i) => {
+										return (
+											<tr key={i}>
+												<td>{item && item.word}</td>
+												<td>{item && item.mean}</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+							<br />
+							<table>
+								<tbody>
+									{wordListTime.slice(5, 10).map((item, i) => {
+										return (
+											<tr key={i}>
+												<td>{item && item.word}</td>
+												<td>{item && item.mean}</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</>
 					) : (
-						<table className={styles.word_table}>
-							<td>
-								<div className={styles.list}>
-									{wordListAlpha[0] ? wordListAlpha[0].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[1] ? wordListAlpha[1].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[2] ? wordListAlpha[2].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[3] ? wordListAlpha[3].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[4] ? wordListAlpha[4].word : <br />}
-								</div>
-							</td>
-							<td className={styles.col}>
-								<div className={styles.list}>
-									{wordListAlpha[0] ? wordListAlpha[0].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[1] ? wordListAlpha[1].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[2] ? wordListAlpha[2].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[3] ? wordListAlpha[3].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[4] ? wordListAlpha[4].mean : <br />}
-								</div>
-							</td>
-							<td>
-								<div className={styles.list}>
-									{wordListAlpha[5] ? wordListAlpha[5].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[6] ? wordListAlpha[6].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[7] ? wordListAlpha[7].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[8] ? wordListAlpha[8].word : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[9] ? wordListAlpha[9].word : <br />}
-								</div>
-							</td>
-							<td>
-								<div className={styles.list}>
-									{wordListAlpha[5] ? wordListAlpha[5].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[6] ? wordListAlpha[6].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[7] ? wordListAlpha[7].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[8] ? wordListAlpha[8].mean : <br />}
-								</div>
-								<div className={styles.list}>
-									{wordListAlpha[9] ? wordListAlpha[9].mean : <br />}
-								</div>
-							</td>
-						</table>
+						<>
+							{/* 알파벳정렬 */}
+							<table className={styles.firstTable}>
+								<tbody>
+									{wordListAlpha.slice(0, 5).map((item, i) => {
+										return (
+											<tr key={i}>
+												<td>{item && item.word}</td>
+												<td>{item && item.mean}</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+							<br />
+							<table>
+								<tbody>
+									{wordListAlpha.slice(5, 10).map((item, i) => {
+										return (
+											<tr key={i}>
+												<td>{item && item.word}</td>
+												<td>{item && item.mean}</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</>
 					)}
 				</div>
+				{/* 다음페이지 */}
 				<img
 					className={styles.btn}
 					src='https://cdn-icons-png.flaticon.com/512/318/318476.png'

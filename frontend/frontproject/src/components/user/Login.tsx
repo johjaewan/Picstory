@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { login } from "../../api/userAPI";
 import styles from "../../assets/css/Login.module.css";
 import { tokenAtom } from "../../atoms";
-import kImg from "../../assets/kakao1.png";
+// import kImg from "../../assets/kakao1.png";
 function LoginForm() {
 	type FormData = {
 		email: string;
@@ -58,7 +58,6 @@ function LoginForm() {
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				// text: error.response.data.error,
 			});
 			console.log(error);
 		}
@@ -81,11 +80,11 @@ function LoginForm() {
 			<div className={styles.container}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={styles.emailBox}>
-						<label htmlFor="email">E-MAIL</label>
+						<label htmlFor='email'>E-MAIL</label>
 						<input
 							id={styles.inputEmail}
-							type="text"
-							placeholder="Please enter your e-mail"
+							type='text'
+							placeholder='Please enter your e-mail'
 							aria-invalid={
 								!isDirty ? undefined : errors.email ? "true" : "false"
 							}
@@ -100,17 +99,17 @@ function LoginForm() {
 						/>
 						<div className={styles.emailAlert}>
 							{errors.email && (
-								<small role="alert">{errors.email.message}</small>
+								<small role='alert'>{errors.email.message}</small>
 							)}
 						</div>
 					</div>
 
 					<div className={styles.pwdBox}>
-						<label htmlFor="password">PW</label>
+						<label htmlFor='password'>PW</label>
 						<input
 							id={styles.inputPwd}
-							type="password"
-							placeholder="Please enter your password"
+							type='password'
+							placeholder='Please enter your password'
 							aria-invalid={
 								!isDirty ? undefined : errors.password ? "true" : "false"
 							}
@@ -128,14 +127,14 @@ function LoginForm() {
 						/>
 						<div className={styles.pwdAlert}>
 							{errors.password && (
-								<small role="alert">{errors.password.message}</small>
+								<small role='alert'>{errors.password.message}</small>
 							)}
 						</div>
 					</div>
 					<div className={styles.buttonBox}>
 						<button
 							className={styles.btn}
-							type="submit"
+							type='submit'
 							disabled={isSubmitting}
 						>
 							LOGIN

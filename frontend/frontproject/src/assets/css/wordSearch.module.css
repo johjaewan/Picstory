@@ -8,9 +8,10 @@
 		align-items: center;
 		justify-content: center;
 	}
-	.resultBox {
+	/* .resultBox {
 		border: 2px solid black;
-	}
+		height: 100%;
+	} */
 	.wordSearch {
 		display: flex;
 		margin-bottom: 10px;
@@ -77,8 +78,6 @@
 		color: rgb(89, 89, 89);
 	}
 }
-/* ============================================= */
-/* ============================================= */
 /* ============================================= */
 @media (min-width: 700px) {
 	.notice {

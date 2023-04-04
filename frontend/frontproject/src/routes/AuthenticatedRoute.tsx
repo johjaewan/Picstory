@@ -10,7 +10,7 @@ const AuthenticatedRoute = ({
 	authenticated,
 	component: Component,
 }: props): React.ReactElement => {
-	return authenticated !== null ? <Navigate to="/"></Navigate> : Component;
+	return authenticated !== null ? <Navigate to='/'></Navigate> : Component;
 };
 
 export default AuthenticatedRoute;

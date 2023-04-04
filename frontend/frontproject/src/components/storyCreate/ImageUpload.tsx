@@ -30,6 +30,13 @@ export default function ImageUpload() {
 			});
 			return new Promise(() => {});
 		}
+		if (file.size > 1024 * 1024) {
+			Swal.fire({
+				icon: "warning",
+				text: "첨부파일 사이즈는 1MB 이내로 등록 가능합니다.",
+			});
+			return new Promise(() => {});
+		}
 
 		return new Promise((resolve) => {
 			reader.onload = () => {
@@ -49,15 +56,15 @@ export default function ImageUpload() {
 					<div className={styles.container}>
 						{bitImage !== "" ? (
 							<div className={styles.image_box}>
-								<img id={styles.image} src={bitImage} alt="createImg" />
+								<img id={styles.image} src={bitImage} alt='createImg' />
 							</div>
 						) : (
 							<div className={styles.image_box}>
-								<label id={styles.image_label} htmlFor="file">
+								<label id={styles.image_label} htmlFor='file'>
 									<img
 										id={styles.upload_icon}
-										src="https://cdn-icons-png.flaticon.com/512/3097/3097412.png"
-										alt="createImg"
+										src='https://cdn-icons-png.flaticon.com/512/3097/3097412.png'
+										alt='createImg'
 									></img>
 								</label>
 							</div>
@@ -69,10 +76,10 @@ export default function ImageUpload() {
 						placeholder={"Please upload the photo you want"}
 						disabled
 					/>
-					<label id={styles.bottom_label} htmlFor="file">
+					<label id={styles.bottom_label} htmlFor='file'>
 						FIND
 					</label>
-					<input type="file" id="file" onChange={setImageFromFile} />
+					<input type='file' id='file' onChange={setImageFromFile} />
 				</div>
 			)}
 		</>

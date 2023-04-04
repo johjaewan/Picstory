@@ -13,13 +13,11 @@ function KakaoLogin() {
 	const SetToken = useSetRecoilState(tokenAtom);
 
 	let code: any = queryParams.code;
-	// console.log(code);
 
 	const onCodeSend = useCallback(
 		async (code: string) => {
 			try {
 				const res = await kakao(code);
-				// console.log("res 카카오로그인", res);
 
 				// 로그인 요청 성공 시 토큰과 유저정보 저장 후 페이지 이동
 				const result = res.data;

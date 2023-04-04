@@ -11,7 +11,7 @@ const PrivateRoute = ({
 	authenticated,
 	component: Component,
 }: props): React.ReactElement => {
-	return authenticated ? Component : <Navigate to="/login"></Navigate>;
+	return authenticated ? Component : <Navigate to='/login'></Navigate>;
 };
 
 export default PrivateRoute;

@@ -1,5 +1,4 @@
-import { ChangeEvent } from "react";
-import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import {
 	ImageBit,
 	genreAtom,
@@ -7,7 +6,6 @@ import {
 	storyEn,
 	storyKo,
 	voiceAtom,
-	colorAtom,
 	isFinished,
 	translateIsFinished,
 	voiceIsFinished,
@@ -21,22 +19,14 @@ import { useNavigate } from "react-router";
 export default function ImageUpload() {
 	const navigation = useNavigate();
 
-	const color = useRecoilValue(colorAtom);
 	const [genre, setGenre] = useRecoilState(genreAtom);
 	const [loading, setLoading] = useRecoilState(loadingAtom);
 	const setStoryKorean = useSetRecoilState(storyKo);
 	const setStoryEnglish = useSetRecoilState(storyEn);
 	const setVoice = useSetRecoilState(voiceAtom);
-	const [finished, setFinished] = useRecoilState(isFinished);
-	const [transIsFin, setTransIsFin] = useRecoilState(translateIsFinished);
-	const [voiceIsFin, setVoiceIsFin] = useRecoilState(voiceIsFinished);
-
-	// 장르
-	const clickGenre = (e: ChangeEvent<HTMLInputElement>) => {
-		e.target.classList.add("active");
-		setGenre(e.target.value);
-	};
-	const items: string[] = ["cheerful", "sad", "whispering", "hopeful"];
+	const setFinished = useSetRecoilState(isFinished);
+	const setTransIsFin = useSetRecoilState(translateIsFinished);
+	const setVoiceIsFin = useSetRecoilState(voiceIsFinished);
 
 	// 이미지
 	const [Image, setImage] = useRecoilState(ImageBit);
@@ -83,7 +73,7 @@ export default function ImageUpload() {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
-				Authorization: "Key " + "65a4f037b024440db6d5786d9c868030",
+				Authorization: "Key 65a4f037b024440db6d5786d9c868030",
 			},
 			body: raw,
 		};

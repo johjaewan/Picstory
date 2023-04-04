@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
 	modalState,
-	genreAtom,
 	language,
 	storyEn,
 	storyKo,
 	voiceAtom,
-	colorAtom,
 	translateIsFinished,
 	voiceIsFinished,
 	ImageBit,
@@ -28,16 +25,13 @@ export default function StoryResultPage() {
 		setModalOpen(true);
 	};
 
-	// 배경음악 장르 설정
-	const genre = useRecoilValue(genreAtom);
-
 	//언어설정
 	const [lang, setLang] = useRecoilState(language);
 	const storyResultEn = useRecoilValue(storyEn);
 	const storyResultKo = useRecoilValue(storyKo);
 
-	const [transIsFin, setTransIsFin] = useRecoilState(translateIsFinished);
-	const [voiceIsFin, setVoiceIsFin] = useRecoilState(voiceIsFinished);
+	const transIsFin = useRecoilValue(translateIsFinished);
+	const voiceIsFin = useRecoilValue(voiceIsFinished);
 
 	// 처음에만(cnt==0) typeIt 적용
 	const [cnt, setCnt] = useState(0);
@@ -49,13 +43,6 @@ export default function StoryResultPage() {
 
 	// 음성 파일
 	const voice = useRecoilValue(voiceAtom);
-
-	const [color, setColor] = useRecoilState(colorAtom);
-
-	if (genre === "cheerful") setColor("yellow");
-	else if (genre === "sad") setColor("gray");
-	else if (genre === "hopeful") setColor("pink");
-	else if (genre === "whispering") setColor("black");
 
 	// 이미지
 	const bitImage = useRecoilValue(ImageBit);

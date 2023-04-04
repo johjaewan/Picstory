@@ -187,12 +187,12 @@ function SignUp() {
 				<div>
 					<div className={styles.inputBox}>
 						{/* 이메일 입력 */}
-						<label htmlFor="email">E-MAIL</label>
+						<label htmlFor='email'>E-MAIL</label>
 						<input
-							id="email"
+							id='email'
 							className={styles.inputEmail}
-							type="text"
-							placeholder="Please enter your e-mail"
+							type='text'
+							placeholder='Please enter your e-mail'
 							aria-invalid={
 								!isDirty ? undefined : errors.email ? "true" : "false"
 							}
@@ -206,23 +206,23 @@ function SignUp() {
 							})}
 						/>
 						{/* 이메일 중복체크 버튼 */}
-						<button className={styles.btn} type="button" onClick={onEmailCheck}>
+						<button className={styles.btn} type='button' onClick={onEmailCheck}>
 							이메일 중복 체크
 						</button>
 						<div className={styles.emailAlert}>
 							{errors.email && (
-								<small role="alert">{errors.email.message}</small>
+								<small role='alert'>{errors.email.message}</small>
 							)}
 						</div>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 이메일 인증코드 입력 */}
-						<label htmlFor="text">email verification code</label>
+						<label htmlFor='text'>email verification code</label>
 						<input
-							id="code"
+							id='code'
 							className={styles.inputCode}
-							type="text"
-							placeholder="email verification code."
+							type='text'
+							placeholder='email verification code.'
 							aria-invalid={
 								!isDirty ? undefined : errors.code ? "true" : "false"
 							}
@@ -233,37 +233,39 @@ function SignUp() {
 						{/* 사용자에게 인증코드 전송하는 버튼 */}
 						<button
 							className={styles.btn2}
-							type="button"
+							type='button'
 							onClick={onEmailCodeSend}
 						>
 							<img
 								className={styles.imgBtn}
-								src="https://img.icons8.com/stickers/100/000000/sent.png"
+								src='https://img.icons8.com/stickers/100/000000/sent.png'
+								alt='send'
 							></img>
 						</button>
 						{/* 입력된 인증코드가 맞는지 확인하는 버튼 */}
 						<button
 							className={styles.btn2}
-							type="button"
+							type='button'
 							onClick={onEmailCodeCheck}
 						>
 							<img
 								className={styles.imgBtn}
-								src="https://img.icons8.com/color/48/null/check-all--v1.png"
+								src='https://img.icons8.com/color/48/null/check-all--v1.png'
+								alt='confirm'
 							/>
 						</button>
 						<div className={styles.alert}>
-							{errors.code && <small role="alert">{errors.code.message}</small>}
+							{errors.code && <small role='alert'>{errors.code.message}</small>}
 						</div>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 닉네임 입력 */}
-						<label htmlFor="nickname">닉네임</label>
+						<label htmlFor='nickname'>닉네임</label>
 						<input
-							id="nickname"
+							id='nickname'
 							className={styles.inputItem}
-							type="text"
-							placeholder="2글자 이상, 영어, 숫자, 한글 사용가능"
+							type='text'
+							placeholder='2글자 이상, 영어, 숫자, 한글 사용가능'
 							aria-invalid={
 								!isDirty ? undefined : errors.nickname ? "true" : "false"
 							}
@@ -277,18 +279,18 @@ function SignUp() {
 						/>
 						<div className={styles.alert}>
 							{errors.nickname && (
-								<small role="alert">{errors.nickname.message}</small>
+								<small role='alert'>{errors.nickname.message}</small>
 							)}
 						</div>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 비밀번호 입력 */}
-						<label htmlFor="password">비밀번호</label>
+						<label htmlFor='password'>비밀번호</label>
 						<input
-							id="password"
+							id='password'
 							className={styles.inputItem}
-							type="password"
-							placeholder="특수문자, 영어, 숫자 포함 8글자 이상"
+							type='password'
+							placeholder='특수문자, 영어, 숫자 포함 8글자 이상'
 							aria-invalid={
 								!isDirty ? undefined : errors.password ? "true" : "false"
 							}
@@ -306,18 +308,18 @@ function SignUp() {
 						/>
 						<div className={styles.alert}>
 							{errors.password && (
-								<small role="alert">{errors.password.message}</small>
+								<small role='alert'>{errors.password.message}</small>
 							)}
 						</div>
 					</div>
 					<div className={styles.inputBox}>
 						{/* 비밀번호 확인 */}
-						<label htmlFor="configPassword">비밀번호 확인</label>
+						<label htmlFor='configPassword'>비밀번호 확인</label>
 						<input
-							id="configPassword"
+							id='configPassword'
 							className={styles.inputItem}
-							type="password"
-							placeholder="비밀번호를 한번 더 입력해주세요."
+							type='password'
+							placeholder='비밀번호를 한번 더 입력해주세요.'
 							aria-invalid={
 								!isDirty ? undefined : errors.configPassword ? "true" : "false"
 							}
@@ -328,13 +330,13 @@ function SignUp() {
 						/>
 						<div className={styles.alert}>
 							{errors.configPassword && (
-								<small role="alert">
+								<small role='alert'>
 									{errors.configPassword.type === "required"}
 									<p> 비밀번호 확인은 필수 값입니다.</p>
 								</small>
 							)}
 							{errors.configPassword && (
-								<small role="alert">
+								<small role='alert'>
 									{errors.configPassword.type === "validate"}
 									<p>위의 비밀번호와 같지 않습니다.</p>
 								</small>
@@ -345,7 +347,7 @@ function SignUp() {
 					{/* 회원가입버튼 */}
 					<button
 						className={styles.signbtn}
-						type="submit"
+						type='submit'
 						disabled={isSubmitting}
 					>
 						SIGN UP
