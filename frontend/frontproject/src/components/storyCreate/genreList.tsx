@@ -36,7 +36,7 @@ export default function ImageUpload() {
 		e.target.classList.add("active");
 		setGenre(e.target.value);
 	};
-	const items: string[] = ["재미", "슬픔", "공포", "로맨스"];
+	const items: string[] = ["cheerful", "sad", "whispering", "hopeful"];
 
 	// 이미지
 	const [Image, setImage] = useRecoilState(ImageBit);
@@ -168,7 +168,7 @@ export default function ImageUpload() {
 			) : (
 				<div>
 					<button className={styles.layerbutton} onClick={ImageCaptioning}>
-						<span className={styles.color_span} aria-hidden="true">
+						<span className={styles.color_span} aria-hidden='true'>
 							Create Story
 						</span>
 						<span className={styles.color_span}></span>

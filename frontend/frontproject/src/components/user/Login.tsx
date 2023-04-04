@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import { login } from "../../api/userAPI";
 import styles from "../../assets/css/Login.module.css";
 import { tokenAtom } from "../../atoms";
-
+import kImg from "../../assets/kakao1.png";
 function LoginForm() {
 	type FormData = {
 		email: string;
@@ -77,15 +77,15 @@ function LoginForm() {
 
 	return (
 		<>
-			<div className={styles.title}>Sign in</div>
+			<div className={styles.title}>- Sign in -</div>
 			<div className={styles.container}>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<div className={styles.emailBox}>
-						<label htmlFor="email">이메일</label>
+						<label htmlFor="email">E-MAIL</label>
 						<input
 							id={styles.inputEmail}
 							type="text"
-							placeholder="이메일을 입력해주세요."
+							placeholder="Please enter your e-mail"
 							aria-invalid={
 								!isDirty ? undefined : errors.email ? "true" : "false"
 							}
@@ -106,11 +106,11 @@ function LoginForm() {
 					</div>
 
 					<div className={styles.pwdBox}>
-						<label htmlFor="password">비밀번호</label>
+						<label htmlFor="password">PW</label>
 						<input
 							id={styles.inputPwd}
 							type="password"
-							placeholder="비밀번호를 입력해주세요."
+							placeholder="Please enter your password"
 							aria-invalid={
 								!isDirty ? undefined : errors.password ? "true" : "false"
 							}
@@ -138,7 +138,7 @@ function LoginForm() {
 							type="submit"
 							disabled={isSubmitting}
 						>
-							로그인
+							LOGIN
 						</button>
 						<button
 							className={styles.btn}
@@ -146,15 +146,15 @@ function LoginForm() {
 								navigate("/signUp");
 							}}
 						>
-							회원가입
+							SIGN UP
 						</button>
 
 						<div
 							className={styles.btn}
 							onClick={handleClick}
 							style={{
-								backgroundColor: "yellow",
-								color: "Maroon",
+								backgroundColor: "#FEE500",
+								color: "#000000",
 							}}
 						>
 							KAKAO
