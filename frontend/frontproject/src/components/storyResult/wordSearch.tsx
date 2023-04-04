@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { translateWord } from "../../api/storyApi";
 import { saveWord } from "../../api/vocabularyApi";
 import searchIcon from "../../assets/search-icon.png";
@@ -13,18 +13,20 @@ export default function WordSearch() {
 			me: true,
 			word: "",
 			mean: "",
-			text: "-1",
+			text: "",
 		},
 	]);
 
-	useEffect(() => {
-		setSearchList(searchList.filter((item) => item.text !== "-1"));
-	}, []);
+	// useEffect(() => {
+	// 	setSearchList(searchList.filter((item) => item.text !== "-1"));
+	// }, []);
 
 	document.onmouseup = function () {
 		let selectedObj = window.getSelection();
-		let selectText = selectedObj?.getRangeAt(0).toString();
-		setDragText(selectText !== undefined ? selectText.trim() : "sd");
+		if (selectedObj && selectedObj.rangeCount > 0) {
+			let selectText = selectedObj?.getRangeAt(0).toString();
+			setDragText(selectText !== undefined ? selectText.trim() : "sd");
+		}
 	};
 
 	const save = async (word: string, mean: string) => {
@@ -95,12 +97,14 @@ export default function WordSearch() {
 						className={styles.wordInput}
 						type='text'
 						value={dragText}
+						readOnly
 					></input>
 					<input
 						className={styles.wordInput2}
 						type='text'
 						onChange={saveInput}
 					></input>
+					{/* 검색 */}
 					<button
 						className={styles.btn}
 						onClick={() => {
@@ -109,7 +113,7 @@ export default function WordSearch() {
 					>
 						search
 					</button>
-
+					{/* 검색 */}
 					<div
 						className={styles.iconBox}
 						onClick={() => {
@@ -121,32 +125,27 @@ export default function WordSearch() {
 				</div>
 			</div>
 			<div className={styles.resultBox}>
-				{searchList.map((item) => {
+				{searchList.map((item, idx) => {
 					if (item.me)
 						return (
-							<>
-								<div className={`${styles.me} ${styles.searchResult}`}>
-									{item.text}
-								</div>
-								<div style={{ clear: "both" }}></div>
-							</>
+							<div key={idx} className={`${styles.me} ${styles.searchResult}`}>
+								{item.text}
+							</div>
 						);
 					else
 						return (
-							<>
-								<div className={`${styles.you} ${styles.searchResult}`}>
-									{item.text}{" "}
-									<button
-										className={styles.saveBtn}
-										onClick={() => {
-											save(item.word, item.mean);
-										}}
-									>
-										save
-									</button>
-								</div>
-								<div style={{ clear: "both" }}></div>
-							</>
+							<div key={idx} className={`${styles.you} ${styles.searchResult}`}>
+								{item.text}
+								{/* 저장버튼 */}
+								<button
+									className={styles.saveBtn}
+									onClick={() => {
+										save(item.word, item.mean);
+									}}
+								>
+									save
+								</button>
+							</div>
 						);
 				})}
 			</div>

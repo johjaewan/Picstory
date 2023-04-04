@@ -17,8 +17,8 @@ export default function Vocabulary() {
 	const [wordListTime, setWordListTime] = useState<vocabularyType[]>([]);
 	const [wordListAlpha, setWordListAlpha] = useState<vocabularyType[]>([]);
 	const [count, setCount] = useState(0);
-	const [previous, setPrevious] = useState("");
-	const [next, setNext] = useState("");
+	// const [previous, setPrevious] = useState("");
+	// const [next, setNext] = useState("");
 	const [page, setPage] = useState(1);
 
 	// 정렬
@@ -38,8 +38,8 @@ export default function Vocabulary() {
 				setCount(response.data.count);
 				setPageCount(Math.floor(response.data.count / 10) + 1);
 
-				setPrevious(response.data.previous);
-				setNext(response.data.next);
+				// setPrevious(response.data.previous);
+				// setNext(response.data.next);
 				setList(item, isSortTime);
 				if (!response) return;
 			} catch (error: any) {
@@ -87,6 +87,7 @@ export default function Vocabulary() {
 				</button>
 			</div>
 			<div className={styles.box}>
+				{/* 이전페이지 */}
 				<img
 					className={styles.btn}
 					src='https://cdn-icons-png.flaticon.com/512/318/318477.png'
@@ -96,6 +97,7 @@ export default function Vocabulary() {
 				></img>
 
 				<div className={styles.container2}>
+					{/* 시간정렬 */}
 					{isSortTime ? (
 						<>
 							<table className={styles.firstTable}>
@@ -106,7 +108,7 @@ export default function Vocabulary() {
 												<td>{item && item.word}</td>
 												<td>{item && item.mean}</td>
 											</tr>
-										)
+										);
 									})}
 								</tbody>
 							</table>
@@ -119,14 +121,14 @@ export default function Vocabulary() {
 												<td>{item && item.word}</td>
 												<td>{item && item.mean}</td>
 											</tr>
-										)
+										);
 									})}
 								</tbody>
 							</table>
 						</>
-
 					) : (
 						<>
+							{/* 알파벳정렬 */}
 							<table className={styles.firstTable}>
 								<tbody>
 									{wordListAlpha.slice(0, 5).map((item, i) => {
@@ -135,7 +137,7 @@ export default function Vocabulary() {
 												<td>{item && item.word}</td>
 												<td>{item && item.mean}</td>
 											</tr>
-										)
+										);
 									})}
 								</tbody>
 							</table>
@@ -148,13 +150,14 @@ export default function Vocabulary() {
 												<td>{item && item.word}</td>
 												<td>{item && item.mean}</td>
 											</tr>
-										)
+										);
 									})}
 								</tbody>
 							</table>
 						</>
 					)}
 				</div>
+				{/* 다음페이지 */}
 				<img
 					className={styles.btn}
 					src='https://cdn-icons-png.flaticon.com/512/318/318476.png'
