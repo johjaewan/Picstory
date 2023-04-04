@@ -17,7 +17,7 @@ class JWTAuthenticationMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
         self.excluded_url_patterns = ['api/accounts/signup/', 'api/accounts/login/','api/accounts/verify/email/',
-                                      'api/accounts/api/token/','api/accounts/send/code/','api/accounts/token/refresh/',
+                                      'api/accounts/send/code/','api/accounts/token/refresh/',
                                       'api/accounts/kakao/login/','api/accounts/kakao/callback/',
                                       'api/accounts/check/duplicate/email/','api/accounts/check/duplicate/nickname/'
                                     ]
