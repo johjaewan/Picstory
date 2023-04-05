@@ -1,24 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import styles from "../../assets/css/loading.module.css";
 import loadingIcon from "../../assets/loading.gif";
-import { isFinished, loadingAtom } from "../../atoms";
+import { ImageBit, isFinished, loadingAtom } from "../../atoms";
 import { list } from "./wordList";
 
 export default function Loading() {
 	const [idx, setIdx] = useState(Math.floor(Math.random() * 998));
-	// const [idx2, setIdx2] = useState(Math.floor(Math.random() * 998))
 	const [input, setInput] = useState("");
 	const [correct, setCorrect] = useState(false);
 	const [incorrect, setIncorrect] = useState(false);
-	const finished = useRecoilValue(isFinished);
+	const [finished, setFinished] = useRecoilState(isFinished);
 	const setLoading = useSetRecoilState(loadingAtom);
 	const navigation = useNavigate();
-
-	useEffect(() => {
-		console.log(list[idx].word + " : " + list[idx].mean);
-	}, []);
+	const setBitImage = useSetRecoilState(ImageBit); // 이미지 파일 base64
 
 	const submit = () => {
 		if (list[idx].mean === input) {
@@ -33,13 +29,14 @@ export default function Loading() {
 		setIdx(n);
 		setCorrect(false);
 		setIncorrect(false);
-		console.log(list[n].word + " : " + list[n].mean);
 	};
 
 	const move = () => {
 		setCorrect(false);
 		setIncorrect(false);
 		setLoading(false);
+		setFinished(false);
+		setBitImage("");
 		navigation("/storyResult");
 	};
 	return (
@@ -51,14 +48,14 @@ export default function Loading() {
 						<button className={styles.resultBtn} onClick={move}>
 							<img
 								className={styles.nextIcon}
-								src="https://cdn-icons-png.flaticon.com/512/2985/2985034.png"
-								alt=""
+								src='https://cdn-icons-png.flaticon.com/512/2985/2985034.png'
+								alt=''
 							></img>
 						</button>
 					</>
 				) : (
 					<>
-						<img className={styles.spinner} src={loadingIcon} alt="" />
+						<img className={styles.spinner} src={loadingIcon} alt='' />
 						<div className={styles.text}>이야기 생성 중</div>
 					</>
 				)}
@@ -71,7 +68,7 @@ export default function Loading() {
 						<div className={styles.notice}>단어의 뜻을 입력하세요</div>
 						<input
 							className={styles.input}
-							type="text"
+							type='text'
 							onChange={(e) => {
 								setInput(e.target.value);
 							}}

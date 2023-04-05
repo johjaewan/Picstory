@@ -16,11 +16,10 @@ const Card = (props: CardProps) => {
 			}}
 		>
 			{/* 이미지 */}
-			<img className={styles.image} src={props.imageSrc} alt="storyImg" />
+			<img className={styles.image} src={props.imageSrc} alt='storyImg' />
 			{/* 제목 */}
 			<h1 className={styles.title}>{props.title}</h1>
 		</article>
-		// </div>
 	);
 };
 

@@ -25,7 +25,7 @@ export default function LibraryPage() {
 
 			const item = response.data;
 
-			setNewListItems((prevItems) => [...item]);
+			setNewListItems(() => [...item]);
 		} catch (error: any) {
 			if (error.response.status === 404) {
 				return;
