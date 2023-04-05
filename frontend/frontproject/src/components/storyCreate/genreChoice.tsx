@@ -1,7 +1,20 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useSetRecoilState } from "recoil";
 import styles from "../../assets/css/genreChoice.module.css";
-import { genreAtom } from "../../atoms";
+import {
+	genreAtom,
+	ImageBit,
+	isFinished,
+	language,
+	loadingAtom,
+	saveImageFile,
+	storyEn,
+	storyKo,
+	translateIsFinished,
+	voiceAtom,
+	voiceIsFinished,
+} from "../../atoms";
 
 export default function GenreChoice() {
 	const setGenre = useSetRecoilState(genreAtom);
@@ -10,6 +23,31 @@ export default function GenreChoice() {
 		setGenre(genre);
 		navigation("/storyCreatePage");
 	};
+
+	const setLoading = useSetRecoilState(loadingAtom);
+	const setLang = useSetRecoilState(language);
+	const setTransIsFin = useSetRecoilState(translateIsFinished);
+	const setVoiceIsFin = useSetRecoilState(voiceIsFinished);
+	const setFinished = useSetRecoilState(isFinished);
+	const setStoryEnglish = useSetRecoilState(storyEn);
+	const setStoryKorean = useSetRecoilState(storyKo);
+	const setVoice = useSetRecoilState(voiceAtom);
+	const setImageFile = useSetRecoilState(saveImageFile);
+	const setBitImage = useSetRecoilState(ImageBit); // 이미지 파일 base64
+
+	useEffect(() => {
+		setLoading(false);
+		setLang(true);
+		setVoiceIsFin(false);
+		setTransIsFin(false);
+		setFinished(false);
+		setStoryEnglish("");
+		setStoryKorean("");
+		setVoice("");
+		setImageFile("");
+		setBitImage("");
+	}, []);
+
 	return (
 		<div className={styles.container}>
 			<div className={styles["section-fluid-main"]}>
