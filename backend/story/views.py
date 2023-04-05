@@ -184,7 +184,7 @@ def create_story(request):
     elif genre == 'whispering':
         genre = 'cruel and frightening'
     elif genre == 'cheerful':
-        genre = 'mischievous'
+        genre = 'funny and ridiculous'
     elif genre == 'sad':
         genre = 'sad and tearful'
     else:
