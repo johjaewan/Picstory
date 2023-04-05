@@ -86,10 +86,16 @@ export default function ImageUpload() {
 		)
 			.then((response) => response.json())
 			.then((result) => {
+				console.log(result);
 				console.log(result.outputs[0].data.text.raw);
 				sendContent(result.outputs[0].data.text.raw, genre);
 			})
-			.catch((error) => console.log("error", error));
+			.catch((error) => {
+				navigation("/storyCreatePage");
+				setLoading(false);
+				setImage("");
+				alert("다른 이미지를 선택해주세요");
+			});
 	};
 	// 이야기 생성 요청
 	const sendContent = async (text: string, genre: string) => {
