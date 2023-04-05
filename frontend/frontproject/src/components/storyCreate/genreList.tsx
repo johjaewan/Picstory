@@ -86,6 +86,7 @@ export default function ImageUpload() {
     )
       .then((response) => response.json())
       .then((result) => {
+        console.log(result)
         console.log(result.outputs[0].data.text.raw)
         sendContent(result.outputs[0].data.text.raw, genre)
       })
@@ -108,13 +109,13 @@ export default function ImageUpload() {
         translate(result)
       }
     } catch (error) {
-      // if (error.response.status === 401) {
-      //   localStorage.removeItem('access_token')
-      //   localStorage.removeItem('refresh_token')
-      //   sessionStorage.removeItem('userEmail')
-      //   sessionStorage.removeItem('userNick')
-      //   SetToken(null)
-      // }
+      if (error.response.status === 401) {
+        localStorage.removeItem('access_token')
+        localStorage.removeItem('refresh_token')
+        sessionStorage.removeItem('userEmail')
+        sessionStorage.removeItem('userNick')
+        SetToken(null)
+      }
       console.log(error)
       Swal.fire({
         icon: 'error',

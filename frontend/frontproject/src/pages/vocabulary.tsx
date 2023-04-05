@@ -166,7 +166,7 @@ export default function Vocabulary() {
 					width={55}
 				></img>
 			</div>
-			<div>
+			<div style={{ color: "black" }}>
 				{page}/{pageCount}
 			</div>
 		</div>
