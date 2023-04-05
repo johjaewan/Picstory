@@ -102,7 +102,7 @@ export default function ImageUpload() {
 				translate(result);
 			}
 		} catch (error: any) {
-			if (error.response.status === 404) {
+			if (error.response.status === 401) {
 				localStorage.removeItem("access_token");
 				localStorage.removeItem("refresh_token");
 				sessionStorage.removeItem("userEmail");
