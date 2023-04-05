@@ -3,9 +3,11 @@ import styles from '../../assets/css/main.module.css'
 import { useEffect, useRef, useState } from 'react'
 import useIntersectionObsever from './useIntersectionObsever'
 import VideoPlayer from '../../videoPlayer'
+import { loadingAtom } from '../../atoms'
+import { useRecoilState } from 'recoil'
 export default function Main() {
   const navigation = useNavigate()
-
+  const [loading, setLoading] = useRecoilState(loadingAtom)
   const user: string | null = localStorage.getItem('access_token')
 
   // 로그인하면 이야기 생성페이지 / 로그인 안하면 로그인 페이지
@@ -85,6 +87,7 @@ export default function Main() {
         }
       }
     }
+    setLoading(false)
     const outerDivRefCurrent = outerDivRef.current
     outerDivRefCurrent?.addEventListener('wheel', wheelHandler)
     return () => {
