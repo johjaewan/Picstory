@@ -86,7 +86,6 @@ export default function ImageUpload() {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result)
         console.log(result.outputs[0].data.text.raw)
         sendContent(result.outputs[0].data.text.raw, genre)
       })
