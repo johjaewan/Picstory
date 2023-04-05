@@ -179,6 +179,17 @@ def create_story(request):
         logging.error('text가 없습니다.')
         return Response({'error': 'text가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
+    if genre == 'hopeful':
+        genre = 'lovely and hopeful'
+    elif genre == 'whispering':
+        genre = 'cruel and frightening'
+    elif genre == 'cheerful':
+        genre = 'mischievous'
+    elif genre == 'sad':
+        genre = 'sad and tearful'
+    else:
+        return Response({'error': '사용할 수 없는 genre입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
     openai.api_key = config('CHAT_GPT_API_KEY')
     prompt = f"make a {genre} story related the comment '{text}'"
 
