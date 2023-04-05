@@ -1,145 +1,143 @@
 @media (max-width: 700px) {
-  .notice {
-    display: none;
-  }
-  .container {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .wordSearch {
-    display: flex;
-    margin-bottom: 10px;
-  }
+	.notice {
+		display: none;
+	}
+	.container {
+		margin-top: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.wordSearch {
+		display: flex;
+		margin-bottom: 10px;
+	}
 
-  .wordInput {
-    display: none;
-  }
-  .wordInput2 {
-    width: 200px;
-    border: 2px solid black;
-    padding: 2px 10px;
-  }
-  .searchResult {
-    text-align: center;
-  }
-  .me {
-    float: right;
-  }
-  .you {
-    float: left;
-  }
-  .searchResult {
-    border-radius: 10px;
-    padding: 7px;
-    margin-top: 20px;
-    border: 0.5px solid rgb(216, 216, 216);
-  }
+	.wordInput {
+		display: none;
+	}
+	.wordInput2 {
+		width: 200px;
+		border: 2px solid black;
+		padding: 2px 10px;
+	}
+	.searchResult {
+		text-align: center;
+	}
+	.me {
+		float: right;
+	}
+	.you {
+		float: left;
+	}
+	.searchResult {
+		border-radius: 10px;
+		margin-top: 20px;
+		border: 0.5px solid rgb(216, 216, 216);
+	}
 
-  .iconBox {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-    border-radius: 5px;
-    margin-left: 10px;
-  }
+	.iconBox {
+		width: 40px;
+		height: 40px;
+		padding: 10px;
+		border-radius: 5px;
+		margin-left: 10px;
+	}
 
-  .searchIcon {
-    width: 70px;
-  }
-  .saveIcon {
-    width: 70px;
-  }
-  .btn {
-    display: none;
-  }
-  .btns {
-    display: block;
-  }
-  .saveBtn {
-    float: right;
-    margin-left: 10px;
-    width: 75px;
-    border-radius: 5px;
-    color: rgb(129, 129, 129);
-    border: 1px solid rgb(182, 182, 182);
-  }
+	.searchIcon {
+		width: 70px;
+	}
+	.saveIcon {
+		width: 70px;
+	}
+	.btn {
+		display: none;
+	}
+	.btns {
+		display: block;
+	}
+	.saveBtn {
+		float: right;
+		margin-left: 10px;
+		width: 75px;
+		border-radius: 5px;
+		color: rgb(129, 129, 129);
+		border: 1px solid rgb(182, 182, 182);
+	}
 }
 @keyframes move {
-  from {
-    opacity: 0.3;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0.3;
+	}
+	to {
+		opacity: 1;
+	}
 }
 /* ============================================= */
 @media (min-width: 700px) {
-  .notice {
-    color: black;
-    text-align: center;
-    position: relative;
-    animation: move 0.5s linear infinite alternate;
-  }
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px auto;
-  }
-  .resultBox {
-    height: 69%;
-    border: 2px solid black;
-    overflow-y: scroll;
-  }
-  .wordSearch {
-    color: black;
-    display: flex;
-  }
+	.notice {
+		color: black;
+		text-align: center;
+		position: relative;
+		animation: move 0.5s linear infinite alternate;
+	}
+	.container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 10px auto;
+	}
+	.resultBox {
+		height: 60%;
+		border: 2px solid black;
+		overflow-y: scroll;
+	}
+	.wordSearch {
+		color: black;
+		display: flex;
+	}
 
-  .wordInput2 {
-    display: none;
-  }
-  .wordInput {
-    width: 100%;
-    border: 2px solid black;
-    padding: 2px 10px;
-  }
-  .me {
-    color: black;
-    margin-right: 10px;
-    float: right;
-  }
-  .you {
-    color: black;
-    opacity: 1;
-    margin-left: 10px;
-    float: left;
-  }
-  .searchResult {
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 20px;
-    /* border: 0.5px solid rgb(216, 216, 216); */
-  }
+	.wordInput2 {
+		display: none;
+	}
+	.wordInput {
+		width: 100%;
+		border: 2px solid black;
+		padding: 2px 10px;
+	}
+	.me {
+		color: black;
+		margin-right: 10px;
+		float: right;
+	}
+	.you {
+		color: black;
+		opacity: 1;
+		margin-left: 10px;
+		float: left;
+	}
+	.searchResult {
+		border-radius: 10px;
+		padding: 10px;
+		margin-top: 20px;
+	}
 
-  .iconBox {
-    opacity: 1;
-    display: none;
-  }
-  .btn {
-    margin-left: 5px;
-    width: 100px;
-    /* border-radius: 5px; */
-    border: 2px solid black;
-  }
-  .saveBtn {
-    float: right;
-    margin-left: 10px;
-    width: 75px;
-    border-radius: 5px;
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-  }
+	.iconBox {
+		opacity: 1;
+		display: none;
+	}
+	.btn {
+		margin-left: 5px;
+		width: 100px;
+		/* border-radius: 5px; */
+		border: 2px solid black;
+	}
+	.saveBtn {
+		float: right;
+		margin-left: 10px;
+		width: 75px;
+		border-radius: 5px;
+		color: rgb(0, 0, 0);
+		border: 1px solid rgb(0, 0, 0);
+	}
 }
