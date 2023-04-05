@@ -5,6 +5,7 @@
 .title {
 	font-size: 40px;
 	font-weight: 1000;
+	color: black;
 }
 .container2 {
 	background-color: white;
@@ -24,6 +25,7 @@
 }
 .total {
 	margin: 10px;
+	color: black;
 }
 .box {
 	margin: 0 auto;
@@ -65,6 +67,7 @@ td {
 	text-align: center;
 	margin: auto;
 	color: black;
+	font-color: black;
 }
 
 .btn {
