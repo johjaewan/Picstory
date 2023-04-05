@@ -3,7 +3,7 @@ const VideoPlayer = () => {
   return (
     <>
       <video className={styles.video} autoPlay loop muted width="250">
-        <source src="/videos/videos.mp4" type="video/mp4" />
+        <source src="/videos/video.mp4" type="video/mp4" />
       </video>
     </>
   )

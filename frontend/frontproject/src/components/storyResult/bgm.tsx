@@ -88,7 +88,6 @@ function BGMPlayer() {
 
   useEffect(() => {
     if (!myRef.current) return
-    myRef.current.volume = 0.2
     if (play) {
       myRef.current.play()
     } else myRef.current.pause()
