@@ -70,11 +70,6 @@ export const language = atom<boolean>({
 	key: "language",
 	default: true,
 });
-// 테마 색
-export const colorAtom = atom<string>({
-	key: "colorAtom",
-	default: "red",
-});
 // 이야기 생성 로딩 끝
 export const isFinished = atom<boolean>({
 	key: "isFinished",

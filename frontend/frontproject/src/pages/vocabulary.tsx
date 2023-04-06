@@ -83,13 +83,13 @@ export default function Vocabulary() {
 				<div className={styles.total}>TOTAL {count}</div>
 				<button className={styles.sortBtn} onClick={click}>
 					<img src={sortIcon} alt='' width={30}></img>
-					{isSortTime ? "ABC" : "TIME"}
+					{isSortTime ? "TIME" : "ABC"}
 				</button>
 			</div>
 			<div className={styles.box}>
 				{/* 이전페이지 */}
 				<img
-					className={styles.btn}
+					className={styles.preBtn}
 					src='https://cdn-icons-png.flaticon.com/512/318/318477.png'
 					alt=''
 					onClick={prePage}
@@ -159,15 +159,36 @@ export default function Vocabulary() {
 				</div>
 				{/* 다음페이지 */}
 				<img
-					className={styles.btn}
+					className={styles.nextBtn}
 					src='https://cdn-icons-png.flaticon.com/512/318/318476.png'
 					alt=''
 					onClick={nextPage}
 					width={55}
 				></img>
 			</div>
-			<div style={{ color: "black" }}>
+			<div className={styles.page}>
 				{page}/{pageCount}
+			</div>
+			<div className={styles.smallbox}>
+				{/* 이전페이지 */}
+				<img
+					className={styles.samllpreBtn}
+					src='https://cdn-icons-png.flaticon.com/512/318/318477.png'
+					alt=''
+					onClick={prePage}
+					width={55}
+				></img>
+				<div className={styles.samllpage}>
+					{page}/{pageCount}
+				</div>
+				{/* 다음페이지 */}
+				<img
+					className={styles.samllnextBtn}
+					src='https://cdn-icons-png.flaticon.com/512/318/318476.png'
+					alt=''
+					onClick={nextPage}
+					width={55}
+				></img>
 			</div>
 		</div>
 	);
