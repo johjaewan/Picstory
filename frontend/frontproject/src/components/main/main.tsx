@@ -3,12 +3,14 @@ import styles from '../../assets/css/main.module.css'
 import { useEffect, useRef, useState } from 'react'
 import useIntersectionObsever from './useIntersectionObsever'
 import VideoPlayer from '../../videoPlayer'
-import { loadingAtom } from '../../atoms'
-import { useRecoilState } from 'recoil'
+import { loadingAtom, tokenAtom } from '../../atoms'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 export default function Main() {
   const navigation = useNavigate()
   const [loading, setLoading] = useRecoilState(loadingAtom)
   const user: string | null = localStorage.getItem('access_token')
+  const userEmail = sessionStorage.getItem('userEmail')
+  const SetToken = useSetRecoilState(tokenAtom)
 
   // 로그인하면 이야기 생성페이지 / 로그인 안하면 로그인 페이지
   const handleTry = () => {
@@ -87,6 +89,15 @@ export default function Main() {
         }
       }
     }
+
+    if (userEmail === null) {
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('refresh_token')
+      sessionStorage.removeItem('userEmail')
+      sessionStorage.removeItem('userNick')
+      SetToken(null)
+    }
+
     setLoading(false)
     const outerDivRefCurrent = outerDivRef.current
     outerDivRefCurrent?.addEventListener('wheel', wheelHandler)
