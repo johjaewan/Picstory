@@ -121,19 +121,19 @@
 <tbody>
     <tr>
         <td>김소희</td>
-        <td><a href="https://github.com/GIT-ID">@GIT-ID</a></td>
+        <td><a href="https://github.com/ssooh-i">@ssooh-i</a></td>
     </tr>
     <tr>
         <td>권아진</td>
-        <td><a href="https://github.com/GIT-ID">@GIT-ID</a></td>
+        <td><a href="https://github.com/chocolajin">@chocolajin</a></td>
     </tr>
     <tr>
         <td>백소원</td>
-        <td><a href="https://github.com/Wish-baek">Wish-baek</a></td>
+        <td><a href="https://github.com/Wish-baek">@Wish-baek</a></td>
     </tr>
     <tr>
         <td>조재완</td>
-        <td><a href="https://github.com/GIT-ID">@GIT-ID</a></td>
+        <td><a href="https://github.com/johjaewan">@johjaewan</a></td>
     </tr>
     <tr>
         <td>서재건</td>
@@ -141,7 +141,7 @@
     </tr>
     <tr>
         <td>최성민</td>
-        <td><a href="https://github.com/GIT-ID">@GIT-ID</a></td>
+        <td><a href="https://github.com/et2468">@et2468</a></td>
     </tr>
 </tbody>
 </table>
