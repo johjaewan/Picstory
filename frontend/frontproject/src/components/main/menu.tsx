@@ -81,6 +81,11 @@ const Menu = () => {
     navigation('/')
   }
 
+  const changeMenu = () => {
+    setMenu(false)
+    document.body.style.overflowY = 'scroll'
+  }
+
   return (
     <div className={menu ? `${styles['openModal']}` : styles.closeModal}>
       <div className={styles.iconBox}>
@@ -88,9 +93,7 @@ const Menu = () => {
           className={styles.closeIcon}
           src={closeIcon}
           alt=""
-          onClick={() => {
-            setMenu(false)
-          }}
+          onClick={changeMenu}
         ></img>
       </div>
       <div className={styles.container}>

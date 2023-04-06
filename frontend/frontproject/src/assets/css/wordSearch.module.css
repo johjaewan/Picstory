@@ -76,6 +76,7 @@
 /* ============================================= */
 @media (min-width: 700px) {
   .notice {
+    font-family: 'OTWelcomeRA';
     color: black;
     text-align: center;
     position: relative;
