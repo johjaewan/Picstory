@@ -41,14 +41,14 @@ function BGMPlayer() {
 	const genre = useRecoilValue(genreAtom);
 	let idx: number = 0;
 	// 장르별 배경음악 파일
-	const funBgm: string[] = [fun1, fun2, fun3, fun4, fun5];
-	const sadBgm: string[] = [sad1, sad2, sad3, sad4, sad5];
+	const funBgm: string[] = [fun4, fun1, fun2, fun3, fun5];
+	const sadBgm: string[] = [sad5, sad1, sad2, sad3, sad4];
 	const romanceBgm: string[] = [
+		romance5,
 		romance1,
 		romance2,
 		romance3,
 		romance4,
-		romance5,
 	];
 	const thrillerBgm: string[] = [
 		thriller1,
@@ -69,7 +69,7 @@ function BGMPlayer() {
 	// 재생
 	const start = () => {
 		if (myRef.current) {
-			myRef.current.volume = 0.5;
+			myRef.current.volume = 0.3;
 			myRef.current.play();
 		}
 		setPlay(true);
@@ -89,7 +89,7 @@ function BGMPlayer() {
 	useEffect(() => {
 		if (!myRef.current) return;
 		if (play) {
-			myRef.current.volume = 0.5;
+			myRef.current.volume = 0.3;
 			myRef.current.play();
 		} else myRef.current.pause();
 	}, [play]);
