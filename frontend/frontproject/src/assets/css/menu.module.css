@@ -26,6 +26,7 @@
 }
 .item {
   padding-bottom: 60px;
+  cursor: pointer;
 }
 .items {
 }
@@ -41,4 +42,5 @@
 .closeIcon {
   width: 20px;
   float: right;
+  cursor: pointer;
 }

@@ -27,12 +27,7 @@
 	margin: 10px;
 	color: black;
 }
-.box {
-	margin: 0 auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
+
 .btns {
 	display: flex;
 	flex-direction: row;
@@ -52,12 +47,6 @@
 	padding: 5px 20px;
 }
 
-@media (max-width: 650px) {
-	.sortBtn {
-		font-size: 13px;
-	}
-}
-
 table {
 	width: 100%;
 }
@@ -73,4 +62,51 @@ td {
 .btn {
 	cursor: pointer;
 	margin: 10px;
+}
+.nextBtn {
+	cursor: pointer;
+	margin: 10px;
+}
+.preBtn {
+	cursor: pointer;
+	margin: 10px;
+}
+.box {
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+@media (max-width: 600px) {
+	.nextBtn {
+		display: none;
+	}
+	.preBtn {
+		display: none;
+	}
+	.page {
+		color: black;
+		display: none;
+	}
+
+	.smallbox {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+	}
+	.smallbox img {
+		height: 40px;
+		width: 40px;
+		cursor: pointer;
+		margin-bottom: 10px;
+	}
+}
+@media (min-width: 600px) {
+	.smallbox {
+		display: none;
+	}
+	.page {
+		color: black;
+	}
 }
