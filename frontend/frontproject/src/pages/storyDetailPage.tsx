@@ -94,7 +94,7 @@ export default function StoryDetailPage() {
 	return (
 		<>
 			<div className={styles.title}>{storyInfo.title}</div>
-			<div className={styles.container}>
+			<div className={styles.detailContainer}>
 				{/* 이미지 */}
 				<div className={styles.story_result_image}>
 					<img
