@@ -1,5 +1,5 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { colorAtom, menuState, tokenAtom } from "../../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { menuState, tokenAtom } from "../../atoms";
 import styles from "../../assets/css/menu.module.css";
 import closeIcon from "../../assets/close.png";
 import { useNavigate } from "react-router-dom";
@@ -8,7 +8,6 @@ import { deleteUser } from "../../api/userAPI";
 
 const Menu = () => {
 	const [menu, setMenu] = useRecoilState(menuState);
-	const color = useRecoilValue(colorAtom);
 	const navigation = useNavigate();
 	const SetToken = useSetRecoilState(tokenAtom);
 
@@ -83,11 +82,7 @@ const Menu = () => {
 	};
 
 	return (
-		<div
-			className={
-				menu ? `${styles["openModal"]} ${styles[color]}` : styles.closeModal
-			}
-		>
+		<div className={menu ? `${styles["openModal"]}` : styles.closeModal}>
 			<div className={styles.iconBox}>
 				<img
 					className={styles.closeIcon}
