@@ -37,9 +37,9 @@
 ## ​:two:​ Tech Stack
 | Tech         | Stack                                  |
 | ------------ | -------------------------------------- |
-| **Language** | Python, JavaScript                       |
+| **Language** | Python, TypeScript                       |
 | **Backend**  | Django, JWT |
-| **Frontend** | React.js, Vuetify, Vuex                  |
+| **Frontend** | React.js, tailwind, Recoil                  |
 | **Database** | MariaDB, Redis                                |
 | **Server**   | AWS EC2, NginX                         |
 | **DevOps**   | Git, Docker, Jenkins                            |
