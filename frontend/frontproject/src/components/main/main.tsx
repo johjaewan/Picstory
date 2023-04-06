@@ -5,6 +5,11 @@ import useIntersectionObsever from './useIntersectionObsever'
 import VideoPlayer from '../../videoPlayer'
 import { loadingAtom, tokenAtom } from '../../atoms'
 import { useRecoilState, useSetRecoilState } from 'recoil'
+import icon1 from '../../assets/재미.png'
+import icon2 from '../../assets/슬픔.png'
+import icon3 from '../../assets/로멘스.png'
+import icon4 from '../../assets/공포.png'
+
 export default function Main() {
   const navigation = useNavigate()
   const [loading, setLoading] = useRecoilState(loadingAtom)
@@ -109,6 +114,11 @@ export default function Main() {
   const ref = useRef<HTMLDivElement>(null)
   const isInViewport = useIntersectionObsever(ref)
 
+  const [content, setContent] = useState('')
+  const changeContent = (content: string) => {
+    setContent(content)
+  }
+
   return (
     <div ref={outerDivRef} className={styles.outer}>
       <div className={styles.inner}>
@@ -168,10 +178,66 @@ export default function Main() {
       <div className={styles.divider2}></div>
       <div className={styles.inner}>
         <div className={styles.section3}>
-          <div className={styles.content2}>
-            장르를 선택하고 다양한 이야기를 만나보세요
+          <div className={styles.emojiBox} style={{ display: 'flex' }}>
+            <img
+              className={styles.emoji1}
+              src={icon1}
+              alt=""
+              width={70}
+              onMouseOver={() => {
+                changeContent('fun')
+              }}
+              onMouseOut={() => {
+                changeContent('')
+              }}
+            ></img>
+            <img
+              className={styles.emoji2}
+              src={icon2}
+              alt=""
+              width={70}
+              onMouseOver={() => {
+                changeContent('sad')
+              }}
+              onMouseOut={() => {
+                changeContent('')
+              }}
+            ></img>
+            <img
+              className={styles.emoji3}
+              src={icon3}
+              alt=""
+              width={70}
+              onMouseOver={() => {
+                changeContent('romance')
+              }}
+              onMouseOut={() => {
+                changeContent('')
+              }}
+            ></img>
+            <img
+              className={styles.emoji4}
+              src={icon4}
+              alt=""
+              width={70}
+              onMouseOver={() => {
+                changeContent('horror')
+              }}
+              onMouseOut={() => {
+                changeContent('')
+              }}
+            ></img>
+            <div></div>
+            <div className={styles.genre}>{content}</div>
           </div>
-          <VideoPlayer></VideoPlayer>
+          <div
+            style={{ display: 'flex', alignItems: 'center', height: '100px' }}
+          >
+            <div className={styles.content2}>
+              장르를 선택하고 다양한 이야기를 만나보세요
+            </div>
+            <VideoPlayer></VideoPlayer>
+          </div>
         </div>
       </div>
     </div>
