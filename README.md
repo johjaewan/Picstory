@@ -65,14 +65,14 @@
 <summary>Frontend Tech 상세 보기</summary>
 <div markdown="1">
 
-    - react
-    - 아래 수정
-    - vue/cli
-    - vue-router
-    - vuex
-    - vuex-persistedstate
-    - vuetify
-    - axios
+  <br>
+
+  - node.js: 18.14.2 <br>
+  - npm: 9.6.0  <br>
+  - react
+  - Typescript
+  - recoil
+  - tailwind
 
 </div>
 </details>
@@ -129,7 +129,7 @@
     </tr>
     <tr>
         <td>백소원</td>
-        <td><a href="https://github.com/GIT-ID">@GIT-ID</a></td>
+        <td><a href="https://github.com/Wish-baek">Wish-baek</a></td>
     </tr>
     <tr>
         <td>조재완</td>
