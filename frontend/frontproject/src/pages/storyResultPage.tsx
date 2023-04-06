@@ -17,8 +17,13 @@ import Modal from "../components/storyResult/modal";
 import BGMPlayer from "../components/storyResult/bgm";
 import AudioPlayer from "../components/storyResult/audio";
 import WordSearch from "../components/storyResult/wordSearch";
+import { useNavigate } from "react-router-dom";
 
 export default function StoryResultPage() {
+	const navigation = useNavigate();
+	const handleOut = () => {
+		navigation("/");
+	};
 	// 모달
 	const setModalOpen = useSetRecoilState(modalState);
 	const handleRegister = () => {
@@ -67,6 +72,12 @@ export default function StoryResultPage() {
 				>
 					{lang ? "Korean" : "영어"}
 				</button>
+				<button
+					className={`${styles.story_result_button} ${styles.inSaveBtn}`}
+					onClick={handleOut}
+				>
+					나가기
+				</button>
 				{/* 저장 모달 */}
 				<button
 					disabled={transIsFin && voice ? false : true}
@@ -97,6 +108,9 @@ export default function StoryResultPage() {
 				<WordSearch></WordSearch>
 			</div>
 			<div className={styles.saveBtn}>
+				<button className={styles.story_result_button} onClick={handleOut}>
+					나가기
+				</button>
 				<button
 					disabled={storyResultKo && voiceIsFin ? false : true}
 					className={styles.story_result_button}
