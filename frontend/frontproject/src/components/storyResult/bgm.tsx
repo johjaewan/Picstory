@@ -39,7 +39,7 @@ function BGMPlayer() {
   const [play, setPlay] = useRecoilState(playState)
 
   const genre = useRecoilValue(genreAtom)
-  let idx: number = Math.floor(Math.random() * 5)
+  let idx: number = 0
   // 장르별 배경음악 파일
   const funBgm: string[] = [fun1, fun2, fun3, fun4, fun5]
   const sadBgm: string[] = [sad1, sad2, sad3, sad4, sad5]
