@@ -138,10 +138,11 @@ const TheHeader = () => {
           </button>
         </div>
       )}
-
-      <button className={styles.menuIcon} onClick={changeMenu}>
-        <img src={menuIcon} width={30} alt="" />
-      </button>
+      {user === null ? null : (
+        <button className={styles.menuIcon} onClick={changeMenu}>
+          <img src={menuIcon} width={30} alt="" />
+        </button>
+      )}
     </header>
   )
 }
