@@ -10,15 +10,15 @@
 
 <br>
 
-# 📄 ​Contents
-
+# 📌 ​Contents
 
 [:one: Introduction](#one-introduction)<br>
 [:two:​ Tech Stack](#two-tech-stack)<br>
 [:three:​ System Architecture](#three-system-architecture)<br>
 [:four:​ ERD](#four-erd)<br>
-[:five:​ WIKI](#five-wiki)<br>
-[:six:​ Contributor](#six-contributor)<br>
+[:five:​ Package Structure](#five-package-structure)<br>
+[:six:​ API Document](#six-api-document)<br>
+[:seven:​ Contributor](#seven-contributor)<br>
 
 
 <br>
@@ -28,9 +28,10 @@
 > 
 > 내가 만든 글로 재밌게 영어공부하기
 
-기능 영상 소개
-
+### 💻 기능 영상 소개
 ~
+
+
 
 <br>
 
@@ -38,42 +39,44 @@
 | Tech         | Stack                                  |
 | ------------ | -------------------------------------- |
 | **Language** | Python, TypeScript                       |
-| **Backend**  | Django, JWT |
-| **Frontend** | React.js, tailwind, Recoil                  |
-| **Database** | MariaDB, Redis                                |
+| **Back-end**  | Django, JWT |
+| **Front-end** | React.js, tailwind, Recoil                  |
+| **Database** | MariaDB, Redis, S3                                |
 | **Server**   | AWS EC2, NginX                         |
 | **DevOps**   | Git, Docker, Jenkins                            |
 
 <details>
-<summary>Backend Tech 상세 보기</summary>
+<summary>Back-end Tech 상세 보기</summary>
 <div markdown="1">
 
   <br>
 
-  - Python: 3.9.13 <br>
-  - Django: 3.2.13 <br>
-  - MariaDB: 10.3.23 <br>
-  - Redis: 5.0.7 <br>
-  - Docker: 23.0.1 <br>
-  - Jenkins: 2.387.1 <br>
-  - nginx: 1.18.0 <br>
-
+```
+- Python: 3.9.13
+- Django: 3.2.13
+- MariaDB: 10.3.23
+- Redis: 5.0.7
+- Docker: 23.0.1
+- Jenkins: 2.387.1
+- nginx: 1.18.0
+```
 </div>
 </details>
 
 <details>
-<summary>Frontend Tech 상세 보기</summary>
+<summary>Front-end Tech 상세 보기</summary>
 <div markdown="1">
 
   <br>
 
-  - node.js: 18.14.2 <br>
-  - npm: 9.6.0  <br>
-  - react
-  - Typescript
-  - recoil
-  - tailwind
-
+```
+- node.js: 18.14.2
+- npm: 9.6.0
+- react
+- Typescript
+- recoil
+- tailwind
+```
 </div>
 </details>
 
@@ -97,21 +100,98 @@
 <br>
 
 
-## :five:​ WIKI
+## :five: Package Structure
+
+<details>
+<summary>Front-end Package Structure</summary>
+<div markdown="1">
+
+
+</div>
+</details>
+
+<details>
+<summary>Back-end Package Structure</summary>
+<div markdown="1">
+
 ```
-👉 Team Rules(Git, Coding Convention) 및 구현 
+📂BACKEND
+│  .env
+│  .gitignore
+│  Dockerfile
+│  manage.py
+│  README.md
+│  requirements.txt
+│      
+├─📂accounts
+│  │  admin.py
+│  │  apps.py
+│  │  models.py
+│  │  serializers.py
+│  │  tests.py
+│  │  urls.py
+│  │  views.py
+│  │  __init__.py
+│  │  
+│  └─📂migrations
+│       │  0001_initial.py
+│       └─__init__.py
+│          
+├─📂config
+│  │  asgi.py
+│  │  settings.py
+│  │  urls.py
+│  │  wsgi.py
+│  └─__init__.py
+│          
+├─📂media
+│  └─📂audio
+│          
+├─📂middleware
+│  └─custom_middleware.py
+│          
+├─📂story
+│  │  admin.py
+│  │  apps.py
+│  │  models.py
+│  │  serializers.py
+│  │  tests.py
+│  │  tts_test.py
+│  │  urls.py
+│  │  views.py
+│  │  __init__.py
+│  │  
+│  └─📂migrations
+│       │  0001_initial.py
+│       └─__init__.py
+│          
+└─📂vocabulary
+    │  admin.py
+    │  apps.py
+    │  models.py
+    │  serializers.py
+    │  tests.py
+    │  urls.py
+    │  views.py
+    │  __init__.py
+    │  
+    └─📂migrations
+         │  0001_initial.py
+         └─__init__.py
 ```
-- [HOME]()
-  - [1. Team Rules]()
-  - [2. Android Coding Convention]()
-  - [3. Server Coding Convention]()
-  - [4. Android 구현 내용]()
-  - [5. Server 구현 내용]()
+
+</div>
+</details>
 
 <br>
 
+## :six: API Document
 
-## :six:​ Contributor
+:point_right: [API Document](https://documenter.getpostman.com/view/26196793/2s93RZKpFR)
+
+<br>
+
+## :seven:​ Contributor
 
 ```
 👉 팀원 소개
