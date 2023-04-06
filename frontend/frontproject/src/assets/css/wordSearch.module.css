@@ -89,7 +89,7 @@
     margin: 10px auto;
   }
   .resultBox {
-    height: 60%;
+    height: 55%;
     border: 2px solid black;
     overflow-y: scroll;
   }
