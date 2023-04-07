@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from corsheaders.defaults import default_headers
+
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,14 +29,25 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = []
+REDIS_KEY = config('REDIS_KEY')
 
+# TODO: EC2 서버 호스트로 지정
+ALLOWED_HOSTS = ['*']
+
+REDIS_KEY = config('REDIS_KEY')
+
+
+CLIENT_ID = config('CLIENT_ID')
 
 # Application definition
 
 INSTALLED_APPS = [
     'story',
     'accounts',
+    'vocabulary',
+
+    # S3
+    'storages',
 
     # CORS policy
     "corsheaders",
@@ -49,28 +63,88 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# AWS
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_REGION = config('AWS_REGION')
+
+# S3 Storages
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME,AWS_REGION)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'path/to/store/my/files/')
+
+# CloudFront
+CLOUD_FRONT_DOMAIN = config('CLOUD_FRONT_DOMAIN')
+
+SOCIAL_LOGIN_PASSWORD = config('SOCIAL_LOGIN_PASSWORD')
+# 주석처리
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
 REST_FRAMEWORK = {
-    # 'DEFAULT_PAGINATION_CLASS' : 'rest_framework.pagination.PageNumberPagination',
-    # 'PAGE_SIZE' : 10,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
+
+
+REDIS_KEY = config('REDIS_KEY')
+
+# redis 설정
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",                 # IP 주소와 포트 번호, 그리고 데이터베이스 번호를 설정
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
 
 MIDDLEWARE = [
+    # 최상단에 Cors Middleware 추가
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
+    
+    # custom middleware 클래스 추가
+    'middleware.custom_middleware.JWTAuthenticationMiddleware',
 
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+
+    # csrf 해체
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# vue origin 허용
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080', # 특정 origin의 요청만 허용하는데, Vue의 로컬호스트만 요청을 허용.
-    # 'http://localhost:8081',
+    'http://localhost:3000', # 특정 origin의 요청만 허용하는데, React의 로컬호스트만 요청을 허용.
+    'http://127.0.0.1:3000',
+    'https://j8D103.p.ssafy.io',
+    'http://j8D103.p.ssafy.io',
+]
+
+# 쿠키가 cross-site HTTP 요청에 포함될 수 있다
+# CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS  =  [ 
+    'DELETE' , 
+    'GET' , 
+    'OPTIONS' , 
+    'PATCH' , 
+    'POST' , 
+    'PUT' , 
+]
+
+CORS_ALLOW_HEADERS  =  list(default_headers) + [
+    'refresh-token',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -96,7 +170,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -157,4 +230,24 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'accounts.User'
+
+# 기본유저모델을 account.Member로 설정
+AUTH_USER_MODEL = 'accounts.Member'            
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.naver.com' # 메일 호스트 서버
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+from datetime import timedelta
+# TODO: ACCESS_TOKEN 유효기간 수정
+SIMPLE_JWT = {
+  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=6000),
+  'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
+  # It will work instead of the default serializer(TokenObtainPairSerializer).
+  "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.MyTokenObtainPairSerializer",
+  # ...
+}
