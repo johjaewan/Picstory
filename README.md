@@ -106,6 +106,23 @@
 <summary>Front-end Package Structure</summary>
 <div markdown="1">
 
+```
+📂FRONTEND
+│  └─📂src
+│       └─📂api
+│       └─📂assets
+│            └─📂audio
+│            └─📂css
+│            └─📂js
+│            └─📂components
+│                 └─📂main
+│                 └─📂storyCreate
+│                 └─📂storyResult
+│                 └─📂user
+│            └─📂pages
+│            └─📂routes
+│            └─📂types
+```
 
 </div>
 </details>
