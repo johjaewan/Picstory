@@ -75,7 +75,7 @@
 - react: 18.2.0
 - Typescript: 4.9.5
 - recoil: 0.7.7
-- tailwind
+- tailwind: 3.2.7
 ```
 </div>
 </details>
