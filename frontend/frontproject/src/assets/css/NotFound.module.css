@@ -1,0 +1,56 @@
+@media (max-width: 650px) {
+  .container {
+    width: 100%;
+    margin: 200px auto;
+    text-align: center;
+  }
+  .text {
+    font-size: 30px;
+  }
+  .text2 {
+    font-size: 20px;
+  }
+  .homeBtn {
+    margin: 40px;
+    padding: 10px 30px;
+    border: 2px solid black;
+    animation: move 3s ease infinite;
+  }
+}
+
+@media (min-width: 650px) {
+  .container {
+    width: 100%;
+    margin: 250px auto;
+    text-align: center;
+  }
+  .text {
+    font-size: 50px;
+  }
+  .text2 {
+    font-size: 30px;
+  }
+  .homeBtn {
+    margin: 50px;
+    padding: 20px 50px;
+    border: 2px solid black;
+    animation: move 3s ease infinite;
+  }
+  .homeBtn:hover {
+    scale: 1.05;
+  }
+}
+@keyframes move {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(10%);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(10%);
+  }
+}

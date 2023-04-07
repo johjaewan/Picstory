@@ -1,0 +1,194 @@
+@media (max-width: 700px) {
+	/* 전체 */
+	.container {
+		min-width: 300px;
+		margin: 10vw;
+		display: grid;
+		grid-row-gap: 5vw;
+		grid-template-areas:
+			"image"
+			"btns"
+			"resultText"
+			"search";
+	}
+	/* 사진 */
+	.story_result_image {
+		grid-area: image;
+		border: 2px solid black;
+		min-height: 30vh;
+	}
+	/* 오디오 */
+	.audio {
+		display: none;
+	}
+
+	/* 이야기 결과 */
+	.content {
+		font-family: "OTWelcomeRA";
+		color: black;
+		grid-area: resultText;
+		text-align: justify;
+		border: 2px solid black;
+		padding: 5vw;
+		background-color: white;
+	}
+
+	.saveBtn {
+		color: black;
+		display: none;
+	}
+	/* 단어 검색결과 */
+	.wordsearch {
+		color: black;
+		grid-area: search;
+		padding: 10px;
+	}
+}
+
+/* ------------------------------------------------------------------- */
+@font-face {
+	font-family: "OTWelcomeRA";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeRA.woff2")
+		format("woff2");
+	font-weight: normal;
+	font-style: normal;
+}
+@media (min-width: 700px) {
+	.container {
+		max-width: 1000px;
+		width: 80vw;
+		margin: 5vh auto;
+		justify-content: center;
+		height: calc(90vh - 80px);
+		display: grid;
+		gap: 15px 3vw;
+		grid-template-columns: minmax(270px, 40%) 1fr;
+		grid-template-rows: 1fr 50px 1fr 40px;
+		grid-template-areas:
+			"image resultText"
+			"btns resultText"
+			"search resultText"
+			"save save";
+	}
+	.detailContainer {
+		max-width: 1000px;
+		width: 80vw;
+		margin: 5vh auto;
+		justify-content: center;
+		height: calc(90vh - 158px);
+		display: grid;
+		gap: 15px 3vw;
+		grid-template-columns: minmax(270px, 40%) 1fr;
+		grid-template-rows: 1fr 50px 1fr;
+		grid-template-areas:
+			"image resultText"
+			"btns resultText"
+			"search resultText";
+	}
+	/* 사진 */
+	.story_result_image {
+		grid-area: image;
+		border: 2px solid black;
+		overflow: hidden;
+	}
+	.story_result_image > img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	/* 오디오 */
+	.inAudio {
+		display: none;
+	}
+
+	/* 이야기 결과 */
+	.content {
+		font-family: "OTWelcomeRA";
+		color: black;
+		grid-area: resultText;
+		text-align: justify;
+		border: 2px solid black;
+		padding: 3vw;
+		background-color: white;
+		overflow-y: scroll;
+	}
+
+	.inSaveBtn {
+		display: none;
+	}
+	.saveBtn {
+		grid-area: save;
+		text-align: end;
+	}
+	.audio {
+		max-width: 170px;
+		min-width: 120px;
+		height: 40px;
+		border: 2px solid black;
+		border-radius: 999px;
+		margin: 0 5px;
+	}
+	/* 단어 검색결과 */
+	.wordsearch {
+		grid-area: search;
+		height: 100%;
+		overflow-y: scroll;
+	}
+	.wordsearch::-webkit-scrollbar {
+		display: none;
+	}
+}
+
+/* 공통 */
+/* ----------------------------------------------- */
+/* 제목 */
+.title {
+	text-align: center;
+	font-size: 2em;
+	margin-top: 30px;
+}
+/* 소리 아이콘 */
+.sound_icon {
+	margin: auto;
+	width: 15px;
+	height: 15px;
+}
+/* 소리 버튼 */
+.sound_btn {
+	border: 2px solid black;
+	cursor: pointer;
+	border-radius: 999px;
+	min-height: 40px;
+	min-width: 40px;
+	background-color: rgb(255, 255, 255);
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+	margin: 0 2px;
+}
+.sound_btn:disabled {
+	color: #b1b1b1;
+}
+/* 버튼 */
+.story_result_button {
+	color: black;
+	cursor: pointer;
+	border-radius: 30px;
+	height: 40px;
+	width: 100px;
+	min-width: 60px;
+	margin: 0 2px;
+	padding: 0 2px;
+	background-color: rgb(255, 255, 255);
+	border: 2px solid black;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.story_result_button:disabled {
+	color: #b1b1b1;
+}
+/* 버튼 */
+.story_result_btns {
+	color: black;
+	grid-area: btns;
+	display: flex;
+	justify-content: space-around;
+	height: 40px;
+}

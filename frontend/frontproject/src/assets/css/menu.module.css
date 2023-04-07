@@ -1,0 +1,46 @@
+.closeModal {
+  display: none;
+}
+
+.openModal {
+  background-color: #feee7d;
+  opacity: 0.97;
+  z-index: 2000;
+  position: absolute;
+  color: rgb(0, 0, 0);
+  font-size: 20px;
+  width: 100%;
+  height: 100vh;
+  animation: show 0.5s ease;
+}
+.container {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconBox {
+  margin: 20px;
+  text-align: right;
+}
+.item {
+  padding-bottom: 60px;
+  cursor: pointer;
+}
+.items {
+}
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.closeIcon {
+  width: 20px;
+  float: right;
+  cursor: pointer;
+}

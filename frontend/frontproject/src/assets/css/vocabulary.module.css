@@ -1,0 +1,112 @@
+.container {
+	margin-top: 30px;
+	text-align: center;
+}
+.title {
+	font-size: 40px;
+	font-weight: 1000;
+	color: black;
+}
+.container2 {
+	background-color: white;
+	margin: 30px;
+	width: 80vw;
+	max-width: 800px;
+	min-width: 400px;
+	height: 350px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-start;
+	border: 1px solid black;
+}
+.firstTable {
+	border-right: 1px solid black;
+}
+.total {
+	margin: 10px;
+	color: black;
+}
+
+.btns {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.sortBtn {
+	margin: 10px;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: rgb(255, 255, 255);
+	background-color: rgb(0, 0, 0);
+	border-radius: 30px;
+	padding: 5px 20px;
+}
+
+table {
+	width: 100%;
+}
+td {
+	min-width: 100px;
+	height: 70px;
+	text-align: center;
+	margin: auto;
+	color: black;
+	font-color: black;
+}
+
+.btn {
+	cursor: pointer;
+	margin: 10px;
+}
+.nextBtn {
+	cursor: pointer;
+	margin: 10px;
+}
+.preBtn {
+	cursor: pointer;
+	margin: 10px;
+}
+.box {
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+@media (max-width: 600px) {
+	.nextBtn {
+		display: none;
+	}
+	.preBtn {
+		display: none;
+	}
+	.page {
+		color: black;
+		display: none;
+	}
+
+	.smallbox {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-around;
+	}
+	.smallbox img {
+		height: 40px;
+		width: 40px;
+		cursor: pointer;
+		margin-bottom: 10px;
+	}
+}
+@media (min-width: 600px) {
+	.smallbox {
+		display: none;
+	}
+	.page {
+		color: black;
+	}
+}
