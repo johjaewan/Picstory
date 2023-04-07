@@ -72,9 +72,9 @@
 ```
 - node.js: 18.14.2
 - npm: 9.6.0
-- react
-- Typescript
-- recoil
+- react: 18.2.0
+- Typescript: 4.9.5
+- recoil: 0.7.7
 - tailwind
 ```
 </div>
