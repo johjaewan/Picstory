@@ -39,7 +39,7 @@ export default function ImageUpload() {
 		if (!Image) {
 			Swal.fire({
 				icon: "warning",
-				text: "사진을 선택해 주세요!",
+				text: "사진을 선택해 주세요!!",
 			});
 			return;
 		}
