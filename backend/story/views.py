@@ -200,7 +200,7 @@ def create_story(request):
         engine=model,
         prompt=prompt,
         temperature=1,
-        max_tokens=500
+        max_tokens=400
     )
 
     content = response.choices[0].text
