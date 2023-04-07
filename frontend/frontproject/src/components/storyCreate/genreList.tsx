@@ -14,6 +14,7 @@ import {
 import { createStory, createVoice, translateStory } from "../../api/storyApi";
 import Loading from "./loading";
 import styles from "../../assets/css/LayerButton.module.css";
+
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
 
@@ -75,7 +76,7 @@ export default function ImageUpload() {
 			method: "POST",
 			headers: {
 				Accept: "application/json",
-				Authorization: "Key 65a4f037b024440db6d5786d9c868030",
+				Authorization: process.env.REACT_APP_CLARIFAI_KEY,
 			},
 			body: raw,
 		};
